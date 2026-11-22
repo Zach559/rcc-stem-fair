@@ -20,20 +20,25 @@ const canvas=$('kidney'),ctx=canvas.getContext('2d');
 function setPage(id){document.querySelectorAll('.page').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('.navbtn').forEach(el=>{const active=el.dataset.page===id;el.classList.toggle('active',active);el.setAttribute('aria-current',active?'page':'false')});window.scrollTo({top:0,behavior:'smooth'});if(id==='explore')requestAnimationFrame(render)}document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
 function setStage(n){stage=Math.max(1,Math.min(4,+n));const d=stageData[stage];$('stageSlider').value=stage;$('stageSlider').style.setProperty('--percent',((stage-1)/3)*100+'%');$('stageTitle').textContent='Stage '+d.roman;$('stageStatus').textContent=d.status;$('stageDesc').textContent=d.desc;$('stageChange').textContent=d.change;$('stageImpact').textContent=d.impact;$('chip').textContent='STAGE '+d.roman;$('viewStage').textContent='0'+stage+' / 04';$('rangeState').textContent='0'+stage+' — 04';$('tumorMetric').textContent=d.size;$('tumorSub').textContent=d.sizeSub;$('spreadMetric').textContent=d.spread;$('spreadSub').textContent=d.spreadSub;document.querySelectorAll('.tick').forEach(x=>x.classList.toggle('active',+x.dataset.stage===stage))} $('stageSlider').addEventListener('input',e=>setStage(e.target.value));document.querySelectorAll('.tick').forEach(b=>b.addEventListener('click',()=>setStage(b.dataset.stage)));
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-function point(u,v){ // Non-symmetric bean form: indented renal hilum and rounded unequal poles
- const y=1.53*Math.cos(v),s=Math.pow(Math.sin(v),.79),cu=Math.cos(u),su=Math.sin(u);
- const waist=1-.045*Math.exp(-Math.pow((y+.05)/.48,2));
- let x=1.07*s*cu*waist,z=.74*s*su;
- // The medial contour is deeply indented around the renal pelvis.
- const hilum=Math.exp(-Math.pow((y+.015)/.50,2))*Math.pow(Math.max(0,-cu),2.1);
- x+=.88*hilum;
- z-=.10*hilum;
- // Dimple in anterior renal surface at the insertion of the vessels.
- const dimple=Math.exp(-Math.pow((y-.02)/.43,2))*Math.exp(-Math.pow((u-2.3)/.76,2));
- z-=.21*dimple;
- // Very gentle organic asymmetry and capsular texture (not sharp polygon noise).
- let bump=1+.012*Math.sin(5*u+3*v)+.006*Math.sin(11*u-7*v);
- x=x*bump + .045*Math.sin(v*2.4)*s;
+function point(u,v){ // More anatomical bean form with fuller poles and a deeper hilar notch
+ const y=1.57*Math.cos(v),s=Math.pow(Math.sin(v),.77),cu=Math.cos(u),su=Math.sin(u);
+ const superiorPole=1+.10*Math.exp(-Math.pow((y-1.04)/.42,2));
+ const inferiorPole=1+.05*Math.exp(-Math.pow((y+1.16)/.52,2));
+ const waist=1-.06*Math.exp(-Math.pow((y+.02)/.52,2));
+ let x=1.09*s*cu*waist*superiorPole*inferiorPole,
+     z=.76*s*su*(1+.035*Math.exp(-Math.pow((y-.22)/.62,2)));
+ // Deeper medial indentation at the hilum.
+ const hilum=Math.exp(-Math.pow((y+.01)/.48,2))*Math.pow(Math.max(0,-cu),2.2);
+ x+=.95*hilum;
+ z-=.13*hilum;
+ // Shallow pelvis depression where vessels and ureter enter.
+ const pelvis=Math.exp(-Math.pow((y-.01)/.36,2))*Math.exp(-Math.pow((u-2.45)/.60,2));
+ z-=.24*pelvis;
+ x+=.05*Math.exp(-Math.pow((y-.55)/.42,2))*s; // slight upper pole fullness
+ x-=.03*Math.exp(-Math.pow((y+.95)/.38,2))*s; // slight lower pole taper
+ // Fine capsular irregularity for an organic surface.
+ let bump=1+.010*Math.sin(5*u+3*v)+.007*Math.sin(11*u-7*v)+.004*Math.cos(17*u+13*v);
+ x=x*bump + .05*Math.sin(v*2.35)*s;
  z=z*bump;
  return [x,y,z];
 }
@@ -80,37 +85,54 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  drawTube([[-.26,.13,.24],[-.60,.15,.28],[-.95,.21,.34],[-1.38,.29,.37]],'#bc304b',Math.max(4,9*zoom));
  drawTube([[-.28,-.08,.26],[-.61,-.09,.31],[-.97,-.10,.36],[-1.47,-.16,.42]],'#5488bd',Math.max(4,10*zoom));
  drawTube([[-.31,-.20,.20],[-.52,-.43,.19],[-.66,-.73,.22],[-.63,-1.14,.22]],'#d5b19b',Math.max(4,9*zoom));
- // Tumor: vascular, irregular multilobulated solid mass, not a flat glowing dot.
+ // Tumor: more realistic exophytic renal mass with heterogeneous enhancement and necrotic center.
  const target=stageData[stage].tumor;currentTumor+=(target-currentTumor)*.095;
- const rad=currentTumor,anchor=point(.95,1.08);
- const core=[anchor[0]+rad*.13,anchor[1]+rad*.28,anchor[2]+rad*.34];
- const center=proj(core),screenR=rad*scale*1.22;
- const outline=()=>{ctx.beginPath();for(let i=0;i<=160;i++){
-   let a=i/160*Math.PI*2;
-   let rough=1+.063*Math.sin(5*a+.2)+.042*Math.sin(9*a+1.2)+.024*Math.sin(17*a+2.1)+.012*Math.sin(31*a);
-   let x=center.x+Math.cos(a)*screenR*rough,y=center.y+Math.sin(a)*screenR*rough*.91;
+ const rad=currentTumor,anchor=point(.99,1.10);
+ const core=[anchor[0]+rad*.07,anchor[1]+rad*.22,anchor[2]+rad*.31];
+ const center=proj(core),screenR=rad*scale*1.28;
+ const outline=(inflate=1)=>{ctx.beginPath();for(let i=0;i<=180;i++){
+   let a=i/180*Math.PI*2;
+   let lobes=1+.082*Math.sin(3*a+.8)+.055*Math.sin(6*a+1.6)+.031*Math.sin(11*a+.9)+.016*Math.cos(19*a+stage*.3);
+   let exophytic=.94+.18*Math.max(0,Math.cos(a-.35));
+   let rough=inflate*lobes*exophytic;
+   let x=center.x+Math.cos(a)*screenR*rough;
+   let y=center.y+Math.sin(a)*screenR*rough*(.86+.07*Math.cos(a-.9));
    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)
  }ctx.closePath()};
- ctx.save();ctx.shadowColor='#2a0918a9';ctx.shadowBlur=18;ctx.shadowOffsetX=5;ctx.shadowOffsetY=8;
- const mass=ctx.createRadialGradient(center.x-screenR*.35,center.y-screenR*.43,screenR*.035,center.x+screenR*.1,center.y+screenR*.17,screenR*1.18);
- mass.addColorStop(0,'#efb29c');mass.addColorStop(.23,'#c97e7d');mass.addColorStop(.49,'#a24e61');mass.addColorStop(.78,'#762d46');mass.addColorStop(1,'#4e1c37');
- outline();ctx.fillStyle=mass;ctx.fill();ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;
+ // Contact shadow suggests the tumor is emerging from the renal cortex.
+ ctx.save();
+ const bed=ctx.createRadialGradient(center.x-screenR*.16,center.y+screenR*.20,screenR*.10,center.x-screenR*.10,center.y+screenR*.24,screenR*1.05);
+ bed.addColorStop(0,'#2b0c1995');bed.addColorStop(.45,'#4f173220');bed.addColorStop(1,'#4f173200');
+ ctx.fillStyle=bed;ctx.beginPath();ctx.ellipse(center.x-screenR*.10,center.y+screenR*.18,screenR*.95,screenR*.56,-.08,0,Math.PI*2);ctx.fill();
+ ctx.restore();
+ ctx.save();ctx.shadowColor='#2a0918b8';ctx.shadowBlur=22;ctx.shadowOffsetX=5;ctx.shadowOffsetY=9;
+ const rim=ctx.createRadialGradient(center.x-screenR*.30,center.y-screenR*.35,screenR*.06,center.x+screenR*.14,center.y+screenR*.16,screenR*1.18);
+ rim.addColorStop(0,'#f1c0a7');rim.addColorStop(.18,'#d69386');rim.addColorStop(.43,'#b05c67');rim.addColorStop(.70,'#7a3247');rim.addColorStop(1,'#4a192f');
+ outline();ctx.fillStyle=rim;ctx.fill();ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;
  ctx.clip();
- // Layered cell-like texture, dark necrotic-looking patches and small irregular lobules.
- for(let k=0;k<185;k++){
-   let angle=k*2.39996323,rr=Math.sqrt((k+.5)/185)*screenR*.94;
-   let x=center.x+Math.cos(angle)*rr,y=center.y+Math.sin(angle)*rr*.91;
-   let radius=screenR*(.025+.038*(.5+.5*Math.sin(k*5.37)));
-   ctx.fillStyle=k%4===0?'#efad9a25':k%5===0?'#4c143333':'#d77e8521';
-   ctx.beginPath();ctx.ellipse(x,y,radius,radius*.7,angle,0,Math.PI*2);ctx.fill();
+ // Heterogeneous internal architecture with pale necrosis and darker hemorrhagic foci.
+ const necrosis=ctx.createRadialGradient(center.x-screenR*.10,center.y-screenR*.07,screenR*.02,center.x,center.y,screenR*.55);
+ necrosis.addColorStop(0,'#f7d9b4cc');necrosis.addColorStop(.28,'#e8bb92a8');necrosis.addColorStop(.55,'#b96d6940');necrosis.addColorStop(1,'#00000000');
+ ctx.fillStyle=necrosis;ctx.beginPath();ctx.ellipse(center.x-screenR*.06,center.y-screenR*.02,screenR*.40,screenR*.29,-.34,0,Math.PI*2);ctx.fill();
+ for(let k=0;k<240;k++){
+   let angle=k*2.39996323,rr=Math.sqrt((k+.4)/240)*screenR*.96;
+   let x=center.x+Math.cos(angle)*rr,y=center.y+Math.sin(angle)*rr*(.86+.03*Math.cos(angle*2));
+   let radius=screenR*(.012+.030*(.5+.5*Math.sin(k*4.91)));
+   const fill=(k%7===0)?'#f1bea744':(k%5===0)?'#5a18373a':(k%3===0)?'#d4847d26':'#f0b5a118';
+   ctx.fillStyle=fill;ctx.beginPath();ctx.ellipse(x,y,radius,radius*(.65+.25*Math.sin(k*.31)**2),angle,0,Math.PI*2);ctx.fill();
  }
- // Narrow branching capillaries provide recognizable tumor vascularity.
- for(let k=0;k<12;k++){
-   let angle=k*2.399,rr=screenR*(.24+.045*(k%5));let x=center.x+Math.cos(angle)*rr,y=center.y+Math.sin(angle)*rr*.9;
-   ctx.beginPath();ctx.moveTo(x,y);ctx.bezierCurveTo(x+screenR*.1*Math.cos(angle+.7),y+screenR*.1*Math.sin(angle+.7),x+screenR*.25*Math.cos(angle-.5),y+screenR*.19*Math.sin(angle-.5),center.x+screenR*.75*Math.cos(angle),center.y+screenR*.7*Math.sin(angle));
-   ctx.strokeStyle=k%3===0?'#e18a8b7c':'#5d203c92';ctx.lineWidth=Math.max(.65,screenR*.009);ctx.stroke();
+ // Serpiginous intratumoral vessels.
+ for(let k=0;k<14;k++){
+   let angle=k*2.215,rr=screenR*(.18+.035*(k%6));let x=center.x+Math.cos(angle)*rr,y=center.y+Math.sin(angle)*rr*.88;
+   ctx.beginPath();ctx.moveTo(x,y);
+   ctx.bezierCurveTo(x+screenR*.12*Math.cos(angle+.7),y+screenR*.10*Math.sin(angle+.8),x+screenR*.28*Math.cos(angle-.4),y+screenR*.18*Math.sin(angle-.45),center.x+screenR*.78*Math.cos(angle+.05),center.y+screenR*.60*Math.sin(angle+.06));
+   ctx.strokeStyle=k%4===0?'#f0a4a38b':'#61203d8c';ctx.lineWidth=Math.max(.7,screenR*.010);ctx.stroke();
  }
- ctx.restore();ctx.save();outline();ctx.strokeStyle='#e8a5a57a';ctx.lineWidth=1.2;ctx.stroke();ctx.restore();
+ // Specular capsular sheen.
+ const gloss=ctx.createLinearGradient(center.x-screenR*.7,center.y-screenR*.8,center.x+screenR*.4,center.y+screenR*.4);
+ gloss.addColorStop(0,'#ffffff22');gloss.addColorStop(.25,'#ffffff12');gloss.addColorStop(.55,'#ffffff00');
+ ctx.fillStyle=gloss;ctx.beginPath();ctx.ellipse(center.x-screenR*.12,center.y-screenR*.25,screenR*.52,screenR*.22,-.48,0,Math.PI*2);ctx.fill();
+ ctx.restore();ctx.save();outline();ctx.strokeStyle='#f0b5ab88';ctx.lineWidth=1.25;ctx.stroke();ctx.restore();
  // Stage III vessel invasion: illustrated teal focus around vessel and connected with kidney
  if(stage>=3){const a=proj([-.93,.12,.23]),b=proj([-1.37,.24,.34]);ctx.strokeStyle='#8de5da';ctx.lineWidth=6*zoom;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.quadraticCurveTo((a.x+b.x)/2,b.y-12,b.x,b.y);ctx.stroke();ctx.shadowColor='#8de5da';ctx.shadowBlur=15;ctx.fillStyle='#a2fff1';ctx.beginPath();ctx.arc(b.x,b.y,5.5*zoom,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}
  if(stage===4){let pts=[[w*.16,h*.29],[w*.81,h*.70],[w*.78,h*.33]];for(let k=0;k<pts.length;k++){let[x,y]=pts[k];ctx.setLineDash([4,5]);ctx.strokeStyle='#8de5da72';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,19+k*2,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#8de5da';ctx.shadowColor='#8de5da';ctx.shadowBlur=12;ctx.beginPath();ctx.arc(x,y,5.5,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}ctx.fillStyle='#b7e1de';ctx.font='600 11px DM Sans, sans-serif';ctx.fillText('Possible distant spread',w*.59,h*.24)}
