@@ -226,7 +226,7 @@ canvas.addEventListener('pointerdown',e=>{down=true;last=[e.clientX,e.clientY];c
 // Your private Formspree endpoint goes here. You must create this in your own account.
 // IMPORTANT: A public GitHub Pages page cannot safely store a private API key or private results.
 // The public form endpoint is for SUBMITTING only; Formspree restricts viewing submissions to its logged-in owner.
-const PRIVATE_RESULTS_ENDPOINT = 'PASTE_YOUR_FORMSPREE_URL_HERE';
+const PRIVATE_RESULTS_ENDPOINT = 'https://formspree.io/f/mzerkzlp';
 const qs=[['Where does renal cell carcinoma usually begin?',['In kidney tubules','In the bladder','In the lungs','In the stomach'],0],['Which stage is a tumor larger than 7 cm but still entirely inside the kidney, without spread?',['Stage I','Stage II','Stage III','Stage IV'],1],['What does metastasis mean?',['A kidney filtering water','Cancer spreading to a new location','A medicine stopping pain','Healthy cells dividing normally'],1],['What is a partial nephrectomy?',['Removing both kidneys','Removing only the tumor and part of the kidney','Removing a lung','Giving immunotherapy'],1],['How does immunotherapy help treat RCC?',['It replaces the kidney','It helps the immune system attack cancer','It removes every cancer cell instantly','It only shrinks tumors using heat'],1]];
 let phase=0,pre=null,post=null,answers={},beforeAnswers=[],afterAnswers=[];
 let respondent={name:'',grade:''},saved=false,saving=false;
@@ -330,4 +330,3 @@ quizButton.addEventListener('click',()=>{
 drawQuiz();
 if(!collectionConfigured())document.getElementById('collectionWarning').hidden=false;
 </script></body></html>
-const PRIVATE_RESULTS_ENDPOINT = 'https://formspree.io/f/mzerkzlp';
