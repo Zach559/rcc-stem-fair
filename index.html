@@ -81,7 +81,7 @@
 <div class="panel widecard"><h3>Why keep researching treatments?</h3><p>It is important for scientists to keep researching new treatments even though they have immunotherapy, targeted therapy, and surgery because they could discover a treatment that has fewer side effects and kills the tumor faster. Discovering new RCC treatments could improve the lives of future patients by reducing the side effects of treatments.</p></div>
 <div class="citestrip"><strong>Research sources</strong><br>[1] <a href="https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq" target="_blank" rel="noopener">National Cancer Institute — Treatment</a> &nbsp; [2] <a href="https://www.cancer.org/cancer/types/kidney-cancer/treating/immunotherapy.html" target="_blank" rel="noopener">American Cancer Society — Immunotherapy</a> &nbsp; [3] <a href="https://www.cancer.org/cancer/types/kidney-cancer/treating/targeted-therapy.html" target="_blank" rel="noopener">American Cancer Society — Targeted Therapy</a></div>
 </section>
-<section class="page" id="lab"><header class="sectionhead"><div><div class="kicker">04 &nbsp; / &nbsp; STEM FAIR EXPERIMENT</div><h1>Can this website<br><span style="color:var(--cyan)">teach you something?</span></h1></div><p>Using a website is better than a textbook because my website will be interactive by having a 3D model of a kidney and showing where the tumor is located. I will also give a detailed description of what RCC is and the kinds of treatments there are.</p></header><div class="panel widecard" style="max-width:790px;margin:0 0 18px"><h3>How I will test my website</h3><p>I would test whether my website is successful by asking people questions before and after they have read my information. I will do a quiz and see how much the scores improve. I think people will score higher afterward because before they probably knew very little about this cancer, and afterward they would have become more educated and informed about what it is.</p><p style="margin-top:12px">If someone scores 2 out of 5 before visiting my website and 5 out of 5 afterward, it would suggest that the website has taught them about the cancer. By comparing the results from different visitors, I can see how effective my website is at educating people about RCC.</p></div><div class="panel quizpanel"><div id="quizHeader"><span class="micro">LEARNING LAB / BEFORE &amp; AFTER</span><h2 id="quizTitle">Step 1 — Before exploring</h2><p class="quizintro" id="quizInstructions">Take this quick quiz <b>before</b> exploring the stages and treatments. Your scores will be shown to you after the second quiz.</p></div>
+<section class="page" id="lab"><header class="sectionhead"><div><div class="kicker">04 &nbsp; / &nbsp; STEM FAIR EXPERIMENT</div><h1>Can this website<br><span style="color:var(--cyan)">teach you something?</span></h1></div><p>Using a website is better than a textbook because my website will be interactive by having a 3D model of a kidney and showing where the tumor is located. I will also give a detailed description of what RCC is and the kinds of treatments there are.</p></header><div class="panel widecard" style="max-width:790px;margin:0 0 18px"><h3>How I will test my website</h3><p>I would test whether my website is successful by asking people questions before and after they have read my information. I will do a quiz and see how much the scores improve. I think people will score higher afterward because before they probably knew very little about this cancer, and afterward they would have become more educated and informed about what it is.</p><p style="margin-top:12px">If someone scores 2 out of 5 before visiting my website and 5 out of 5 afterward, it would suggest that the website has taught them about the cancer. By comparing the results from different visitors, I can see how effective my website is at educating people about RCC.</p></div><div class="panel quizpanel"><div id="quizHeader"><span class="micro">LEARNING LAB / BEFORE &amp; AFTER</span><h2 id="quizTitle">Step 1 — Before exploring</h2><p class="quizintro" id="quizInstructions">Take this 10-question quiz <b>before</b> exploring the stages and treatments. Your scores will be shown to you after the second quiz.</p></div>
 <div id="quizIdentity" class="identitybox"><div id="collectionWarning" class="save-message warn" hidden style="margin:0 0 17px">Private quiz collection is not connected yet. This is preview mode: scores can be viewed here, but responses are not saved for the project owner.</div>
   <div class="identitytop"><div class="identitymark">ID</div><div><strong>About you</strong><p>Your name and grade help me compare quiz results for my STEM Fair project.</p></div></div>
   <div class="identitygrid"><div><label class="fieldlabel" for="participantName">Name *</label><input id="participantName" type="text" maxlength="70" required autocomplete="given-name" placeholder="First name (or first name + initial)"></div>
@@ -227,7 +227,28 @@ canvas.addEventListener('pointerdown',e=>{down=true;last=[e.clientX,e.clientY];c
 // IMPORTANT: A public GitHub Pages page cannot safely store a private API key or private results.
 // The public form endpoint is for SUBMITTING only; Formspree restricts viewing submissions to its logged-in owner.
 const PRIVATE_RESULTS_ENDPOINT = 'https://formspree.io/f/mzerkzlp';
-const qs=[['Where does renal cell carcinoma usually begin?',['In kidney tubules','In the bladder','In the lungs','In the stomach'],0],['Which stage is a tumor larger than 7 cm but still entirely inside the kidney, without spread?',['Stage I','Stage II','Stage III','Stage IV'],1],['What does metastasis mean?',['A kidney filtering water','Cancer spreading to a new location','A medicine stopping pain','Healthy cells dividing normally'],1],['What is a partial nephrectomy?',['Removing both kidneys','Removing only the tumor and part of the kidney','Removing a lung','Giving immunotherapy'],1],['How does immunotherapy help treat RCC?',['It replaces the kidney','It helps the immune system attack cancer','It removes every cancer cell instantly','It only shrinks tumors using heat'],1]];
+const qs=[
+ ['Where does renal cell carcinoma usually begin?',
+  ['In kidney tubules','In the bladder','In the lungs','In the stomach'],0],
+ ['Which stage is a tumor larger than 7 cm but still entirely inside the kidney, without spread?',
+  ['Stage I','Stage II','Stage III','Stage IV'],1],
+ ['What does metastasis mean?',
+  ['A kidney filtering water','Cancer spreading to a new location','A medicine stopping pain','Healthy cells dividing normally'],1],
+ ['What is a partial nephrectomy?',
+  ['Removing both kidneys','Removing only the tumor and part of the kidney','Removing a lung','Giving immunotherapy'],1],
+ ['How does immunotherapy help treat RCC?',
+  ['It replaces the kidney','It helps the immune system attack cancer','It removes every cancer cell instantly','It only shrinks tumors using heat'],1],
+ ['Which group lists three known risk factors for RCC?',
+  ['Smoking, obesity, and high blood pressure','Smoking, regular exercise, and low blood pressure','Sun exposure, dehydration, and seasonal allergies','High cholesterol, asthma, and seasonal flu'],0],
+ ['Which major type of RCC is known for finger-like structures?',
+  ['Clear cell RCC','Chromophobe RCC','Papillary RCC','Renal pelvis cancer'],2],
+ ['Which pair of symptoms can occur with RCC?',
+  ['Ear pain and hearing loss','Blood in the urine and persistent side pain','Sore throat and nasal congestion','Eye irritation and a runny nose'],1],
+ ['How can targeted therapy slow the growth of some RCC tumors?',
+  ['By encouraging tumors to develop more blood vessels','By replacing damaged kidneys with new tissue','By preventing all healthy cells from dividing','By blocking signals that help tumors develop new blood vessels'],3],
+ ['Why was the discovery of the VHL gene important to RCC research?',
+  ['It helped scientists understand what supports kidney tumor growth','It showed that RCC always causes symptoms right away','It proved that all kidney tumors are harmless','It eliminated the need for future RCC treatments'],0]
+];
 let phase=0,pre=null,post=null,answers={},beforeAnswers=[],afterAnswers=[];
 let respondent={name:'',grade:''},saved=false,saving=false;
 const totalQuestions=qs.length;
@@ -297,7 +318,7 @@ quizButton.addEventListener('click',()=>{
  if(saving)return;
  if(phase===1){
   phase=2;$('quizTitle').textContent='Step 3 — After exploring';
-  $('quizInstructions').textContent='Answer the same five questions again to measure how your knowledge has changed.';
+  $('quizInstructions').textContent='Answer the same ten questions again to measure how your knowledge has changed.';
   quizButton.textContent='Submit after quiz';drawQuiz();return;
  }
  if(phase===3){
@@ -309,7 +330,7 @@ quizButton.addEventListener('click',()=>{
   $('quizInstructions').textContent='Take this quick quiz before exploring the stages and treatments. Your scores will be shown after the second quiz.';
   quizButton.textContent='Submit before quiz';drawQuiz();return;
  }
- if(Object.keys(answers).length!==totalQuestions){showQuizError('Please answer all five questions before continuing.');return;}
+ if(Object.keys(answers).length!==totalQuestions){showQuizError('Please answer all ten questions before continuing.');return;}
  if(phase===0){
   if(!readIdentity())return;
   beforeAnswers=qs.map((_,i)=>answers[i]);pre=scoreChoices(beforeAnswers);phase=1;
