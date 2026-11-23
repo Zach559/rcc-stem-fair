@@ -42,6 +42,14 @@
 .save-message.warn{border-color:#826a43;background:#29251e;color:#f3d6a9}
 .save-message.success{border-color:#497e69;background:#16362f;color:#c1f7d9}
 @media(max-width:650px){.identitygrid{grid-template-columns:1fr}.identitybox{padding:17px}.scoretiles{grid-template-columns:1fr 25px 1fr}.scoretile{padding:12px 7px}.scoretile strong{font-size:25px}}
+
+/* Short-answer fields for questions 1 and 6 */
+.open-answer{width:100%;max-width:650px}
+.open-answer-label{display:block;color:#8de5da;font-weight:700;font-size:12px;margin-bottom:9px}
+.open-answer-input{width:100%;min-height:106px;resize:vertical;background:#0d1e2c;color:#eff9ff;border:1px solid #496276;border-radius:11px;padding:14px 15px;line-height:1.55;font:inherit;font-size:14px;box-sizing:border-box}
+.open-answer-input:focus{outline:2px solid #8de5da;outline-offset:2px;border-color:#8de5da}
+.open-answer-input::placeholder{color:#859aac}
+.open-answer-helper{color:#91a6b7;font-size:11px;line-height:1.5;margin-top:8px}
 </style></head><body><div class="app"><aside class="side"><div class="logo"><div class="logo-symbol">R</div><div><strong>RENAL</strong><small>THE RCC ATLAS</small></div></div><div class="navlinks"><div class="nav-caption">EXPLORATION</div><button class="navbtn active" data-page="explore" aria-label="Explore stages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a17 17 0 0 1 0 18M12 3a17 17 0 0 0 0 18"/></svg>Explore stages</button><button class="navbtn" data-page="about" aria-label="About RCC and student research"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4.5C7.5 3.6 10 4 12 5.6 14 4 16.5 3.6 19 4.5V20c-2.5-.9-5-.5-7 1-2-1.5-4.5-1.9-7-1z"/><path d="M12 5.6V21"/></svg>About RCC</button><button class="navbtn" data-page="treat" aria-label="Treatments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3 8 4v5c0 5-3 8-8 9-5-1-8-4-8-9V7l8-4Z"/><path d="m9 12 2 2 4-4"/></svg>Treatments</button><button class="navbtn" data-page="lab" aria-label="Learning lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 3h6M10 3v6l-6 9a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-9V3"/><path d="M8 15h8"/></svg>Learning lab</button></div><div class="sidebottom"><div class="live"><span class="pulse"></span>INTERACTIVE EXPERIENCE</div><p>Renal cell carcinoma<br>STEM Fair • Education project</p></div></aside>
 <main class="main"><div class="topline"><span>INTERACTIVE ONCOLOGY ATLAS &nbsp; / &nbsp; RENAL CELL CARCINOMA</span><div class="topright"><span>SCIENCE, MADE VISIBLE</span><span class="pill"><span class="pulse"></span>LIVE EXPLORER</span></div></div>
 <section class="page active" id="explore"><header class="hero"><div><div class="kicker">01 &nbsp; / &nbsp; UNDERSTAND THE DISEASE</div><h1>Inside the <em>progression</em><br>of kidney cancer.</h1><p>RCC is a cancer that starts in the kidney. I designed this interactive website to help people better understand how RCC develops, how it affects the body, and what treatments doctors use.</p></div><div class="hero-right">INTERACTIVE MODEL<b>04</b>Stages of RCC<br>One visual experience</div></header>
@@ -81,7 +89,7 @@
 <div class="panel widecard"><h3>Why keep researching treatments?</h3><p>It is important for scientists to keep researching new treatments even though they have immunotherapy, targeted therapy, and surgery because they could discover a treatment that has fewer side effects and kills the tumor faster. Discovering new RCC treatments could improve the lives of future patients by reducing the side effects of treatments.</p></div>
 <div class="citestrip"><strong>Research sources</strong><br>[1] <a href="https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq" target="_blank" rel="noopener">National Cancer Institute — Treatment</a> &nbsp; [2] <a href="https://www.cancer.org/cancer/types/kidney-cancer/treating/immunotherapy.html" target="_blank" rel="noopener">American Cancer Society — Immunotherapy</a> &nbsp; [3] <a href="https://www.cancer.org/cancer/types/kidney-cancer/treating/targeted-therapy.html" target="_blank" rel="noopener">American Cancer Society — Targeted Therapy</a></div>
 </section>
-<section class="page" id="lab"><header class="sectionhead"><div><div class="kicker">04 &nbsp; / &nbsp; STEM FAIR EXPERIMENT</div><h1>Can this website<br><span style="color:var(--cyan)">teach you something?</span></h1></div><p>Using a website is better than a textbook because my website will be interactive by having a 3D model of a kidney and showing where the tumor is located. I will also give a detailed description of what RCC is and the kinds of treatments there are.</p></header><div class="panel widecard" style="max-width:790px;margin:0 0 18px"><h3>How I will test my website</h3><p>I would test whether my website is successful by asking people questions before and after they have read my information. I will do a quiz and see how much the scores improve. I think people will score higher afterward because before they probably knew very little about this cancer, and afterward they would have become more educated and informed about what it is.</p><p style="margin-top:12px">If someone scores 2 out of 5 before visiting my website and 5 out of 5 afterward, it would suggest that the website has taught them about the cancer. By comparing the results from different visitors, I can see how effective my website is at educating people about RCC.</p></div><div class="panel quizpanel"><div id="quizHeader"><span class="micro">LEARNING LAB / BEFORE &amp; AFTER</span><h2 id="quizTitle">Step 1 — Before exploring</h2><p class="quizintro" id="quizInstructions">Take this 10-question quiz <b>before</b> exploring the stages and treatments. Your scores will be shown to you after the second quiz.</p></div>
+<section class="page" id="lab"><header class="sectionhead"><div><div class="kicker">04 &nbsp; / &nbsp; STEM FAIR EXPERIMENT</div><h1>Can this website<br><span style="color:var(--cyan)">teach you something?</span></h1></div><p>Using a website is better than a textbook because my website will be interactive by having a 3D model of a kidney and showing where the tumor is located. I will also give a detailed description of what RCC is and the kinds of treatments there are.</p></header><div class="panel widecard" style="max-width:790px;margin:0 0 18px"><h3>How I will test my website</h3><p>I would test whether my website is successful by asking people questions before and after they have read my information. I will do a quiz and see how much the scores improve. I think people will score higher afterward because before they probably knew very little about this cancer, and afterward they would have become more educated and informed about what it is.</p><p style="margin-top:12px">If someone scores 2 out of 5 before visiting my website and 5 out of 5 afterward, it would suggest that the website has taught them about the cancer. By comparing the results from different visitors, I can see how effective my website is at educating people about RCC.</p></div><div class="panel quizpanel"><div id="quizHeader"><span class="micro">LEARNING LAB / BEFORE &amp; AFTER</span><h2 id="quizTitle">Step 1 — Before exploring</h2><p class="quizintro" id="quizInstructions">Take this 10-question quiz <b>before</b> exploring the stages and treatments. Questions 1 and 6 require written answers; the other eight are multiple-choice. You'll see your scores after the second quiz.</p></div>
 <div id="quizIdentity" class="identitybox"><div id="collectionWarning" class="save-message warn" hidden style="margin:0 0 17px">Private quiz collection is not connected yet. This is preview mode: scores can be viewed here, but responses are not saved for the project owner.</div>
   <div class="identitytop"><div class="identitymark">ID</div><div><strong>About you</strong><p>Your name and grade help me compare quiz results for my STEM Fair project.</p></div></div>
   <div class="identitygrid"><div><label class="fieldlabel" for="participantName">Name *</label><input id="participantName" type="text" maxlength="70" required autocomplete="given-name" placeholder="First name (or first name + initial)"></div>
@@ -228,8 +236,7 @@ canvas.addEventListener('pointerdown',e=>{down=true;last=[e.clientX,e.clientY];c
 // The public form endpoint is for SUBMITTING only; Formspree restricts viewing submissions to its logged-in owner.
 const PRIVATE_RESULTS_ENDPOINT = 'https://formspree.io/f/mzerkzlp';
 const qs=[
- ['Where does renal cell carcinoma usually begin?',
-  ['In kidney tubules','In the bladder','In the lungs','In the stomach'],0],
+ ['Which organ does renal cell carcinoma (RCC) usually begin in?',null,null],
  ['Which stage is a tumor larger than 7 cm but still entirely inside the kidney, without spread?',
   ['Stage I','Stage II','Stage III','Stage IV'],1],
  ['What does metastasis mean?',
@@ -238,8 +245,7 @@ const qs=[
   ['Removing both kidneys','Removing only the tumor and part of the kidney','Removing a lung','Giving immunotherapy'],1],
  ['How does immunotherapy help treat RCC?',
   ['It replaces the kidney','It helps the immune system attack cancer','It removes every cancer cell instantly','It only shrinks tumors using heat'],1],
- ['Which group lists three known risk factors for RCC?',
-  ['Smoking, obesity, and high blood pressure','Smoking, regular exercise, and low blood pressure','Sun exposure, dehydration, and seasonal allergies','High cholesterol, asthma, and seasonal flu'],0],
+ ['Name one known risk factor for RCC mentioned in the About RCC section.',null,null],
  ['Which major type of RCC is known for finger-like structures?',
   ['Clear cell RCC','Chromophobe RCC','Papillary RCC','Renal pelvis cancer'],2],
  ['Which pair of symptoms can occur with RCC?',
@@ -258,14 +264,46 @@ function showMessage(text,kind=''){
 }
 function hideMessage(){statusEl.style.display='none';statusEl.textContent=''}
 function drawQuiz(){
- answers={}; $('questions').innerHTML=qs.map((q,i)=>`<div class="qitem"><p>${i+1}. ${q[0]}</p><div class="options">${q[1].map((opt,j)=>`<button type="button" class="option" data-q="${i}" data-a="${j}" aria-pressed="false">${String.fromCharCode(65+j)}. ${opt}</button>`).join('')}</div></div>`).join('');
+ answers={};
+ $('questions').innerHTML=qs.map((q,i)=>{
+  const options=q[1]===null
+   ? `<div class="open-answer"><label for="openQ${i}" class="open-answer-label">Your written answer</label><textarea id="openQ${i}" class="open-answer-input" data-open-question="${i}" rows="3" maxlength="350" placeholder="${i===5?'Name one risk factor.':'Write a short answer in your own words.'}" aria-label="Written answer to question ${i+1}"></textarea><div class="open-answer-helper">Write a short, specific answer. Spelling does not have to be perfect.</div></div>`
+   : `<div class="options">${q[1].map((opt,j)=>`<button type="button" class="option" data-q="${i}" data-a="${j}" aria-pressed="false">${String.fromCharCode(65+j)}. ${opt}</button>`).join('')}</div>`;
+  return `<div class="qitem"><p>${i+1}. ${q[0]}</p>${options}</div>`;
+ }).join('');
  quizMessage.classList.remove('show');hideMessage();quizButton.disabled=false;
  document.querySelectorAll('.option').forEach(b=>b.addEventListener('click',()=>{
   const q=+b.dataset.q;answers[q]=+b.dataset.a;
   document.querySelectorAll(`.option[data-q="${q}"]`).forEach(x=>{let selected=x===b;x.classList.toggle('selected',selected);x.setAttribute('aria-pressed',String(selected))});
  }));
+ document.querySelectorAll('[data-open-question]').forEach(t=>t.addEventListener('input',()=>{
+  const q=+t.dataset.openQuestion,value=t.value.trim();
+  if(value)answers[q]=value;else delete answers[q];
+ }));
 }
-function scoreChoices(arr){return qs.reduce((n,q,i)=>n+(arr[i]===q[2]?1:0),0)}
+// Open responses are marked with a simple keyword rubric. The project owner
+// receives the original wording and can review answers that are marked incorrectly.
+function isCorrectWrittenAnswer(index,answer){
+ const s=String(answer||'').normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();
+ if(index===0){
+  return /\b(?:kidneys?|tubul[a-z]*|renal tubes?|kidney tubes?|(?:tiny|small) tubes? (?:in|inside|of|within) (?:the )?kidneys?)\b/i.test(s);
+ }
+ if(index===5){
+  const smoking=/\b(?:smoking|smoke|smoker|smokers|cigarette|cigarettes|tobacco)\b/i.test(s);
+  const obesity=/\b(?:obesity|obese|overweight|high bmi|high body mass index|excess body weight)\b/i.test(s);
+  const bloodPressure=/\b(?:hypertension|high blood pressure|elevated blood pressure|high bp)\b/i.test(s);
+  // One of the three established RCC risk factors is sufficient for credit.
+  // Alcohol may be entered as a response, but is not automatically marked correct:
+  // the research evidence for alcohol as an RCC risk factor is inconsistent.
+  return smoking||obesity||bloodPressure;
+ }
+ return false;
+}
+function answerIsCorrect(index,answer){
+ const q=qs[index];
+ return q[1]===null ? isCorrectWrittenAnswer(index,answer) : answer===q[2];
+}
+function scoreChoices(arr){return qs.reduce((n,_,i)=>n+(answerIsCorrect(i,arr[i])?1:0),0)}
 function showQuizError(text){quizMessage.textContent=text;quizMessage.classList.add('show');}
 function readIdentity(){
  const name=$('participantName').value.trim().replace(/\s+/g,' '),grade=$('participantGrade').value;
@@ -278,7 +316,7 @@ function renderPersonalResults(){
  const diff=post-pre;
  const improvement=Math.round(100*diff/totalQuestions);
  const headline=diff>0?'Your score improved!':diff===0?'Your score stayed the same.':'Your score decreased this time.';
- quizMessage.innerHTML=`<div id="personalResultName" class="quiznote"></div><div class="scoretiles"><div class="scoretile"><small>BEFORE</small><strong>${pre}/${totalQuestions}</strong></div><div class="scorearrow">→</div><div class="scoretile"><small>AFTER</small><strong>${post}/${totalQuestions}</strong></div></div><div class="scorestatus">${headline}</div><div>Change: <strong>${improvement>0?'+':''}${improvement} percentage points</strong> (${diff>0?'+':''}${diff} correct answers).</div><p class="quiznote">These results belong to this quiz session only. Nobody visiting the public website can browse anyone else's submissions.</p>`;
+ quizMessage.innerHTML=`<div id="personalResultName" class="quiznote"></div><div class="scoretiles"><div class="scoretile"><small>BEFORE</small><strong>${pre}/${totalQuestions}</strong></div><div class="scorearrow">→</div><div class="scoretile"><small>AFTER</small><strong>${post}/${totalQuestions}</strong></div></div><div class="scorestatus">${headline}</div><div>Change: <strong>${improvement>0?'+':''}${improvement} percentage points</strong> (${diff>0?'+':''}${diff} correct answers).</div><p class="quiznote">Your two written answers were checked automatically for key terms, so your score is an estimate. The project owner can review your full written answers. Other visitors cannot browse submissions.</p>`;
  $('personalResultName').textContent=respondent.name+' · '+(respondent.grade==='Adult / other'?'Adult / other':'Grade '+respondent.grade);
  quizMessage.classList.add('show');
 }
@@ -290,9 +328,15 @@ function submissionData(){
    date_time:new Date().toISOString(),source:'RCC STEM Fair website'};
  qs.forEach((q,i)=>{
   data['Question '+(i+1)]=q[0];
-  data['Before Q'+(i+1)]=q[1][beforeAnswers[i]];
-  data['After Q'+(i+1)]=q[1][afterAnswers[i]];
+  data['Question '+(i+1)+' type']=q[1]===null?'Written response':'Multiple choice';
+  data['Before Q'+(i+1)]=q[1]===null?beforeAnswers[i]:q[1][beforeAnswers[i]];
+  data['After Q'+(i+1)]=q[1]===null?afterAnswers[i]:q[1][afterAnswers[i]];
+  if(q[1]===null){
+   data['Before Q'+(i+1)+' automatic credit']=answerIsCorrect(i,beforeAnswers[i])?'1':'0';
+   data['After Q'+(i+1)+' automatic credit']=answerIsCorrect(i,afterAnswers[i])?'1':'0';
+  }
  });
+ data['scoring_note']='Questions 1 and 6 use basic automatic keyword scoring. Question 6 awards credit for any one of smoking, obesity, or high blood pressure. Alcohol is not automatically credited because it is not an established RCC risk factor. Review written answers manually for equivalent wording.';
  return data;
 }
 async function savePrivateQuiz(){
@@ -318,7 +362,7 @@ quizButton.addEventListener('click',()=>{
  if(saving)return;
  if(phase===1){
   phase=2;$('quizTitle').textContent='Step 3 — After exploring';
-  $('quizInstructions').textContent='Answer the same ten questions again to measure how your knowledge has changed.';
+  $('quizInstructions').textContent='Answer the same ten questions again, including the two written answers, to measure what you learned.';
   quizButton.textContent='Submit after quiz';drawQuiz();return;
  }
  if(phase===3){
@@ -327,16 +371,16 @@ quizButton.addEventListener('click',()=>{
   $('participantName').value='';$('participantGrade').value='';$('quizConsent').checked=false;
   $('quizIdentity').hidden=false;
   $('quizTitle').textContent='Step 1 — Before exploring';
-  $('quizInstructions').textContent='Take this quick quiz before exploring the stages and treatments. Your scores will be shown after the second quiz.';
+  $('quizInstructions').textContent="Take this 10-question quiz before exploring. Questions 1 and 6 require short written answers. You'll see both scores after the second quiz.";
   quizButton.textContent='Submit before quiz';drawQuiz();return;
  }
- if(Object.keys(answers).length!==totalQuestions){showQuizError('Please answer all ten questions before continuing.');return;}
+ if(Object.keys(answers).length!==totalQuestions){showQuizError('Please answer all ten questions, including both written responses, before continuing.');return;}
  if(phase===0){
   if(!readIdentity())return;
   beforeAnswers=qs.map((_,i)=>answers[i]);pre=scoreChoices(beforeAnswers);phase=1;
   $('questions').innerHTML='';$('quizIdentity').hidden=true;
   $('quizTitle').textContent='Step 2 — Explore the website';
-  $('quizInstructions').textContent='Your first answers have been recorded for this session. Explore the RCC stages and treatments, then return here to take the after quiz.';
+  $('quizInstructions').textContent='Your first answers have been recorded for this session. Explore the RCC information, then return here to take the after quiz.';
   quizButton.textContent='Start after quiz';
   quizMessage.textContent='Your before-quiz score is recorded. Your two scores will be shown when you finish the after quiz.';
   quizMessage.classList.add('show');hideMessage();return;
