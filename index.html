@@ -50,12 +50,88 @@
 .open-answer-input:focus{outline:2px solid #8de5da;outline-offset:2px;border-color:#8de5da}
 .open-answer-input::placeholder{color:#859aac}
 .open-answer-helper{color:#91a6b7;font-size:11px;line-height:1.5;margin-top:8px}
+
+/* Spatial 3D anatomy companion: local structures are projected with the kidney;
+   distant organs are clear illustrations rather than falsely co-located 3D anatomy. */
+.viewer{height:632px}
+.spread-map{position:absolute;z-index:4;right:16px;top:88px;width:186px;padding:14px 12px 10px;background:linear-gradient(155deg,#102535f2,#0b1727f5);border:1px solid #3f6570;border-radius:15px;box-shadow:0 16px 40px #06101f70;backdrop-filter:blur(12px)}
+.spread-map-eyebrow{font-size:9px;letter-spacing:1.6px;color:#8de5da;font-weight:900;display:flex;align-items:center;gap:7px}
+.spread-signal{width:7px;height:7px;background:#8de5da;border-radius:50%;box-shadow:0 0 8px #8de5da50}
+.spread-map-heading{font-size:14px;font-weight:800;line-height:1.4;color:#ebfcff;margin:7px 0 9px}
+.spread-sites{display:flex;flex-direction:column;gap:7px}
+.spread-site{display:flex;align-items:center;gap:8px;min-height:67px;width:100%;padding:6px 7px;border-radius:10px;background:#152a3aaa;color:#d6e9f1;border:1px solid #314656;text-align:left;position:relative;transition:background .2s,border-color .2s,box-shadow .2s}
+.spread-site:hover,.spread-site:focus-visible{border-color:#91dfd4;background:#1c3444}
+.organ-illustration{width:48px;height:46px;flex:0 0 48px;display:grid;place-items:center;filter:saturate(.53) grayscale(.12);opacity:.62;transition:filter .25s,opacity .25s}
+.organ-illustration svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 2px 4px #081523b5)}
+.spread-site-copy{min-width:0;display:flex;flex-direction:column;gap:5px}
+.spread-site-copy strong{font-size:12px;font-weight:800;line-height:1.05}
+.spread-site-copy small{font-size:8px;line-height:1.35;letter-spacing:.6px;color:#91a7b9;font-weight:800}
+.site-status{position:absolute;right:7px;top:8px;width:5px;height:5px;border-radius:50%;background:#607b8b}
+.spread-map[data-stage="3"] .spread-site[data-site="nodes"],
+.spread-map[data-stage="4"] .spread-site:not([data-site="nodes"]){border-color:#68cfc3;background:#173d43;box-shadow:inset 0 0 17px #31aea822}
+.spread-map[data-stage="3"] .spread-site[data-site="nodes"] .organ-illustration,
+.spread-map[data-stage="4"] .spread-site:not([data-site="nodes"]) .organ-illustration{opacity:1;filter:saturate(1.2)}
+.spread-map[data-stage="3"] .spread-site[data-site="nodes"] .site-status,
+.spread-map[data-stage="4"] .spread-site:not([data-site="nodes"]) .site-status{background:#8de5da;box-shadow:0 0 8px #8de5da}
+.spread-map-status{font-size:11px;line-height:1.47;margin:12px 1px 6px;color:#b6d6d6}
+.spread-map-note{font-size:9px;line-height:1.5;margin:0 1px 2px;color:#8199ac}
+.spread-explanation{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-top:16px;padding:21px 25px}
+.spread-explanation h3{font:800 19px Manrope,sans-serif;letter-spacing:-.45px;margin:6px 0 7px}
+.spread-explanation p{color:#aebfce;line-height:1.7;max-width:740px;font-size:12px;margin:0}
+.spread-explanation-legend{display:flex;flex-direction:column;gap:11px;white-space:nowrap;color:#aac1cd;font-size:11px}
+.legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:middle}
+.legend-neutral{background:#607f91}.legend-active{background:#8de5da;box-shadow:0 0 7px #8de5da}
+@media(max-width:780px){
+ .viewer{height:845px!important;min-height:845px!important}
+ .viewer canvas{position:absolute;top:0;left:0;width:100%;height:480px}
+ .spread-map{left:16px;right:16px;top:478px;bottom:auto;width:auto;padding:12px 14px;}
+ .spread-sites{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .spread-site{min-height:67px}
+ .viewhead{left:19px;top:17px}.viewstate{right:18px;top:20px}
+ .viewtools{bottom:auto;top:423px;left:16px}
+ .viewhint{bottom:auto;top:443px;right:16px;font-size:9px}
+ .spread-explanation{display:block}.spread-explanation-legend{flex-direction:row;flex-wrap:wrap;white-space:normal;margin-top:16px;gap:14px}
+}
+@media(max-width:450px){
+ .viewer{height:868px!important;min-height:868px!important}
+ .spread-map{top:472px}
+ .spread-site{gap:4px;padding:4px;min-height:67px}
+ .organ-illustration{width:39px;height:42px;flex-basis:39px}
+ .spread-site-copy strong{font-size:11px}.spread-site-copy small{font-size:7px}
+ .viewhint{display:none}
+}
 </style></head><body><div class="app"><aside class="side"><div class="logo"><div class="logo-symbol">R</div><div><strong>RENAL</strong><small>THE RCC ATLAS</small></div></div><div class="navlinks"><div class="nav-caption">EXPLORATION</div><button class="navbtn active" data-page="explore" aria-label="Explore stages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a17 17 0 0 1 0 18M12 3a17 17 0 0 0 0 18"/></svg>Explore stages</button><button class="navbtn" data-page="about" aria-label="About RCC and student research"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4.5C7.5 3.6 10 4 12 5.6 14 4 16.5 3.6 19 4.5V20c-2.5-.9-5-.5-7 1-2-1.5-4.5-1.9-7-1z"/><path d="M12 5.6V21"/></svg>About RCC</button><button class="navbtn" data-page="treat" aria-label="Treatments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3 8 4v5c0 5-3 8-8 9-5-1-8-4-8-9V7l8-4Z"/><path d="m9 12 2 2 4-4"/></svg>Treatments</button><button class="navbtn" data-page="lab" aria-label="Learning lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 3h6M10 3v6l-6 9a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-9V3"/><path d="M8 15h8"/></svg>Learning lab</button></div><div class="sidebottom"><div class="live"><span class="pulse"></span>INTERACTIVE EXPERIENCE</div><p>Renal cell carcinoma<br>STEM Fair • Education project</p></div></aside>
 <main class="main"><div class="topline"><span>INTERACTIVE ONCOLOGY ATLAS &nbsp; / &nbsp; RENAL CELL CARCINOMA</span><div class="topright"><span>SCIENCE, MADE VISIBLE</span><span class="pill"><span class="pulse"></span>LIVE EXPLORER</span></div></div>
 <section class="page active" id="explore"><header class="hero"><div><div class="kicker">01 &nbsp; / &nbsp; UNDERSTAND THE DISEASE</div><h1>Inside the <em>progression</em><br>of kidney cancer.</h1><p>RCC is a cancer that starts in the kidney. I designed this interactive website to help people better understand how RCC develops, how it affects the body, and what treatments doctors use.</p></div><div class="hero-right">INTERACTIVE MODEL<b>04</b>Stages of RCC<br>One visual experience</div></header>
-<div class="workspace"><div class="panel viewer"><div class="viewhead"><span>ANATOMICAL 3D VISUALIZATION</span><strong>Kidney / Renal cell carcinoma</strong></div><div class="viewstate"><small>VIEWING</small><strong id="viewStage">01 / 04</strong></div><canvas id="kidney" role="img" aria-label="Rotatable three-dimensional anatomical illustration of a kidney and renal tumor across four stages"></canvas><div class="viewtools"><button class="iconbtn" id="rotBtn" title="Toggle automatic rotation">⟳ Auto</button><button class="iconbtn" id="resetBtn" title="Reset view">⌖ Reset</button><button class="iconbtn" id="zoomOut" title="Zoom out">−</button><button class="iconbtn" id="zoomIn" title="Zoom in">+</button></div><div class="viewhint">DRAG TO ROTATE &nbsp;·&nbsp; SCROLL TO ZOOM</div></div>
+<div class="workspace"><div class="panel viewer"><div class="viewhead"><span>ANATOMICAL 3D VISUALIZATION</span><strong>Kidney / Renal cell carcinoma</strong></div><div class="viewstate"><small>VIEWING</small><strong id="viewStage">01 / 04</strong></div><canvas id="kidney" role="img" aria-label="Rotatable three-dimensional kidney tumor with nearby adrenal gland and lymph nodes; a labeled adjacent body map shows possible spread sites"></canvas>
+<div class="spread-map" id="spreadMap" data-stage="1" aria-label="Possible locations kidney cancer can affect">
+  <div class="spread-map-eyebrow"><span class="spread-signal"></span> BODY CONTEXT</div>
+  <div class="spread-map-heading">Where RCC can spread</div>
+  <div class="spread-sites">
+    <button class="spread-site" type="button" data-site="nodes" aria-label="Nearby lymph nodes: local spread may occur in stage three">
+      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><path d="M34 1V59" stroke="#7795a8" stroke-width="3" stroke-linecap="round" opacity=".75"/><path d="M34 13C24 16 17 16 12 26M34 25C44 27 48 28 54 38M34 40C24 40 20 44 17 53" stroke="#607f91" stroke-width="2.5" stroke-linecap="round"/><g fill="url(#lymphFill)" stroke="#d6eacb" stroke-width="1.4"><ellipse cx="12" cy="27" rx="7" ry="9" transform="rotate(15 12 27)"/><ellipse cx="54" cy="38" rx="7" ry="8" transform="rotate(-22 54 38)"/><ellipse cx="17" cy="51" rx="6" ry="8" transform="rotate(18 17 51)"/><ellipse cx="33" cy="13" rx="6" ry="7"/></g><defs><radialGradient id="lymphFill"><stop stop-color="#a7c4b4"/><stop offset="1" stop-color="#547d7f"/></radialGradient></defs></svg></span>
+      <span class="spread-site-copy"><strong>Nearby nodes</strong><small>LOCAL • STAGE III</small></span><span class="site-status" aria-hidden="true"></span>
+    </button>
+    <button class="spread-site" type="button" data-site="lungs" aria-label="Lungs: a possible distant location for metastatic RCC in stage four">
+      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="lungFill" x1=".1" y1="0" x2=".95" y2="1"><stop stop-color="#e9a4a2"/><stop offset=".55" stop-color="#ae637a"/><stop offset="1" stop-color="#773e60"/></linearGradient></defs><path d="M31 19C26 12 24 13 18 18 12 23 7 38 8 49c1 10 14 8 19 3 4-5 5-11 5-18Z" fill="url(#lungFill)" stroke="#ffd0bd" stroke-width="1.4"/><path d="M39 19c5-7 7-6 13-1 7 5 11 20 10 31-1 10-14 8-19 3-4-5-5-11-5-18Z" fill="url(#lungFill)" stroke="#ffd0bd" stroke-width="1.4"/><path d="M35 6v21M35 15L26 26M35 15l9 11" stroke="#b7d3d2" stroke-width="3.6" stroke-linecap="round"/><path d="M17 27C15 33 13 38 13 45M51 27c3 6 5 13 5 18" stroke="#f8c0b1" opacity=".65" stroke-width="2.1" stroke-linecap="round"/></svg></span>
+      <span class="spread-site-copy"><strong>Lungs</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
+    </button>
+    <button class="spread-site" type="button" data-site="liver" aria-label="Liver: a possible distant location for metastatic RCC in stage four">
+      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="liverFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3a789"/><stop offset=".48" stop-color="#bd6b68"/><stop offset="1" stop-color="#753651"/></linearGradient></defs><path d="M5 23C10 11 35 7 50 13c11 4 17 11 13 18-5 7-12 5-18 11-7 8-15 12-23 5C14 42 2 39 5 23Z" fill="url(#liverFill)" stroke="#f6b5a5" stroke-width="1.6"/><path d="M8 25C26 14 43 17 53 19" stroke="#f9c9ad" stroke-width="3" opacity=".55" stroke-linecap="round"/><path d="M44 20c-3 9-4 12-2 19" stroke="#6d344c" stroke-width="2" opacity=".5" stroke-linecap="round"/></svg></span>
+      <span class="spread-site-copy"><strong>Liver</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
+    </button>
+    <button class="spread-site" type="button" data-site="bones" aria-label="Bones: a possible distant location for metastatic RCC in stage four">
+      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="boneFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0d8"/><stop offset=".58" stop-color="#c9b29e"/><stop offset="1" stop-color="#8e8090"/></linearGradient></defs><path d="M15 8c-6 0-9 4-8 10 1 6 7 8 12 7l25 27c3 4 10 3 13-1 4-5 2-9-3-11L29 15C28 10 23 6 17 7Z" fill="url(#boneFill)" stroke="#e7d8ca" stroke-width="1.5"/><path d="M21 19l29 27" stroke="#fff4e5" stroke-width="3" opacity=".63" stroke-linecap="round"/><path d="M16 8c5 2 8 7 7 12" stroke="#938391" stroke-width="1.6" opacity=".65"/></svg></span>
+      <span class="spread-site-copy"><strong>Bones</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
+    </button>
+  </div>
+  <p class="spread-map-status" id="spreadMapStatus" aria-live="polite">No spread shown outside the kidney.</p>
+  <p class="spread-map-note">Possible locations, not a prediction or scale diagram.</p>
+</div>
+<div class="viewtools"><button class="iconbtn" id="rotBtn" title="Toggle automatic rotation">⟳ Auto</button><button class="iconbtn" id="resetBtn" title="Reset view">⌖ Reset</button><button class="iconbtn" id="zoomOut" title="Zoom out">−</button><button class="iconbtn" id="zoomIn" title="Zoom in">+</button></div><div class="viewhint">DRAG TO ROTATE &nbsp;·&nbsp; SCROLL TO ZOOM</div></div>
 <div class="panel stagecard"><div class="stageinner"><div class="stagecounter"><span class="micro">CLINICAL STAGING • SOURCE-BASED SUMMARY</span><span class="stagechip" id="chip">STAGE I</span></div><h2 id="stageTitle">Stage I</h2><div class="status" id="stageStatus">LOCALIZED / EARLY</div><p class="desc" id="stageDesc">The tumor is 7 cm or smaller and remains inside the kidney. It has not reached nearby lymph nodes or distant organs.</p><div class="detail"><small>WHAT CHANGES?</small><p id="stageChange">A small tumor forms within the kidney, with no spread outside it.</p></div><div class="detail"><small>WHY IT MATTERS</small><p id="stageImpact">Surgery may remove the tumor while preserving healthy kidney tissue.</p></div></div><div class="stagecontrols"><div class="sliderbar"><strong>Explore progression</strong><span id="rangeState">01 — 04</span></div><input class="range" type="range" id="stageSlider" min="1" max="4" value="1" step="1" aria-label="Select RCC stage"><div class="ticks"><button class="tick active" data-stage="1">STAGE 01</button><button class="tick" data-stage="2">STAGE 02</button><button class="tick" data-stage="3">STAGE 03</button><button class="tick" data-stage="4">STAGE 04</button></div></div></div></div>
-<div class="metrics"><div class="metric"><small>PRIMARY TUMOR</small><strong id="tumorMetric">≤ 7 cm</strong><p id="tumorSub">Diameter in stage I</p></div><div class="metric"><small>LOCATION / EXTENT</small><strong id="spreadMetric">In the kidney</strong><p id="spreadSub">No nearby or distant spread</p></div><div class="metric"><small>EXPLORER LEGEND</small><strong><span style="color:#e5919e">●</span> Kidney &nbsp; <span style="color:#ffcb80">●</span> Tumor</strong><p><span style="color:#8de5da">●</span> Highlighted spread (stages III–IV)</p></div></div><div class="fineprint">IMPORTANT: This is a conceptual 3D illustration, not a diagnostic scan or a scale model. Tumor size in this animation is representative only. RCC stage depends on the tumor's extent and spread—not simply how large it looks. In particular, stage IV can occur without a very large primary tumor. <a href="https://www.cancer.org/cancer/types/kidney-cancer/detection-diagnosis-staging/staging.html" target="_blank" rel="noopener">Learn how staging works ↗</a></div></section>
+<div class="spread-explanation panel" id="spreadExplanation" aria-live="polite"><div><span class="micro">ANATOMY &amp; SPREAD • STAGE I</span><h3 id="spreadExplanationTitle">Tumor stays within the kidney</h3><p id="spreadExplanationText">The adrenal gland sits above the kidney, and nearby veins and lymph nodes are shown for orientation. At stage I, the cancer has not spread to these structures.</p></div><div class="spread-explanation-legend"><span><i class="legend-dot legend-neutral"></i> Anatomy shown for context</span><span><i class="legend-dot legend-active"></i> Example site affected</span></div></div>
+<div class="metrics"><div class="metric"><small>PRIMARY TUMOR</small><strong id="tumorMetric">≤ 7 cm</strong><p id="tumorSub">Diameter in stage I</p></div><div class="metric"><small>LOCATION / EXTENT</small><strong id="spreadMetric">In the kidney</strong><p id="spreadSub">No nearby or distant spread</p></div><div class="metric"><small>MODEL LEGEND</small><strong><span style="color:#e5919e">●</span> Kidney &nbsp; <span style="color:#ffcb80">●</span> Tumor</strong><p><span style="color:#8de5da">●</span> Examples of local and distant spread</p></div></div><div class="fineprint">IMPORTANT: This is a conceptual 3D illustration, not a diagnostic scan or a scale model. Tumor size and body anatomy in this animation are representative only. The highlighted sites are examples; not every patient has spread to all highlighted organs. Stage IV can also result from extensive local spread without distant metastasis. RCC stage depends on the tumor's extent and spread—not simply how large it looks. In particular, stage IV can occur without a very large primary tumor. <a href="https://www.cancer.org/cancer/types/kidney-cancer/detection-diagnosis-staging/staging.html" target="_blank" rel="noopener">Learn how staging works ↗</a></div></section>
 
 <section class="page" id="about">
 <header class="sectionhead"><div><div class="kicker">02 &nbsp; / &nbsp; MY RCC RESEARCH</div><h1>What is <span style="color:var(--cyan)">RCC?</span></h1></div><p>These explanations come from my STEM fair research paper, using my own words with small grammar and spelling fixes.</p></header>
@@ -107,7 +183,29 @@ const stageData={1:{roman:'I',status:'LOCALIZED / EARLY',desc:'The tumor is 7 cm
 let stage=1,currentTumor=.22,rot=-.30,pitch=.07,zoom=1,auto=false,down=false,last=[0,0],lastFrame=0;
 const canvas=$('kidney'),ctx=canvas.getContext('2d');
 function setPage(id){document.querySelectorAll('.page').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('.navbtn').forEach(el=>{const active=el.dataset.page===id;el.classList.toggle('active',active);el.setAttribute('aria-current',active?'page':'false')});window.scrollTo({top:0,behavior:'smooth'});if(id==='explore')requestAnimationFrame(render)}document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
-function setStage(n){stage=Math.max(1,Math.min(4,+n));const d=stageData[stage];$('stageSlider').value=stage;$('stageSlider').style.setProperty('--percent',((stage-1)/3)*100+'%');$('stageTitle').textContent='Stage '+d.roman;$('stageStatus').textContent=d.status;$('stageDesc').textContent=d.desc;$('stageChange').textContent=d.change;$('stageImpact').textContent=d.impact;$('chip').textContent='STAGE '+d.roman;$('viewStage').textContent='0'+stage+' / 04';$('rangeState').textContent='0'+stage+' — 04';$('tumorMetric').textContent=d.size;$('tumorSub').textContent=d.sizeSub;$('spreadMetric').textContent=d.spread;$('spreadSub').textContent=d.spreadSub;document.querySelectorAll('.tick').forEach(x=>x.classList.toggle('active',+x.dataset.stage===stage))} $('stageSlider').addEventListener('input',e=>setStage(e.target.value));document.querySelectorAll('.tick').forEach(b=>b.addEventListener('click',()=>setStage(b.dataset.stage)));
+function setStage(n){stage=Math.max(1,Math.min(4,+n));const d=stageData[stage];$('stageSlider').value=stage;$('stageSlider').style.setProperty('--percent',((stage-1)/3)*100+'%');$('stageTitle').textContent='Stage '+d.roman;$('stageStatus').textContent=d.status;$('stageDesc').textContent=d.desc;$('stageChange').textContent=d.change;$('stageImpact').textContent=d.impact;$('chip').textContent='STAGE '+d.roman;$('viewStage').textContent='0'+stage+' / 04';$('rangeState').textContent='0'+stage+' — 04';$('tumorMetric').textContent=d.size;$('tumorSub').textContent=d.sizeSub;$('spreadMetric').textContent=d.spread;$('spreadSub').textContent=d.spreadSub;document.querySelectorAll('.tick').forEach(x=>x.classList.toggle('active',+x.dataset.stage===stage));
+ document.getElementById('spreadMap').dataset.stage=String(stage);
+ const stageSummaries={
+  1:['No spread shown outside the kidney.','Tumor stays within the kidney','The adrenal gland sits above the kidney, while nearby blood vessels and lymph nodes are shown for orientation. In stage I, the tumor remains within the kidney.'],
+  2:['Larger tumor; still no spread.','A larger tumor is still localized','In stage II, the tumor is larger than 7 cm but remains inside the kidney. The surrounding structures and distant organs are shown for comparison, not because they are involved.'],
+  3:['Example: renal vein or nearby nodes.','Possible local spread','Stage III can involve a major vein, tissue near the kidney, or a nearby lymph node. The highlighted renal vein and nodes are separate examples; stage III does not always involve both.'],
+  4:['Possible distant sites highlighted.','Examples of distant metastasis','RCC may spread to the lungs, liver, or bones, among other sites. The highlighted organs show possibilities, not that all three become involved. Stage IV can also occur from extensive growth beyond Gerota’s fascia, without distant spread.']
+ };
+ const info=stageSummaries[stage];
+ $('spreadMapStatus').textContent=info[0];$('spreadExplanationTitle').textContent=info[1];$('spreadExplanationText').textContent=info[2];
+ document.querySelector('#spreadExplanation .micro').textContent='ANATOMY & SPREAD • STAGE '+['','I','II','III','IV'][stage]} 
+const organDetails={
+ nodes:'Nearby lymph nodes are small parts of the immune system. Stage III can involve nearby lymph nodes even when the main tumor is not very large.',
+ lungs:'The lungs are a common distant site for kidney cancer spread. Metastatic tumors in the lungs are still kidney cancer cells.',
+ liver:'Kidney cancer can spread to the liver. This is one possible site of distant metastasis, not something that happens in every patient.',
+ bones:'Kidney cancer can spread to bones. Bone involvement can affect their strength and sometimes cause pain.'
+};
+document.querySelectorAll('.spread-site').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.spread-site').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
+ const organ=btn.dataset.site;
+ $('spreadMapStatus').textContent=organDetails[organ];
+}));
+$('stageSlider').addEventListener('input',e=>setStage(e.target.value));document.querySelectorAll('.tick').forEach(b=>b.addEventListener('click',()=>setStage(b.dataset.stage)));
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function point(u,v){ // More anatomical bean form with fuller poles and a deeper hilar notch
  const y=1.57*Math.cos(v),s=Math.pow(Math.sin(v),.77),cu=Math.cos(u),su=Math.sin(u);
@@ -134,10 +232,30 @@ function point(u,v){ // More anatomical bean form with fuller poles and a deeper
 function transform(p){let[x,y,z]=p,a=Math.cos(rot),b=Math.sin(rot),c=Math.cos(pitch),d=Math.sin(pitch);let xx=x*a+z*b,zz=-x*b+z*a;return [xx,y*c-zz*d,y*d+zz*c]}
 function shadeColor(r,g,b,lit){return `rgb(${clamp(Math.round(r*lit),0,255)},${clamp(Math.round(g*lit),0,255)},${clamp(Math.round(b*lit),0,255)})`}
 function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;const dpr=Math.min(window.devicePixelRatio||1,2);if(canvas.width!==Math.floor(w*dpr)||canvas.height!==Math.floor(h*dpr)){canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr)}ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);ctx.lineJoin='round';
- const scale=Math.min(w/3.5,h/3.8)*zoom,cx=w*.5,cy=h*.52;
+ const anatomyWide=w>600;
+ const scale=Math.min(w/(anatomyWide?4.65:3.5),h/(anatomyWide?3.95:4.45))*zoom,cx=w*(anatomyWide?.38:.51),cy=h*(anatomyWide?.53:.50);
  const proj=p=>{let t=transform(p),pers=3.8/(3.8-t[2]*.20);return {x:cx+t[0]*scale*pers,y:cy-t[1]*scale*pers,z:t[2],pers}};
  // Large subtle depth halo and grounding
  const halo=ctx.createRadialGradient(cx,cy,10,cx,cy,Math.max(w,h)*.39);halo.addColorStop(0,'#87d2d20c');halo.addColorStop(1,'#87d2d200');ctx.fillStyle=halo;ctx.fillRect(0,0,w,h);
+ // Reference anatomy rotates with the kidney: adrenal gland above; para-renal nodes beside vessels.
+ // These are simplified shapes to orient a student, not a true 3D atlas.
+ function drawProjectedBlob(coords,col1,col2,alpha=1){
+  const pts=coords.map(proj);if(pts.length<3)return;
+  ctx.save();ctx.globalAlpha=alpha;ctx.beginPath();ctx.moveTo((pts[0].x+pts[1].x)/2,(pts[0].y+pts[1].y)/2);
+  for(let i=1;i<=pts.length;i++){const prev=pts[i%pts.length],next=pts[(i+1)%pts.length];ctx.quadraticCurveTo(prev.x,prev.y,(prev.x+next.x)/2,(prev.y+next.y)/2)}
+  ctx.closePath();const boundsX=pts.map(p=>p.x),boundsY=pts.map(p=>p.y);
+  const grad=ctx.createLinearGradient(Math.min(...boundsX),Math.min(...boundsY),Math.max(...boundsX),Math.max(...boundsY));
+  grad.addColorStop(0,col1);grad.addColorStop(1,col2);ctx.fillStyle=grad;ctx.strokeStyle='#f5dbc480';ctx.lineWidth=1.6;ctx.fill();ctx.stroke();ctx.restore();
+ }
+ drawProjectedBlob([[.03,1.53,.03],[.22,1.73,.12],[.51,1.67,.10],[.74,1.51,.12],[.43,1.40,.11],[.17,1.47,.10]],'#c6b280','#796d6a',.83);
+ // Nodes illustrated as neighboring anatomical landmarks; stage III shows a possible pattern.
+ const localNodes=[[-1.38,.58,.40],[-1.58,.11,.40],[-1.30,-.52,.38]];
+ localNodes.forEach((node,i)=>{const p=proj(node),rr=scale*.065*(i===0?1.2:1);
+  ctx.save();ctx.beginPath();ctx.ellipse(p.x,p.y,rr,rr*.81,.5,0,Math.PI*2);
+  const g=ctx.createRadialGradient(p.x-rr*.25,p.y-rr*.25,1,p.x,p.y,rr*1.1);
+  g.addColorStop(0,stage===3?'#bdfff0':'#aec8c4');g.addColorStop(1,stage===3?'#2e9b98':'#527b80');
+  ctx.fillStyle=g;ctx.strokeStyle=stage===3?'#a4fff2':'#c5d7d18a';ctx.lineWidth=stage===3?2:1;ctx.shadowBlur=stage===3?12:0;ctx.shadowColor='#69e3d3';ctx.fill();ctx.stroke();ctx.restore();
+ });
  // Dense tessellated organ surface with warm, translucent-looking tissue shading.
  // Multi-scale deterministic mottling mimics fine renal capsule pigmentation.
  let tris=[];const U=110,V=76;
@@ -224,9 +342,18 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  ctx.restore();ctx.save();outline();ctx.strokeStyle='#f0b5ab88';ctx.lineWidth=1.25;ctx.stroke();ctx.restore();
  // Stage III vessel invasion: illustrated teal focus around vessel and connected with kidney
  if(stage>=3){const a=proj([-.93,.12,.23]),b=proj([-1.37,.24,.34]);ctx.strokeStyle='#8de5da';ctx.lineWidth=6*zoom;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.quadraticCurveTo((a.x+b.x)/2,b.y-12,b.x,b.y);ctx.stroke();ctx.shadowColor='#8de5da';ctx.shadowBlur=15;ctx.fillStyle='#a2fff1';ctx.beginPath();ctx.arc(b.x,b.y,5.5*zoom,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}
- if(stage===4){let pts=[[w*.16,h*.29],[w*.81,h*.70],[w*.78,h*.33]];for(let k=0;k<pts.length;k++){let[x,y]=pts[k];ctx.setLineDash([4,5]);ctx.strokeStyle='#8de5da72';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,y,19+k*2,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#8de5da';ctx.shadowColor='#8de5da';ctx.shadowBlur=12;ctx.beginPath();ctx.arc(x,y,5.5,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}ctx.fillStyle='#b7e1de';ctx.font='600 11px DM Sans, sans-serif';ctx.fillText('Possible distant spread',w*.59,h*.24)}
+ // Schematic dashed pathways are visual guides, not literal anatomical travel routes.
+ if(stage===4 && anatomyWide){
+  const targets=[[w-206,h*.27],[w-206,h*.39],[w-206,h*.52]];
+  targets.forEach(([tx,ty],i)=>{
+   const sx=center.x+Math.max(6,screenR*.18),sy=center.y+(i-1)*screenR*.17;
+   ctx.save();ctx.setLineDash([3,8]);ctx.strokeStyle='#8de5da77';ctx.lineWidth=1.5;
+   ctx.beginPath();ctx.moveTo(sx,sy);ctx.bezierCurveTo(sx+(tx-sx)*.36,sy-20,tx-(tx-sx)*.27,ty,tx,ty);ctx.stroke();
+   ctx.setLineDash([]);ctx.shadowColor='#7deade';ctx.shadowBlur=9;ctx.fillStyle='#8de5da';ctx.beginPath();ctx.arc(tx,ty,3.5,0,Math.PI*2);ctx.fill();ctx.restore();
+  });
+ }
  // Annotation for tumor with elegant leader and anchored label
- let ax=clamp(center.x+screenR*.65,0,w),ay=center.y-screenR*.45,ex=clamp(ax+38,40,w-105),ey=clamp(ay-33,42,h-44);ctx.strokeStyle='#ffd4a999';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ex,ey);ctx.lineTo(ex+43,ey);ctx.stroke();ctx.fillStyle='#ffddb8';ctx.font='700 11px DM Sans, sans-serif';ctx.fillText('TUMOR',ex+2,ey-8);
+ let ax=clamp(center.x+screenR*.65,0,w),ay=center.y-screenR*.45,ex=clamp(ax+27,40,anatomyWide?w-246:w-105),ey=clamp(ay-33,42,h-44);ctx.strokeStyle='#ffd4a999';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ex,ey);ctx.lineTo(ex+43,ey);ctx.stroke();ctx.fillStyle='#ffddb8';ctx.font='700 11px DM Sans, sans-serif';ctx.fillText('TUMOR',ex+2,ey-8);
 }
 function frame(t){let dt=Math.min(50,t-lastFrame||16);lastFrame=t;if(auto)rot+=dt*.00021;if(document.getElementById('explore').classList.contains('active'))render();requestAnimationFrame(frame)}requestAnimationFrame(frame);
 canvas.addEventListener('pointerdown',e=>{down=true;last=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!down)return;rot+=(e.clientX-last[0])*.008;pitch=clamp(pitch+(e.clientY-last[1])*.005,-.6,.6);last=[e.clientX,e.clientY]});canvas.addEventListener('pointerup',()=>down=false);canvas.addEventListener('pointercancel',()=>down=false);canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom-e.deltaY*.0007,.7,1.5)},{passive:false});$('rotBtn').addEventListener('click',()=>{auto=!auto;$('rotBtn').textContent=auto?'Ⅱ Pause':'⟳ Auto'});$('resetBtn').addEventListener('click',()=>{rot=-.28;pitch=.07;zoom=1;auto=false;$('rotBtn').textContent='⟳ Auto'});$('zoomIn').addEventListener('click',()=>zoom=clamp(zoom+.1,.7,1.5));$('zoomOut').addEventListener('click',()=>zoom=clamp(zoom-.1,.7,1.5));setStage(1);
