@@ -68,10 +68,13 @@
 .spread-site-copy small{font-size:8px;line-height:1.35;letter-spacing:.6px;color:#91a7b9;font-weight:800}
 .site-status{position:absolute;right:7px;top:8px;width:5px;height:5px;border-radius:50%;background:#607b8b}
 .spread-map[data-stage="3"] .spread-site[data-site="nodes"],
+.spread-map[data-stage="4"] .spread-site[data-site="nodes"],
 .spread-map[data-stage="4"] .spread-site:not([data-site="nodes"]){border-color:#68cfc3;background:#173d43;box-shadow:inset 0 0 17px #31aea822}
 .spread-map[data-stage="3"] .spread-site[data-site="nodes"] .organ-illustration,
+.spread-map[data-stage="4"] .spread-site[data-site="nodes"] .organ-illustration,
 .spread-map[data-stage="4"] .spread-site:not([data-site="nodes"]) .organ-illustration{opacity:1;filter:saturate(1.2)}
 .spread-map[data-stage="3"] .spread-site[data-site="nodes"] .site-status,
+.spread-map[data-stage="4"] .spread-site[data-site="nodes"] .site-status,
 .spread-map[data-stage="4"] .spread-site:not([data-site="nodes"]) .site-status{background:#8de5da;box-shadow:0 0 8px #8de5da}
 .spread-map-status{font-size:11px;line-height:1.47;margin:12px 1px 6px;color:#b6d6d6}
 .spread-map-note{font-size:9px;line-height:1.5;margin:0 1px 2px;color:#8199ac}
@@ -100,41 +103,475 @@
  .spread-site-copy strong{font-size:11px}.spread-site-copy small{font-size:7px}
  .viewhint{display:none}
 }
-</style></head><body><div class="app"><aside class="side"><div class="logo"><div class="logo-symbol">R</div><div><strong>RENAL</strong><small>THE RCC ATLAS</small></div></div><div class="navlinks"><div class="nav-caption">EXPLORATION</div><button class="navbtn active" data-page="explore" aria-label="Explore stages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a17 17 0 0 1 0 18M12 3a17 17 0 0 0 0 18"/></svg>Explore stages</button><button class="navbtn" data-page="about" aria-label="About RCC and student research"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4.5C7.5 3.6 10 4 12 5.6 14 4 16.5 3.6 19 4.5V20c-2.5-.9-5-.5-7 1-2-1.5-4.5-1.9-7-1z"/><path d="M12 5.6V21"/></svg>About RCC</button><button class="navbtn" data-page="treat" aria-label="Treatments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3 8 4v5c0 5-3 8-8 9-5-1-8-4-8-9V7l8-4Z"/><path d="m9 12 2 2 4-4"/></svg>Treatments</button><button class="navbtn" data-page="lab" aria-label="Learning lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 3h6M10 3v6l-6 9a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-9V3"/><path d="M8 15h8"/></svg>Learning lab</button></div><div class="sidebottom"><div class="live"><span class="pulse"></span>INTERACTIVE EXPERIENCE</div><p>Renal cell carcinoma<br>STEM Fair • Education project</p></div></aside>
-<main class="main"><div class="topline"><span>INTERACTIVE ONCOLOGY ATLAS &nbsp; / &nbsp; RENAL CELL CARCINOMA</span><div class="topright"><span>SCIENCE, MADE VISIBLE</span><span class="pill"><span class="pulse"></span>LIVE EXPLORER</span></div></div>
-<section class="page active" id="explore"><header class="hero"><div><div class="kicker">01 &nbsp; / &nbsp; UNDERSTAND THE DISEASE</div><h1>Inside the <em>progression</em><br>of kidney cancer.</h1><p>RCC is a cancer that starts in the kidney. I designed this interactive website to help people better understand how RCC develops, how it affects the body, and what treatments doctors use.</p></div><div class="hero-right">INTERACTIVE MODEL<b>04</b>Stages of RCC<br>One visual experience</div></header>
-<div class="workspace"><div class="panel viewer"><div class="viewhead"><span>ANATOMICAL 3D VISUALIZATION</span><strong>Kidney / Renal cell carcinoma</strong></div><div class="viewstate"><small>VIEWING</small><strong id="viewStage">01 / 04</strong></div><canvas id="kidney" role="img" aria-label="Rotatable three-dimensional kidney model with a highlighted tumor and connected three-dimensional body organs showing where renal cell carcinoma can spread"></canvas>
-<div class="spread-map" id="spreadMap" data-stage="1" aria-label="Possible locations kidney cancer can affect">
-  <div class="spread-map-eyebrow"><span class="spread-signal"></span> BODY CONTEXT</div>
-  <div class="spread-map-heading">Where RCC can spread</div>
-  <div class="spread-sites">
-    <button class="spread-site" type="button" data-site="nodes" aria-label="Nearby lymph nodes: local spread may occur in stage three">
-      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><path d="M34 1V59" stroke="#7795a8" stroke-width="3" stroke-linecap="round" opacity=".75"/><path d="M34 13C24 16 17 16 12 26M34 25C44 27 48 28 54 38M34 40C24 40 20 44 17 53" stroke="#607f91" stroke-width="2.5" stroke-linecap="round"/><g fill="url(#lymphFill)" stroke="#d6eacb" stroke-width="1.4"><ellipse cx="12" cy="27" rx="7" ry="9" transform="rotate(15 12 27)"/><ellipse cx="54" cy="38" rx="7" ry="8" transform="rotate(-22 54 38)"/><ellipse cx="17" cy="51" rx="6" ry="8" transform="rotate(18 17 51)"/><ellipse cx="33" cy="13" rx="6" ry="7"/></g><defs><radialGradient id="lymphFill"><stop stop-color="#a7c4b4"/><stop offset="1" stop-color="#547d7f"/></radialGradient></defs></svg></span>
-      <span class="spread-site-copy"><strong>Nearby nodes</strong><small>LOCAL • STAGE III</small></span><span class="site-status" aria-hidden="true"></span>
-    </button>
-    <button class="spread-site" type="button" data-site="lungs" aria-label="Lungs: a possible distant location for metastatic RCC in stage four">
-      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="lungFill" x1=".1" y1="0" x2=".95" y2="1"><stop stop-color="#e9a4a2"/><stop offset=".55" stop-color="#ae637a"/><stop offset="1" stop-color="#773e60"/></linearGradient></defs><path d="M31 19C26 12 24 13 18 18 12 23 7 38 8 49c1 10 14 8 19 3 4-5 5-11 5-18Z" fill="url(#lungFill)" stroke="#ffd0bd" stroke-width="1.4"/><path d="M39 19c5-7 7-6 13-1 7 5 11 20 10 31-1 10-14 8-19 3-4-5-5-11-5-18Z" fill="url(#lungFill)" stroke="#ffd0bd" stroke-width="1.4"/><path d="M35 6v21M35 15L26 26M35 15l9 11" stroke="#b7d3d2" stroke-width="3.6" stroke-linecap="round"/><path d="M17 27C15 33 13 38 13 45M51 27c3 6 5 13 5 18" stroke="#f8c0b1" opacity=".65" stroke-width="2.1" stroke-linecap="round"/></svg></span>
-      <span class="spread-site-copy"><strong>Lungs</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
-    </button>
-    <button class="spread-site" type="button" data-site="liver" aria-label="Liver: a possible distant location for metastatic RCC in stage four">
-      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="liverFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3a789"/><stop offset=".48" stop-color="#bd6b68"/><stop offset="1" stop-color="#753651"/></linearGradient></defs><path d="M5 23C10 11 35 7 50 13c11 4 17 11 13 18-5 7-12 5-18 11-7 8-15 12-23 5C14 42 2 39 5 23Z" fill="url(#liverFill)" stroke="#f6b5a5" stroke-width="1.6"/><path d="M8 25C26 14 43 17 53 19" stroke="#f9c9ad" stroke-width="3" opacity=".55" stroke-linecap="round"/><path d="M44 20c-3 9-4 12-2 19" stroke="#6d344c" stroke-width="2" opacity=".5" stroke-linecap="round"/></svg></span>
-      <span class="spread-site-copy"><strong>Liver</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
-    </button>
-    <button class="spread-site" type="button" data-site="bones" aria-label="Bones: a possible distant location for metastatic RCC in stage four">
-      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="boneFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0d8"/><stop offset=".58" stop-color="#c9b29e"/><stop offset="1" stop-color="#8e8090"/></linearGradient></defs><path d="M15 8c-6 0-9 4-8 10 1 6 7 8 12 7l25 27c3 4 10 3 13-1 4-5 2-9-3-11L29 15C28 10 23 6 17 7Z" fill="url(#boneFill)" stroke="#e7d8ca" stroke-width="1.5"/><path d="M21 19l29 27" stroke="#fff4e5" stroke-width="3" opacity=".63" stroke-linecap="round"/><path d="M16 8c5 2 8 7 7 12" stroke="#938391" stroke-width="1.6" opacity=".65"/></svg></span>
-      <span class="spread-site-copy"><strong>Bones</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
-    </button>
-  </div>
-  <p class="spread-map-status" id="spreadMapStatus" aria-live="polite">No spread shown outside the kidney.</p>
-  <p class="spread-map-note">Possible locations, not a prediction or scale diagram.</p>
-</div>
-<div class="viewtools"><button class="iconbtn" id="rotBtn" title="Toggle automatic rotation">⟳ Auto</button><button class="iconbtn" id="resetBtn" title="Reset view">⌖ Reset</button><button class="iconbtn" id="zoomOut" title="Zoom out (up to 25% size)">−</button><button class="iconbtn" id="zoomIn" title="Zoom in">+</button></div><div class="viewhint">DRAG TO ROTATE &nbsp;·&nbsp; SCROLL TO ZOOM</div></div>
-<div class="panel stagecard"><div class="stageinner"><div class="stagecounter"><span class="micro">CLINICAL STAGING • SOURCE-BASED SUMMARY</span><span class="stagechip" id="chip">STAGE I</span></div><h2 id="stageTitle">Stage I</h2><div class="status" id="stageStatus">LOCALIZED / EARLY</div><p class="desc" id="stageDesc">The tumor is 7 cm or smaller and remains inside the kidney. It has not reached nearby lymph nodes or distant organs.</p><div class="detail"><small>WHAT CHANGES?</small><p id="stageChange">A small tumor forms within the kidney, with no spread outside it.</p></div><div class="detail"><small>WHY IT MATTERS</small><p id="stageImpact">Surgery may remove the tumor while preserving healthy kidney tissue.</p></div></div><div class="stagecontrols"><div class="sliderbar"><strong>Explore progression</strong><span id="rangeState">01 — 04</span></div><input class="range" type="range" id="stageSlider" min="1" max="4" value="1" step="1" aria-label="Select RCC stage"><div class="ticks"><button class="tick active" data-stage="1">STAGE 01</button><button class="tick" data-stage="2">STAGE 02</button><button class="tick" data-stage="3">STAGE 03</button><button class="tick" data-stage="4">STAGE 04</button></div></div></div></div>
-<div class="spread-explanation panel" id="spreadExplanation" aria-live="polite"><div><span class="micro">ANATOMY &amp; SPREAD • STAGE I</span><h3 id="spreadExplanationTitle">Tumor stays within the kidney</h3><p id="spreadExplanationText">The adrenal gland sits above the kidney, and nearby veins and lymph nodes are shown for orientation. At stage I, the cancer has not spread to these structures.</p></div><div class="spread-explanation-legend"><span><i class="legend-dot legend-neutral"></i> Anatomy shown for context</span><span><i class="legend-dot legend-active"></i> Example site affected</span></div></div>
-<div class="metrics"><div class="metric"><small>PRIMARY TUMOR</small><strong id="tumorMetric">≤ 7 cm</strong><p id="tumorSub">Diameter in stage I</p></div><div class="metric"><small>LOCATION / EXTENT</small><strong id="spreadMetric">In the kidney</strong><p id="spreadSub">No nearby or distant spread</p></div><div class="metric"><small>MODEL LEGEND</small><strong><span style="color:#e5919e">●</span> Kidney &nbsp; <span style="color:#ffcb80">●</span> Tumor</strong><p><span style="color:#8de5da">●</span> Examples of local and distant spread</p></div></div><div class="fineprint">IMPORTANT: This is a conceptual 3D illustration, not a diagnostic scan or a scale model. Tumor size and body anatomy in this animation are representative only. The highlighted sites are examples; not every patient has spread to all highlighted organs. Stage IV can also result from extensive local spread without distant metastasis. RCC stage depends on the tumor's extent and spread—not simply how large it looks. In particular, stage IV can occur without a very large primary tumor. <a href="https://www.cancer.org/cancer/types/kidney-cancer/detection-diagnosis-staging/staging.html" target="_blank" rel="noopener">Learn how staging works ↗</a></div></section>
 
-<section class="page" id="about">
-<header class="sectionhead"><div><div class="kicker">02 &nbsp; / &nbsp; MY RCC RESEARCH</div><h1>What is <span style="color:var(--cyan)">RCC?</span></h1></div><p>These explanations come from my STEM fair research paper, using my own words with small grammar and spelling fixes.</p></header>
+/* The organ explanation cards are below the viewer, not on top of the 3D organs. */
+#spreadMap.spread-map{position:relative;left:auto;right:auto;top:auto;bottom:auto;z-index:1;width:100%;max-width:none;margin:17px 0 0;padding:15px 19px 17px;box-shadow:none;border-radius:15px}
+#spreadMap .spread-sites{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+#spreadMap .spread-site{min-height:66px}
+#spreadMap .spread-map-heading{margin:4px 0 12px}
+#spreadMap .spread-map-status{margin:12px 0 3px}
+#spreadMap .spread-map-note{margin:0}
+@media(max-width:780px){#spreadMap .spread-sites{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:440px){#spreadMap.spread-map{padding:12px}#spreadMap .spread-site{min-height:63px}}
+
+/* RENAL 2.0 — cinematic editorial design system */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{
+  --bg:#050913;--panel:#0b1726;--panel2:#0f1d2b;--stroke:#2b4252;
+  --muted:#9eb4c3;--white:#f3f7f8;--cyan:#74f3d5;--cyan2:#45dbc0;
+  --gold:#f6bb85;--pink:#fa7d91;--sidebar:240px;
+  --violet:#a9a6ff;--display:'Space Grotesk',Manrope,system-ui,sans-serif;
+}
+html{scroll-behavior:smooth} body{background:#050913;color:var(--white);overflow-x:hidden}
+body:before{content:'';position:fixed;pointer-events:none;z-index:0;inset:0;background:
+ radial-gradient(ellipse 75% 60% at 76% 0%,#123d4552 0%,transparent 72%),
+ radial-gradient(ellipse 58% 56% at 12% 98%,#33234d4d 0%,transparent 75%),
+ linear-gradient(180deg,#050913 0%,#07101d 60%,#070b17 100%)}
+body:after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.26;background-image:
+ linear-gradient(#9dd2d10c 1px,transparent 1px),
+ linear-gradient(90deg,#9dd2d10c 1px,transparent 1px);
+ background-size:64px 64px;mask-image:linear-gradient(90deg,transparent 12%,black 64%,transparent 100%)}
+.app{position:relative;z-index:1}
+.read-progress{position:fixed;z-index:100;left:0;top:0;width:0;height:3px;background:linear-gradient(90deg,var(--cyan),#b29fff,var(--pink));box-shadow:0 0 16px #74f3d5a0;transition:width .1s}
+.side{background:linear-gradient(171deg,#0b1422eF,#070e1bef);border-right:1px solid #36536180;backdrop-filter:blur(22px);padding:35px 15px 23px}
+.logo{gap:12px;margin:0 14px 61px}
+.logo-symbol{background:linear-gradient(145deg,#b0fff0,#36d2b5);color:#031820;border:1px solid #e4fff4aa;transform:rotate(-7deg);box-shadow:0 0 36px #53ebcf55;border-radius:13px;width:40px;height:40px;font-size:22px}
+.logo strong{font:700 22px var(--display);letter-spacing:3px}
+.logo small{font-size:8px;letter-spacing:2.6px;color:#a0bfcb;margin-top:6px}
+.nav-caption{font-size:9px;color:#6e8799;letter-spacing:2.8px;padding:0 19px;margin-bottom:18px}
+.navbtn{position:relative;gap:14px;padding:16px 15px;border-radius:13px;margin-bottom:9px;color:#98b2c4;font:600 13px var(--display);letter-spacing:.25px;overflow:hidden}
+.navbtn svg{width:19px;height:19px;position:relative;z-index:1}
+.navbtn:after{margin-left:auto;font:600 10px var(--display);letter-spacing:1.1px;color:#698396}
+.navbtn[data-page="about"]:after{content:"01"}
+.navbtn[data-page="explore"]:after{content:"02"}
+.navbtn[data-page="treat"]:after{content:"03"}
+.navbtn[data-page="lab"]:after{content:"04"}
+.navbtn.active{color:#e4fff9;background:linear-gradient(105deg,#1b4c4b75,#142a397c);border:1px solid #6bf2d560;box-shadow:inset 3px 0 #74f3d5,0 12px 35px #00000018}
+.navbtn.active:after{color:#74f3d5}
+.navbtn:hover{background:#1b3644;color:#eefcfb}
+.sidebottom{border-top:1px solid #2d4554;padding:18px 13px}
+.sidebottom .live{color:#83efdb;font-size:9px;letter-spacing:2px}
+.sidebottom p{color:#849bac;font-size:11px}
+.pulse{background:#78f3d7;box-shadow:0 0 0 4px #8de5da15,0 0 12px #70efd2;animation:beacon 3s ease-in-out infinite}
+@keyframes beacon{50%{opacity:.52;transform:scale(.75)}}
+.main{max-width:1700px;padding:33px clamp(24px,3.4vw,61px) 75px}
+.topline{position:relative;color:#91aabc;letter-spacing:2px;font-size:10px;border-bottom:1px solid #31465680;padding-bottom:24px;margin-bottom:32px}
+.topline:after{content:'';height:1px;width:130px;position:absolute;bottom:-1px;left:0;background:linear-gradient(90deg,#71e9d5,transparent)}
+.topright{gap:21px}.topright>span:first-child{color:#b2c5d3}
+.pill{background:#12312f80;color:#90fff0;border-color:#42665f;border-radius:999px;box-shadow:inset 0 0 15px #72f5d50a}
+.page{display:none}.page.active{display:block;animation:pageReveal .55s cubic-bezier(.2,.8,.1,1) both}
+@keyframes pageReveal{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.kicker,.micro{color:var(--cyan);font-family:var(--display);letter-spacing:2.3px}
+.kicker{font-size:10px;margin-bottom:17px}
+.sectionhead{margin:27px 0 30px;align-items:end}
+.sectionhead h1,.hero h1{font:700 clamp(43px,5vw,79px)/1.04 var(--display);letter-spacing:-3.2px}
+.sectionhead p,.hero p{color:#a9c2d0;font-size:15px;line-height:1.8}
+.sectionhead p{max-width:475px}
+.hero{margin:35px 0 31px;align-items:end}
+.hero h1{max-width:1040px}
+.hero h1 em{background:linear-gradient(95deg,#80f3dc,#bca9fb);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-right{border-left-color:#52716a;font-size:11px;letter-spacing:.3px}
+.hero-right b{font:700 32px var(--display);color:#88fce4}
+.panel{background:linear-gradient(142deg,#111f30ec 0%,#0a1526f2 80%);border:1px solid #3850619e;border-radius:20px;box-shadow:0 20px 60px #00000019}
+.panel:not(.viewer){position:relative}
+.panel:not(.viewer):after{content:'';pointer-events:none;position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 1px #ffffff0b}
+a{color:#91f5df}a:hover{color:#c7fff4}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #aaffee;outline-offset:4px}
+/* Cover */
+.exhibit-hero{display:grid;grid-template-columns:1fr .91fr;min-height:510px;position:relative;overflow:hidden;border:1px solid #4164757a;border-radius:24px;background:
+ radial-gradient(ellipse at 86% 34%,#16485780,transparent 40%),
+ linear-gradient(116deg,#101a2b 4%,#0b192a 54%,#091722 100%);box-shadow:0 32px 105px #01061094,inset 0 1px #ffffff16}
+.exhibit-hero:before{content:'';position:absolute;z-index:1;left:-2px;bottom:0;width:43%;height:2px;background:linear-gradient(90deg,#79ffe0,transparent)}
+.exhibit-hero:after{content:'';pointer-events:none;position:absolute;inset:0;background:linear-gradient(90deg,transparent 45%,#59ffe309 50%,transparent 60%);mix-blend-mode:screen}
+.exhibit-copy{padding:54px 12px 24px clamp(30px,3.5vw,65px);position:relative;z-index:4}
+.eyebrow{display:flex;align-items:center;gap:10px;color:#abf4e6;font:700 10px var(--display);letter-spacing:2.3px}
+.eyebrow-line{display:inline-block;width:20px;height:1px;background:#9bfce7}
+.eyebrow-index{margin-left:15px;color:#7995a9}
+.exhibit-copy h1{font:700 clamp(54px,5.7vw,95px)/.98 var(--display);letter-spacing:-6px;margin:43px 0 22px;white-space:nowrap;color:#f4f8fa}
+.gradient-word{background:linear-gradient(110deg,#8bffe3 15%,#62dccb 53%,#bcaeff);background-clip:text;-webkit-background-clip:text;color:transparent}
+.soft-italic{font-style:italic;font-weight:500;font-family:Georgia,serif;letter-spacing:-5px;color:#fad4bd}
+.exhibit-copy>p{color:#c0d4dd;font-size:15px;line-height:1.85;max-width:490px;margin:0 0 28px}
+.exhibit-actions{display:flex;flex-wrap:wrap;gap:10px}
+.hero-cta{display:flex;justify-content:space-between;align-items:center;gap:18px;border:1px solid #aafde8;background:#89f6de;color:#082b2c;border-radius:11px;font:700 12px var(--display);padding:16px 18px;box-shadow:0 12px 32px #55ffe328;transition:.22s}
+.hero-cta span:last-child{font-size:20px;line-height:0;position:relative;top:-1px}
+.hero-cta:hover{transform:translateY(-3px);background:#bdfff1;box-shadow:0 16px 43px #55ffe34c}
+.hero-cta.secondary{background:#ffffff09;color:#e1f9f4;border-color:#69848e6b;box-shadow:none}
+.hero-cta.secondary:hover{background:#ffffff16;border-color:#a7d8d2}
+.hero-disclaimer{color:#9bb1c3;font-size:11px;line-height:1.5;margin-top:16px}
+.hero-disclaimer-dot{display:inline-block;background:#e5b385;width:6px;height:6px;border-radius:50%;margin-right:7px}
+.hero-disclaimer strong{color:#e6d4b7}
+.hero-statline{display:flex;gap:31px;margin-top:38px;padding-top:20px;border-top:1px solid #ffffff1f;width:max-content;max-width:100%}
+.hero-statline div{display:flex;flex-direction:column;gap:3px}
+.hero-statline b{font:700 26px var(--display);letter-spacing:-1.7px}
+.hero-statline span{font:700 8px var(--display);letter-spacing:1.5px;color:#9ab4c3}
+.exhibit-visual{position:relative;isolation:isolate;min-width:0;overflow:hidden}
+.visual-grid{position:absolute;inset:0;background-image:linear-gradient(#96f7ea0c 1px,transparent 1px),linear-gradient(90deg,#96f7ea0c 1px,transparent 1px);background-size:31px 31px;mask-image:radial-gradient(ellipse at 53% 54%,black 6%,transparent 75%)}
+.exhibit-visual:before{content:'';position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle at center,#66fbe81f,#456cf00a 49%,transparent 73%);filter:blur(10px)}
+.orbit{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid #70a4a53a;transform:translate(-50%,-50%) rotate(-27deg)}
+.orbit:after{content:'';position:absolute;width:6px;height:6px;border-radius:50%;background:#88fbe2;box-shadow:0 0 15px #76ffe4;left:14%;top:13%}
+.orbit-one{width:77%;aspect-ratio:1;border-color:#85f7d22b;animation:orbitSpin 27s linear infinite}
+.orbit-two{width:60%;aspect-ratio:1;border-style:dashed;animation:orbitSpin 38s linear reverse infinite}
+.orbit-three{width:96%;aspect-ratio:1;border-color:#9baaff19;animation:orbitSpin 48s linear infinite}
+@keyframes orbitSpin{to{transform:translate(-50%,-50%) rotate(333deg)}}
+.visual-core{position:absolute;inset:5% 10%;display:grid;place-items:center;filter:drop-shadow(3px 12px 40px #120c3099);animation:floatKidney 6s ease-in-out infinite}
+@keyframes floatKidney{50%{transform:translateY(-14px)}}
+.hero-kidney{height:95%;width:100%;max-height:465px;max-width:435px}
+.scan-horizontal{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,transparent 44%,#81ffdb10 50%,transparent 56%);background-size:100% 230%;animation:scanHero 9s linear infinite}
+@keyframes scanHero{to{background-position:0 220%}}
+.visual-annotation{position:absolute;color:#a0c8cb;z-index:4;font:700 9px var(--display);letter-spacing:1.5px}
+.annotation-top{top:26px;right:25px;text-align:right}
+.annotation-top small{display:block;margin-top:5px;font-size:8px;color:#819daa}
+.annotation-dash{display:inline-block;width:15px;height:1px;background:#83efcf;vertical-align:middle;margin-right:7px}
+.annotation-bottom{bottom:25px;right:25px;display:flex;gap:15px;align-items:center}
+.annotation-bottom strong{color:#b5fff0}
+.annotation-live{display:inline-block;background:#81edcf;width:6px;height:6px;border-radius:50%;box-shadow:0 0 9px #81edcf;margin-right:4px}
+.floating-panel{position:absolute;z-index:4;padding:14px 16px;border:1px solid #9af4e14a;border-radius:11px;background:#071c2cc7;backdrop-filter:blur(14px);box-shadow:0 14px 35px #0004;display:flex;flex-direction:column;gap:4px}
+.floating-panel small{font:700 8px var(--display);letter-spacing:1.5px;color:#89ebd6}
+.floating-panel strong{font:700 15px var(--display);letter-spacing:.3px;color:#f4fffc}
+.floating-panel span{font-size:10px;color:#a6bfca}
+.floating-left{left:3%;top:24%}
+.floating-right{right:3%;bottom:16%}
+.story-nav{margin:19px 0 49px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.story-nav button{cursor:pointer;position:relative;display:flex;align-items:center;gap:12px;text-align:left;padding:16px 15px;background:linear-gradient(130deg,#142537d9,#111c2bd9);border:1px solid #355062b7;border-radius:14px;color:#ebf5f5;transition:.22s;min-width:0}
+.story-nav button:hover{background:#193444;transform:translateY(-3px);border-color:#70e8d1}
+.story-icon{font:700 13px var(--display);display:grid;place-items:center;min-width:37px;width:37px;height:37px;border-radius:9px;background:#23554f76;border:1px solid #558e8496;color:#96f7e2}
+.story-nav small{font:700 9px var(--display);letter-spacing:1.4px;color:#88abbc;display:block;margin-bottom:3px}
+.story-nav strong{font:600 13px var(--display)}
+.story-arrow{font-size:14px;color:#9beeda;margin-left:auto}
+#about>.sectionhead{margin-top:20px}
+.researchgrid{gap:15px}
+.researchpanel{padding:30px 31px;overflow:hidden;transition:transform .28s,border-color .28s,box-shadow .28s}
+.researchpanel:hover{border-color:#64d9d09c;box-shadow:0 15px 45px #0004;transform:translateY(-3px)}
+.researchpanel:before{content:'';position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,#85f4dd,transparent 55%);opacity:.85}
+.researchpanel:nth-child(3n+2):before{background:linear-gradient(90deg,#d2adf5,transparent 60%)}
+.researchpanel:nth-child(3n):before{background:linear-gradient(90deg,#fac298,transparent 60%)}
+.researchpanel h2{font:700 22px var(--display);letter-spacing:-.7px;margin:17px 0}
+.researchpanel p{font-size:13px;color:#c2d3df;line-height:1.95}
+.researchpanel .micro{display:inline-flex;border:1px solid #345d5c;padding:7px 9px;background:#16333575;border-radius:7px;font-size:9px}
+.researchlead{font-size:15px;color:#bed0dc}
+.studentvoice{border-left:3px solid #73e6d8}
+.citestrip,.widecard{border-color:#355163;background:#0d1a2b}
+.citestrip{border-radius:16px;color:#a9bdcc;padding:24px 27px}
+/* Interactive stages */
+.workspace{grid-template-columns:minmax(0,1.25fr) minmax(335px,.75fr);gap:16px}
+.viewer{height:660px;background:radial-gradient(ellipse at 35% 48%,#2254669d,#102d3e 43%,#081625 76%,#060f1c 100%);border:1px solid #5a8c897f;box-shadow:inset 0 0 85px #0a1225,0 24px 80px #0006}
+.viewer:before{background-size:32px 32px}
+.viewer:after{box-shadow:inset 0 0 105px #0207109e}
+.viewhead{left:27px;top:26px}
+.viewhead span{color:#b4d7d5;font:700 9px var(--display);letter-spacing:2px}
+.viewhead strong{font:600 13px var(--display);letter-spacing:.1px}
+.viewstate strong{font:700 24px var(--display);color:#a8ffe5}
+.viewtools{background:#091724e8;padding:6px;border:1px solid #64978a5e;backdrop-filter:blur(14px);border-radius:12px;bottom:24px;left:25px}
+.iconbtn{background:transparent;border:1px solid transparent;border-radius:8px;color:#e5fff8;transition:.2s}
+.iconbtn:hover{background:#183c41;border-color:#68caba}
+.viewhint{bottom:35px}
+.viewer-crosshair{position:absolute;inset:13% 12%;border:1px solid #92f9ea12;border-radius:50%;pointer-events:none;z-index:1}
+.viewer-crosshair:before,.viewer-crosshair:after{content:'';position:absolute;left:50%;top:50%;background:#a4fff41a;transform:translate(-50%,-50%)}
+.viewer-crosshair:before{height:1px;width:100%}.viewer-crosshair:after{width:1px;height:100%}
+.viewer-marker{position:absolute;color:#89e6e18b;font-size:17px;font-family:monospace;pointer-events:none;z-index:2}
+.viewer-marker-1{top:36%;left:12%}.viewer-marker-2{right:13%;bottom:30%}
+.scan-line{pointer-events:none;position:absolute;inset:0;z-index:1;background:linear-gradient(0deg,transparent 48%,#8dfae006 50%,transparent 52%);background-size:100% 220%;animation:scanHero 10s linear infinite}
+.viewer-axis{position:absolute;z-index:3;pointer-events:none;right:24px;bottom:84px;color:#9ebdb5;font:700 9px var(--display);letter-spacing:1px}
+.stagecard{min-height:660px;background:linear-gradient(160deg,#142536,#0b1727)}
+.stageinner{padding:33px 30px}
+.stageinner h2{font:700 clamp(39px,3.8vw,60px)/1.05 var(--display);letter-spacing:-2.5px;margin:32px 0 16px}
+.stagechip{background:#1d514b90;color:#9af8e1;border-color:#67b5a2;font-family:var(--display)}
+.status{color:#f7c69f}
+.desc{color:#c6d7e2;font-size:13px;line-height:1.95;margin:26px 0}
+.detail{border-top-color:#3b5362}
+.detail small{color:#92adb9}
+.detail p{color:#d3e3e8;font-size:12px;line-height:1.85}
+.stagecontrols{background:#102133;padding:26px 29px 29px}
+.sliderbar strong{font-family:var(--display)}
+.range{background:linear-gradient(90deg,#80f2d6 0%,#80f2d6 var(--percent,0%),#416070 var(--percent,0%));height:5px}
+.range::-webkit-slider-thumb{background:#eafffa;border:5px solid #6ceccf}
+.tick{font:700 10px var(--display);letter-spacing:.5px;color:#9bb0c0}
+.tick.active{color:#9afde7}
+#spreadMap.spread-map{background:linear-gradient(140deg,#122436,#091928);border-color:#3e6070;padding:23px 25px;border-radius:19px;margin-top:18px}
+#spreadMap .spread-map-heading{font:700 21px var(--display);letter-spacing:-.5px;margin:10px 0 17px}
+#spreadMap .spread-sites{gap:13px}
+#spreadMap .spread-site{min-height:77px;padding:12px;background:#0d1d2bbf;border-radius:13px;border-color:#355467}
+#spreadMap .spread-site:hover{border-color:#8aeccf;background:#19403f}
+.spread-site-copy strong{font:700 12px var(--display)}
+.spread-site-copy small{letter-spacing:1px}
+.spread-map-eyebrow{font-family:var(--display)}
+.spread-map-status{color:#c0dedc}
+.spread-explanation{padding:26px 30px;margin-top:16px}
+.spread-explanation h3{font:700 22px var(--display)}
+.spread-explanation p{font-size:13px}
+.metrics{gap:15px;margin-top:18px}
+.metric{padding:24px;border:1px solid #3c5566;background:linear-gradient(140deg,#152434,#0b1729);border-radius:17px}
+.metric small{font-size:9px;color:#9bb6bf}
+.metric strong{font:700 25px var(--display);margin-top:13px;letter-spacing:-.8px}
+.metric p{font-size:11px;color:#a8bbc9}
+/* Treatments */
+.cards{gap:17px}
+.treatment{min-height:380px;padding:30px;overflow:hidden}
+.treatment:before{content:'';width:220px;height:220px;position:absolute;right:-118px;top:-110px;border:1px solid #70ddc841;border-radius:50%;box-shadow:0 0 0 26px #7af3d009,0 0 0 59px #7af3d00a;pointer-events:none}
+.treatment:nth-child(2):before{border-color:#b9a9fc5c;box-shadow:0 0 0 26px #9da0f408,0 0 0 60px #9da0f40c}
+.treatment:nth-child(3):before{border-color:#ffd1a45a;box-shadow:0 0 0 26px #e7a66d0a,0 0 0 60px #e7a66d08}
+.treatment:hover{border-color:#79d8c3;box-shadow:0 18px 64px #040a16af;transform:translateY(-6px)}
+.ticon{width:63px;height:63px;border-radius:16px;background:#285a5670;border:1px solid #6ccbb28e;box-shadow:0 0 35px #74f7da21;font-size:30px;margin-bottom:36px}
+.treatment:nth-child(2) .ticon{background:#463d6970;border-color:#a99fe6a4;color:#e0d7ff;box-shadow:0 0 36px #a99fe623}
+.treatment:nth-child(3) .ticon{background:#75513f60;border-color:#eab2868e;color:#fbd1ab;box-shadow:0 0 36px #f5b48b24}
+.treatment h2{font:700 28px var(--display);letter-spacing:-1px}
+.treatment small{color:#93b3c0}
+.treatment p{font-size:13px;color:#bfd1dc}
+.tagline{color:#9cf7df}
+.widecard h3{font:700 22px var(--display);letter-spacing:-.6px}
+.widecard p{font-size:13px}
+/* Knowledge Lab */
+#lab .sectionhead{margin-bottom:32px}
+.quizpanel{max-width:860px;padding:35px 39px;border-color:#4d6872}
+.quizpanel:before{content:'';position:absolute;left:0;right:0;top:0;height:3px;border-radius:20px 20px 0 0;background:linear-gradient(90deg,#84f3d8,#ada9fa,#f4b493)}
+.quizpanel h2{font:700 28px var(--display);letter-spacing:-.7px}
+.quizintro{font-size:13px;color:#c1d3dc;line-height:1.85}
+.quiz-meter{max-width:790px;display:flex;flex-direction:column;gap:13px;margin:28px 0 18px}
+.quiz-meter>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.meter-cap{font:700 9px var(--display);letter-spacing:1.7px;color:#7debd2}
+#quizMeterLabel{font:700 11px var(--display);color:#c9d7dd}
+.quiz-meter-track{width:100%;height:5px;border-radius:10px;background:#324654;overflow:hidden}
+.quiz-meter-fill{height:100%;width:0;background:linear-gradient(90deg,#60e9cd,#a99cf6);border-radius:10px;transition:width .25s}
+.identitybox{background:linear-gradient(120deg,#142d3b,#111d30);border-color:#4c6878;border-radius:15px;padding:25px}
+.identitymark{background:#1b4f4f;color:#a6fce7}
+.identitybox input[type=text],.identitybox select{border-color:#456577;border-radius:10px}
+.qitem{padding:25px 0;border-color:#30495a}
+.qitem p{font:600 14px/1.65 var(--display);margin-bottom:15px}
+.options{gap:10px}
+.option{border:1px solid #3a5668;color:#c6dbe3;border-radius:10px;padding:15px 16px;font:500 12px var(--display);background:#112233;transition:background .2s,transform .2s,border-color .2s}
+.option:hover{background:#193649;transform:translateY(-2px);border-color:#73baba}
+.option.selected{background:#1a4a46;border:1px solid #8cfde7;color:#d0fff3;box-shadow:0 0 18px #72efd515}
+.open-answer-input{border-color:#466b76;border-radius:11px;padding:16px}
+.primary{font:700 12px var(--display);background:linear-gradient(105deg,#90ffe8,#75e3d1);padding:16px 25px;border-radius:10px;box-shadow:0 9px 30px #79f7da22}
+.primary:hover{background:#bcfff0}
+.quizscore.show{background:#0e3938;border-color:#63bcb0;border-radius:13px}
+.scoretile{background:#103634}
+.footer{font-size:11px;color:#9ab0bf;border-color:#315263;padding-top:26px}
+.footer a{color:#adf7e9}
+@media(max-width:1440px){
+ .exhibit-copy{padding:43px 10px 25px 34px}
+ .exhibit-copy h1{font-size:clamp(48px,5.4vw,76px);letter-spacing:-4.8px}
+ .story-nav{gap:9px}.story-nav button{padding:14px 10px;gap:9px}
+ .story-icon{width:33px;min-width:33px;height:33px}
+ .floating-left{left:1%}.floating-right{right:1%}
+}
+@media(max-width:1160px){
+ .exhibit-hero{grid-template-columns:1fr .84fr;min-height:490px}
+ .floating-panel{padding:10px 12px}.floating-panel strong{font-size:12px}
+ .viewer{height:640px}
+ .stagecard{min-height:0}
+}
+@media(max-width:900px){
+ .exhibit-hero{grid-template-columns:1fr;min-height:0}
+ .exhibit-copy{padding:41px 35px 28px}
+ .exhibit-copy h1{font-size:clamp(52px,8vw,78px)}
+ .exhibit-visual{height:380px}
+ .visual-core{inset:0 18%}.hero-kidney{height:105%}
+ .floating-left{left:18%;top:20%}.floating-right{right:15%;bottom:15%}
+ .story-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .researchgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:780px){
+ .side{position:relative;min-height:unset;height:auto;flex-direction:column;padding:15px 16px 14px;border-right:0;border-bottom:1px solid #365061}
+ .logo{margin:0 0 15px;gap:11px}.logo-symbol{width:34px;height:34px;font-size:19px}.logo strong{font-size:19px}
+ .navlinks{display:flex;gap:7px;overflow-x:auto;width:100%;scrollbar-width:none}
+ .navlinks::-webkit-scrollbar{display:none}
+ .nav-caption{display:none}
+ .navbtn{margin:0;white-space:nowrap;min-width:auto;width:auto;flex:1;justify-content:center;gap:7px;padding:11px 10px;font-size:11px}
+ .navbtn svg{width:15px;height:15px}
+ .navbtn:after{display:none}
+ .sidebottom{display:none}
+ .main{padding:21px 17px 48px}
+ .topline{font-size:9px;line-height:1.7;margin-bottom:22px;padding-bottom:15px}
+ .topright{gap:7px}.topright>span:first-child{display:none}
+ .pill{padding:6px 9px;font-size:9px}
+ .sectionhead h1,.hero h1{font-size:clamp(40px,7vw,61px);letter-spacing:-2.4px}
+ .sectionhead{margin:26px 0;align-items:flex-start}
+ .exhibit-visual{height:350px}
+ .researchgrid{grid-template-columns:1fr}
+ .researchpanel{padding:23px}
+ .viewer{height:575px!important;min-height:575px!important}
+ .viewer canvas{position:relative;top:auto;left:auto;height:100%;width:100%}
+ .viewtools{top:auto;bottom:16px;left:13px}
+ .viewhint{bottom:70px;top:auto;right:15px}
+ .viewer-axis{display:none}
+ .viewhead{left:19px;top:21px}.viewstate{right:19px;top:22px}
+ .viewstate strong{font-size:20px}
+ .workspace{grid-template-columns:1fr}
+ .stagecard{min-height:0}
+ #spreadMap.spread-map{padding:18px}
+ .quizpanel{padding:26px 23px}
+}
+@media(max-width:520px){
+ .exhibit-copy{padding:32px 22px 22px}
+ .eyebrow{font-size:8px;letter-spacing:1.1px;gap:5px}.eyebrow-index{display:none}
+ .exhibit-copy h1{font-size:clamp(44px,12vw,61px);letter-spacing:-3.6px;margin-top:30px;white-space:normal}
+ .soft-italic{letter-spacing:-2px}
+ .exhibit-copy>p{font-size:13px}
+ .hero-cta{flex:1 1 100%;padding:14px 15px}
+ .hero-statline{width:100%;gap:14px;justify-content:space-between}.hero-statline b{font-size:24px}
+ .hero-statline span{font-size:7px;letter-spacing:.5px}
+ .exhibit-visual{height:315px}
+ .floating-panel{padding:8px 9px}.floating-panel small{font-size:7px}.floating-panel strong{font-size:10px}.floating-panel span{font-size:8px}
+ .floating-left{left:2%;top:21%}.floating-right{right:3%;bottom:12%}
+ .annotation-top{right:12px;top:15px}.annotation-bottom{right:12px;bottom:16px}
+ .story-nav{gap:8px}.story-nav button{padding:12px 9px;gap:8px}
+ .story-icon{width:28px;min-width:28px;height:28px;font-size:11px}
+ .story-nav small{font-size:8px;letter-spacing:.6px}.story-nav strong{font-size:11px}
+ .story-arrow{font-size:12px}
+ .hero-right{display:none}
+ .viewer{height:470px!important;min-height:470px!important}
+ .viewtools{bottom:10px}
+ .viewhint{display:none}
+ .stageinner{padding:25px 22px}.stagecontrols{padding:21px 22px}
+ .viewstate small{font-size:9px}
+ .metric{padding:17px}.metric strong{font-size:21px}
+ #spreadMap .spread-sites{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #spreadMap .spread-site{padding:9px;min-height:76px}
+ .quizpanel{padding:22px 17px}
+ .quizpanel h2{font-size:22px}
+ .options{grid-template-columns:1fr}
+ .footer{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+@media(max-width:780px){
+  /* Restore text labels: the original mobile stylesheet hides them. */
+  .navlinks .navbtn{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    place-items:initial;
+    font-size:11px;
+    white-space:nowrap;
+    height:43px;
+    min-height:43px;
+    width:auto;
+    flex:1 1 0;
+    padding:9px 5px;
+    line-height:1.1;
+    gap:5px;
+  }
+  .navlinks .navbtn svg{width:15px;height:15px;flex:0 0 15px}
+}
+@media(max-width:390px){
+  .navlinks .navbtn{font-size:10px;gap:4px}
+}
+
+/* RENAL 2.1: full-screen completion celebration */
+.finish-overlay[hidden]{display:none!important}
+.finish-lock{overflow:hidden}
+.finish-overlay{position:fixed;inset:0;z-index:250;display:grid;place-items:center;isolation:isolate;overflow-y:auto;overscroll-behavior:contain;padding:24px 16px;background:rgba(3,8,20,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.finish-overlay::before{content:'';pointer-events:none;position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 45% 48% at 48% 36%,#58ffe226,transparent 77%),radial-gradient(ellipse 55% 52% at 80% 82%,#b77aff32,transparent 75%),radial-gradient(ellipse 50% 42% at 8% 13%,#17bbdb23,transparent 75%);animation:finishAurora 6s ease-in-out infinite alternate}
+.finish-overlay::after{content:'';pointer-events:none;position:fixed;inset:0;z-index:-1;background-image:linear-gradient(#7bf6d60a 1px,transparent 1px),linear-gradient(90deg,#7bf6d60a 1px,transparent 1px);background-size:46px 46px;mask-image:radial-gradient(ellipse 75% 80% at center,#000 10%,transparent 100%)}
+@keyframes finishAurora{from{opacity:.55;transform:scale(1)}to{opacity:1;transform:scale(1.13)}}
+.finish-card{width:min(100%,710px);position:relative;z-index:2;text-align:center;border-radius:30px;padding:48px 48px 35px;background:linear-gradient(140deg,#122437f2,#0b1629f7 60%,#141328f4);border:1px solid #88fbe476;box-shadow:0 0 0 1px #8cffe018,0 35px 110px #0009,inset 0 2px #f5fffd14;overflow:hidden;animation:finishArrival .85s cubic-bezier(.16,1,.3,1) both}
+.finish-card::before{content:'';pointer-events:none;position:absolute;inset:-3px;background:conic-gradient(from 0deg at 50% 20%,transparent 0deg,#7bfce125 95deg,transparent 130deg,#bd9dfe25 230deg,transparent 300deg);mask-image:radial-gradient(ellipse 57% 75% at 50% 28%,#000 2%,transparent 75%);animation:finishRotate 13s linear infinite}
+.finish-card>*{position:relative;z-index:1}
+@keyframes finishArrival{from{opacity:0;transform:translateY(35px) scale(.91);filter:blur(10px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes finishRotate{to{transform:rotate(360deg)}}
+.finish-close{position:absolute;right:20px;top:18px;z-index:4;width:36px;height:36px;display:grid;place-items:center;border:1px solid #65849470;border-radius:10px;background:#102333;color:#cfe9e8;font-size:23px;line-height:1;cursor:pointer;transition:.2s}
+.finish-close:hover{background:#1a3d44;border-color:#9cfce1;color:#fff}
+.finish-emblem{position:relative;width:120px;height:120px;margin:0 auto 24px;display:grid;place-items:center;filter:drop-shadow(0 0 24px #5ffcdf61)}
+.finish-emblem:before,.finish-emblem:after{content:'';position:absolute;inset:2px;border:2px solid #73ffe19c;border-radius:50%;box-shadow:inset 0 0 22px #84ffe21c,0 0 34px #7ffcdf23;animation:finishEmblem 2s ease-out both}
+.finish-emblem:after{inset:-11px;border:1px dashed #b4acfd80;animation:finishOrbit 13s linear infinite}
+.finish-emblem svg{width:80px;height:80px;overflow:visible;filter:drop-shadow(0 4px 15px #71ffd685)}
+.finish-emblem .finish-check{stroke-dasharray:100;stroke-dashoffset:100;animation:finishDraw .72s .65s ease-out forwards}
+@keyframes finishEmblem{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+@keyframes finishDraw{to{stroke-dashoffset:0}}
+@keyframes finishOrbit{to{transform:rotate(360deg)}}
+.finish-badge{display:inline-flex;align-items:center;gap:9px;padding:10px 15px;border:1px solid #77ecdc64;border-radius:999px;background:#17453e8a;color:#aaffea;font:700 10px var(--display);letter-spacing:1.4px}
+.finish-badge .finish-dot{width:7px;height:7px;background:#9affe8;border-radius:50%;box-shadow:0 0 15px #aaffd6}
+.finish-badge strong{color:#fff;font-weight:700}
+.finish-eyebrow{margin:26px 0 16px;color:#95aebf;font:700 11px var(--display);letter-spacing:4px}
+.finish-title{margin:0;line-height:1.06;font-family:var(--display);letter-spacing:-2px}
+.finish-title .finish-big{display:block;color:#ecfff8;font-size:clamp(49px,7.1vw,92px);font-weight:800;letter-spacing:-4px;text-shadow:0 0 50px #73ffe43b;animation:finishTitle .7s .35s both}
+.finish-title .finish-mid{display:block;color:#d5e4ed;font-size:clamp(19px,2.9vw,31px);font-weight:700;letter-spacing:1px;margin:17px 0 7px;animation:finishTitle .7s .55s both}
+.finish-title .finish-final{display:block;font-style:normal;font-size:clamp(50px,8vw,100px);font-weight:800;letter-spacing:-4px;color:transparent;background:linear-gradient(95deg,#94ffe4 13%,#83cbe7 52%,#d4a8ff 94%);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 7px 27px #a78df43d);animation:finishTitle .85s .68s both}
+@keyframes finishTitle{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.finish-thanks{font:700 clamp(21px,3.8vw,32px) var(--display);letter-spacing:-.6px;color:#f8d0b4;margin:25px 0 9px;animation:finishTitle .75s 1s both}
+.finish-subtitle{max-width:490px;margin:0 auto 17px;color:#b3c9d4;font-size:13px;line-height:1.8;animation:finishTitle .75s 1.08s both}
+.finish-name{font:600 13px var(--display);color:#93f9e0;margin-bottom:20px;min-height:18px}
+.finish-stats{border-top:1px solid #6a9da147;border-bottom:1px solid #6a9da147;padding:15px 5px;margin:21px 0 24px;display:flex;align-items:center;justify-content:center;gap:28px;color:#c1dae3;font:600 11px var(--display)}
+.finish-stats span{display:inline-flex;align-items:center;gap:9px}
+.finish-stats b{color:#94ffe5;font-size:17px}
+.finish-cta{width:min(100%,365px);min-height:55px;display:inline-flex;justify-content:center;align-items:center;gap:17px;background:linear-gradient(110deg,#a4ffe9,#74eccc);border:1px solid #dcfff0;border-radius:12px;box-shadow:0 12px 35px #69f5c33c;color:#073031;font:800 14px var(--display);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.finish-cta span:last-child{font-size:21px}.finish-cta:hover{transform:translateY(-3px);box-shadow:0 17px 45px #85ffd354}
+.finish-saving{max-width:500px;margin:16px auto 0;font-size:11px;line-height:1.6;color:#adc9d1}
+.finish-saving[data-kind=success]{color:#a8fbe0}.finish-saving[data-kind=warning]{color:#ffd0a5}
+.finish-confetti{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.finish-piece{position:absolute;left:50%;top:45%;opacity:0;width:var(--sz);height:calc(var(--sz) * 1.7);border-radius:2px;background:hsl(var(--hue) 90% 72%);box-shadow:0 0 12px hsl(var(--hue) 100% 70% / .50);animation:finishBurst var(--dur) var(--delay) cubic-bezier(.15,.85,.25,1) both;transform-origin:center}
+.finish-piece:nth-child(4n){border-radius:50%;height:var(--sz)}
+@keyframes finishBurst{0%{opacity:0;transform:translate3d(0,0,0) rotate(0deg) scale(.25)}12%{opacity:1}65%{opacity:1}100%{opacity:0;transform:translate3d(var(--fx),var(--fy),0) rotate(var(--fr)) scale(.65)}}
+.finish-sheen{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.50;background:radial-gradient(circle at 11% 21%,#dcffed27 0 2px,transparent 3px),radial-gradient(circle at 82% 20%,#dcaeffa3 0 2px,transparent 4px),radial-gradient(circle at 83% 72%,#9dfce8a3 0 2px,transparent 5px),radial-gradient(circle at 21% 81%,#d6fdf27a 0 2px,transparent 3px);animation:finishSparkle 2.6s ease-in-out infinite alternate}
+@keyframes finishSparkle{to{opacity:1;filter:brightness(1.6)}}
+@media(max-width:600px){.finish-overlay{padding:13px 9px;align-items:center}.finish-card{padding:38px 18px 28px;border-radius:22px}.finish-emblem{width:92px;height:92px;margin-bottom:18px}.finish-emblem svg{width:61px;height:61px}.finish-eyebrow{margin:22px 0 14px;font-size:9px;letter-spacing:2.5px}.finish-title .finish-big{font-size:clamp(41px,11vw,62px);letter-spacing:-2px}.finish-title .finish-mid{font-size:clamp(16px,4.5vw,22px);letter-spacing:0;margin-top:12px}.finish-title .finish-final{font-size:clamp(47px,12vw,66px);letter-spacing:-2px}.finish-thanks{font-size:23px;margin-top:20px}.finish-subtitle{font-size:12px}.finish-stats{gap:13px;font-size:10px;margin-top:14px}.finish-stats b{font-size:14px}.finish-close{top:12px;right:12px}}
+@media(max-height:760px){.finish-overlay{align-items:start}.finish-card{margin:auto;padding-top:24px;padding-bottom:22px}.finish-emblem{width:75px;height:75px;margin-bottom:9px}.finish-emblem svg{width:56px;height:56px}.finish-eyebrow{margin:15px 0 10px}.finish-thanks{margin-top:14px}.finish-subtitle{margin-bottom:8px}.finish-stats{margin:10px 0 13px;padding:9px}}
+@media(prefers-reduced-motion:reduce){.finish-overlay *, .finish-overlay *::before,.finish-overlay *::after{animation:none!important;transition:none!important}.finish-piece{display:none!important}.finish-emblem .finish-check{stroke-dashoffset:0}}
+</style></head><body><div class="read-progress" id="readProgress" aria-hidden="true"></div><div class="app"><aside class="side"><div class="logo"><div class="logo-symbol">R</div><div><strong>RENAL</strong><small>THE RCC ATLAS</small></div></div><div class="navlinks"><div class="nav-caption">EXPLORATION</div><button class="navbtn active" data-page="about" aria-label="About RCC and student research"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 4.5C7.5 3.6 10 4 12 5.6 14 4 16.5 3.6 19 4.5V20c-2.5-.9-5-.5-7 1-2-1.5-4.5-1.9-7-1z"/><path d="M12 5.6V21"/></svg>About RCC</button><button class="navbtn" data-page="explore" aria-label="Explore stages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a17 17 0 0 1 0 18M12 3a17 17 0 0 0 0 18"/></svg>Stages</button><button class="navbtn" data-page="treat" aria-label="Treatments"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3 8 4v5c0 5-3 8-8 9-5-1-8-4-8-9V7l8-4Z"/><path d="m9 12 2 2 4-4"/></svg>Treatments</button><button class="navbtn" data-page="lab" aria-label="Learning lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 3h6M10 3v6l-6 9a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-9V3"/><path d="M8 15h8"/></svg>Quiz</button></div><div class="sidebottom"><div class="live"><span class="pulse"></span>INTERACTIVE EXPERIENCE</div><p>Renal cell carcinoma<br>STEM Fair • Education project</p></div></aside>
+<main class="main"><div class="topline"><span class="topline-title">INTERACTIVE ONCOLOGY ATLAS &nbsp; / &nbsp; RENAL CELL CARCINOMA</span><div class="topright"><span>SCIENCE, MADE VISIBLE</span><span class="pill"><span class="pulse"></span>LIVE EXPLORER</span></div></div>
+<section class="page active" id="about">
+<div class="exhibit-hero" aria-label="RENAL science atlas introduction">
+  <div class="exhibit-copy">
+    <div class="eyebrow"><span class="eyebrow-line"></span> AN INTERACTIVE SCIENCE EXHIBIT <span class="eyebrow-index">VOL. 01 / RCC</span></div>
+    <h1>Look <span class="gradient-word">closer.</span><br>Learn <span class="soft-italic">deeper.</span></h1>
+    <p>Discover how kidney cancer starts, how it can spread, and what doctors can do to treat it — through research, interactive anatomy, and a real learning experiment.</p>
+    <div class="exhibit-actions">
+      <button class="hero-cta" type="button" data-goto="lab"><span>Take the before quiz</span><span aria-hidden="true">↗</span></button>
+      <button class="hero-cta secondary" type="button" data-goto="explore"><span>Explore the 3D model</span><span aria-hidden="true">↗</span></button>
+    </div>
+    <div class="hero-disclaimer"><span class="hero-disclaimer-dot"></span> For a fair experiment, take the before quiz <strong>before</strong> reading the research.</div>
+    <div class="hero-statline">
+      <div><b>04</b><span>STAGES</span></div><div><b>03</b><span>TREATMENT APPROACHES</span></div><div><b>10</b><span>QUIZ QUESTIONS</span></div>
+    </div>
+  </div>
+  <div class="exhibit-visual" aria-hidden="true">
+    <div class="visual-grid"></div>
+    <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
+    <div class="visual-core">
+      <svg viewBox="0 0 420 480" class="hero-kidney" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="coverKidney" x1="102" y1="80" x2="338" y2="401" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#F7B8A5"/><stop offset=".23" stop-color="#BC697E"/>
+            <stop offset=".66" stop-color="#712D58"/><stop offset="1" stop-color="#3B1D49"/>
+          </linearGradient>
+          <radialGradient id="coverLight"><stop stop-color="#FFD8C4" stop-opacity=".9"/><stop offset="1" stop-color="#FFD8C4" stop-opacity="0"/></radialGradient>
+          <radialGradient id="coverTumor"><stop stop-color="#F3BA94"/><stop offset=".42" stop-color="#D27671"/><stop offset="1" stop-color="#6B2846"/></radialGradient>
+          <filter id="coverBlur"><feGaussianBlur stdDeviation="15"/></filter>
+        </defs>
+        <path d="M246 38C139 25 90 122 89 248c-1 111 58 197 148 191 77-5 118-66 115-121-3-39-23-58-56-66-26-6-45-21-44-46 0-27 26-39 56-37 22 2 38-7 41-35 6-50-29-86-103-96Z"
+          fill="url(#coverKidney)" stroke="#F5B3AC" stroke-width="3.5"/>
+        <path d="M246 38C139 25 90 122 89 248c-1 111 58 197 148 191 77-5 118-66 115-121-3-39-23-58-56-66-26-6-45-21-44-46 0-27 26-39 56-37 22 2 38-7 41-35 6-50-29-86-103-96Z"
+          fill="url(#coverLight)" opacity=".55"/>
+        <path d="M168 62C129 96 115 157 116 218M134 301c15 61 47 99 89 106" stroke="#FFD4C8" stroke-width="9" stroke-linecap="round" opacity=".25"/>
+        <path d="M259 207c32-21 59-17 92 11 24 20 42 44 51 55" stroke="#DE7591" stroke-width="14" stroke-linecap="round" opacity=".8"/>
+        <path d="M260 228c34 3 65 18 95 48" stroke="#5BBAE9" stroke-width="10" stroke-linecap="round" opacity=".9"/>
+        <path d="M260 245c28 24 40 53 41 93" stroke="#E2C0A7" stroke-width="8" stroke-linecap="round" opacity=".85"/>
+        <path d="M242 102c22-9 53-1 65 20 14 23 7 54-16 66-24 12-57 4-68-20-14-28-6-54 19-66Z" fill="url(#coverTumor)" stroke="#FFD0B9" stroke-width="2.5"/>
+        <path d="M247 120c14-9 24-7 35 0M237 142c17-8 32-5 43 8" stroke="#FFD6BE" stroke-width="4" opacity=".55" stroke-linecap="round"/>
+        <ellipse cx="272" cy="148" rx="84" ry="82" fill="#FF9E94" opacity=".18" filter="url(#coverBlur)"/>
+        <path d="M303 99l47-32h46" stroke="#FFD9BE" stroke-opacity=".9" stroke-width="1.6" stroke-dasharray="4 5"/>
+        <circle cx="303" cy="99" r="4" fill="#FFD9BE"/>
+        <circle cx="395" cy="67" r="3" fill="#FFD9BE"/>
+      </svg>
+    </div>
+    <div class="scan-horizontal"></div>
+    <div class="visual-annotation annotation-top"><span class="annotation-dash"></span> RENAL ANATOMY <small>REFERENCE / INTERACTIVE ATLAS</small></div>
+    <div class="visual-annotation annotation-bottom">SYSTEM STATUS <strong><span class="annotation-live"></span> ONLINE</strong></div>
+    <div class="floating-panel floating-left"><small>01 / ORIGIN</small><strong>THE KIDNEY</strong><span>Where RCC begins</span></div>
+    <div class="floating-panel floating-right"><small>02 / PROGRESSION</small><strong>4 STAGES</strong><span>Visualize the change</span></div>
+  </div>
+</div>
+<div class="story-nav" aria-label="Explore the site">
+  <button type="button" data-goto="about"><span class="story-icon">01</span><span><small>DISCOVER</small><strong>What is RCC?</strong></span><span class="story-arrow">↗</span></button>
+  <button type="button" data-goto="explore"><span class="story-icon">02</span><span><small>VISUALIZE</small><strong>Stages I–IV</strong></span><span class="story-arrow">↗</span></button>
+  <button type="button" data-goto="treat"><span class="story-icon">03</span><span><small>UNDERSTAND</small><strong>Treatments</strong></span><span class="story-arrow">↗</span></button>
+  <button type="button" data-goto="lab"><span class="story-icon">04</span><span><small>TEST</small><strong>Knowledge lab</strong></span><span class="story-arrow">↗</span></button>
+</div>
+<header class="sectionhead"><div><div class="kicker">01 &nbsp; / &nbsp; MY RCC RESEARCH</div><h1>What is <span style="color:var(--cyan)">RCC?</span></h1></div><p>These explanations come from my STEM fair research paper, using my own words with small grammar and spelling fixes.</p></header>
 <div class="researchgrid">
 <article class="panel researchpanel"><span class="micro">01 / THE KIDNEY</span><h2>What is RCC?</h2>
 <p>RCC is a cancer that starts in the kidney. It usually starts in the renal tubules that process filtered fluid and extra water to form urine. The cancer cells multiply uncontrollably in that area and can make it harder for the renal tubules to function properly.</p>
@@ -156,6 +593,38 @@
 </div>
 <div class="citestrip"><strong>Research sources</strong><br>[1] <a href="https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq" target="_blank" rel="noopener">National Cancer Institute — Renal Cell Cancer Treatment</a> &nbsp; [2] <a href="https://www.cancer.org/cancer/types/kidney-cancer.html" target="_blank" rel="noopener">American Cancer Society — Kidney Cancer</a> &nbsp; [3] <a href="https://www.cancer.org/cancer/types/kidney-cancer/detection-diagnosis-staging/signs-and-symptoms.html" target="_blank" rel="noopener">ACS — Signs and Symptoms</a> &nbsp; [4] <a href="https://irp.nih.gov/our-research/research-in-action/the-long-road-to-understanding-kidney-cancer" target="_blank" rel="noopener">NIH — History of Kidney Cancer Research</a></div>
 </section>
+<section class="page" id="explore"><header class="hero"><div><div class="kicker">02 &nbsp; / &nbsp; STAGES OF RCC</div><h1>Inside the <em>progression</em><br>of kidney cancer.</h1><p>RCC is a cancer that starts in the kidney. I designed this interactive website to help people better understand how RCC develops, how it affects the body, and what treatments doctors use.</p></div><div class="hero-right">INTERACTIVE MODEL<b>04</b>Stages of RCC<br>One visual experience</div></header>
+<div class="workspace"><div class="panel viewer"><div class="viewhead"><span>ANATOMICAL 3D VISUALIZATION</span><strong>Kidney / Renal cell carcinoma</strong></div><div class="viewstate"><small>VIEWING</small><strong id="viewStage">I / IV</strong></div><div class="viewer-crosshair" aria-hidden="true"></div><span class="viewer-marker viewer-marker-1" aria-hidden="true">+</span><span class="viewer-marker viewer-marker-2" aria-hidden="true">+</span><div class="scan-line" aria-hidden="true"></div><div class="viewer-axis" aria-hidden="true">X · Y · Z &nbsp; / &nbsp; REAL-TIME VIEW</div><canvas id="kidney" role="img" aria-label="Rotatable three-dimensional kidney model with a highlighted tumor and connected three-dimensional body organs showing where renal cell carcinoma can spread"></canvas>
+
+<div class="viewtools"><button class="iconbtn" id="rotBtn" title="Toggle automatic rotation">⟳ Auto</button><button class="iconbtn" id="resetBtn" title="Reset view">⌖ Reset</button><button class="iconbtn" id="zoomOut" title="Zoom out (up to 25% size)">−</button><button class="iconbtn" id="zoomIn" title="Zoom in">+</button></div><div class="viewhint">DRAG TO ROTATE &nbsp;·&nbsp; SCROLL TO ZOOM</div></div>
+<div class="panel stagecard"><div class="stageinner"><div class="stagecounter"><span class="micro">CLINICAL STAGING • SOURCE-BASED SUMMARY</span><span class="stagechip" id="chip">STAGE I</span></div><h2 id="stageTitle">Stage I</h2><div class="status" id="stageStatus">SMALL TUMOR / STILL IN THE KIDNEY</div><p class="desc" id="stageDesc">In stage I, the tumor is 7 cm or smaller. Cancer cells have formed a tumor inside the kidney, but the cancer has not spread to nearby lymph nodes or other organs.</p><div class="detail"><small>WHAT CHANGES?</small><p id="stageChange">The tumor is still inside the kidney. The cancer has not reached nearby lymph nodes or any distant organs.</p></div><div class="detail"><small>WHY IT MATTERS</small><p id="stageImpact">Doctors can often use surgery to remove the tumor. In some cases, they can keep part of the healthy kidney.</p></div></div><div class="stagecontrols"><div class="sliderbar"><strong>Explore progression</strong><span id="rangeState">I — IV</span></div><input class="range" type="range" id="stageSlider" min="1" max="4" value="1" step="1" aria-label="Select RCC stage"><div class="ticks"><button class="tick active" data-stage="1">STAGE I</button><button class="tick" data-stage="2">STAGE II</button><button class="tick" data-stage="3">STAGE III</button><button class="tick" data-stage="4">STAGE IV</button></div></div></div></div>
+<div class="spread-map" id="spreadMap" data-stage="1" aria-label="Possible locations kidney cancer can affect">
+  <div class="spread-map-eyebrow"><span class="spread-signal"></span> BODY CONTEXT</div>
+  <div class="spread-map-heading">Where RCC can spread</div>
+  <div class="spread-sites">
+    <button class="spread-site" type="button" data-site="nodes" aria-label="Nearby lymph nodes: local spread may occur in stage three">
+      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><path d="M34 1V59" stroke="#7795a8" stroke-width="3" stroke-linecap="round" opacity=".75"/><path d="M34 13C24 16 17 16 12 26M34 25C44 27 48 28 54 38M34 40C24 40 20 44 17 53" stroke="#607f91" stroke-width="2.5" stroke-linecap="round"/><g fill="url(#lymphFill)" stroke="#d6eacb" stroke-width="1.4"><ellipse cx="12" cy="27" rx="7" ry="9" transform="rotate(15 12 27)"/><ellipse cx="54" cy="38" rx="7" ry="8" transform="rotate(-22 54 38)"/><ellipse cx="17" cy="51" rx="6" ry="8" transform="rotate(18 17 51)"/><ellipse cx="33" cy="13" rx="6" ry="7"/></g><defs><radialGradient id="lymphFill"><stop stop-color="#a7c4b4"/><stop offset="1" stop-color="#547d7f"/></radialGradient></defs></svg></span>
+      <span class="spread-site-copy"><strong>Nearby nodes</strong><small>LOCAL • STAGE III</small></span><span class="site-status" aria-hidden="true"></span>
+    </button>
+    <button class="spread-site" type="button" data-site="lungs" aria-label="Lungs: a possible distant location for metastatic RCC in stage four">
+      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="lungFill" x1=".1" y1="0" x2=".95" y2="1"><stop stop-color="#e9a4a2"/><stop offset=".55" stop-color="#ae637a"/><stop offset="1" stop-color="#773e60"/></linearGradient></defs><path d="M31 19C26 12 24 13 18 18 12 23 7 38 8 49c1 10 14 8 19 3 4-5 5-11 5-18Z" fill="url(#lungFill)" stroke="#ffd0bd" stroke-width="1.4"/><path d="M39 19c5-7 7-6 13-1 7 5 11 20 10 31-1 10-14 8-19 3-4-5-5-11-5-18Z" fill="url(#lungFill)" stroke="#ffd0bd" stroke-width="1.4"/><path d="M35 6v21M35 15L26 26M35 15l9 11" stroke="#b7d3d2" stroke-width="3.6" stroke-linecap="round"/><path d="M17 27C15 33 13 38 13 45M51 27c3 6 5 13 5 18" stroke="#f8c0b1" opacity=".65" stroke-width="2.1" stroke-linecap="round"/></svg></span>
+      <span class="spread-site-copy"><strong>Lungs</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
+    </button>
+    <button class="spread-site" type="button" data-site="liver" aria-label="Liver: a possible distant location for metastatic RCC in stage four">
+      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="liverFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3a789"/><stop offset=".48" stop-color="#bd6b68"/><stop offset="1" stop-color="#753651"/></linearGradient></defs><path d="M5 23C10 11 35 7 50 13c11 4 17 11 13 18-5 7-12 5-18 11-7 8-15 12-23 5C14 42 2 39 5 23Z" fill="url(#liverFill)" stroke="#f6b5a5" stroke-width="1.6"/><path d="M8 25C26 14 43 17 53 19" stroke="#f9c9ad" stroke-width="3" opacity=".55" stroke-linecap="round"/><path d="M44 20c-3 9-4 12-2 19" stroke="#6d344c" stroke-width="2" opacity=".5" stroke-linecap="round"/></svg></span>
+      <span class="spread-site-copy"><strong>Liver</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
+    </button>
+    <button class="spread-site" type="button" data-site="bones" aria-label="Bones: a possible distant location for metastatic RCC in stage four">
+      <span class="organ-illustration" aria-hidden="true"><svg viewBox="0 0 70 60" fill="none"><defs><linearGradient id="boneFill" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0d8"/><stop offset=".58" stop-color="#c9b29e"/><stop offset="1" stop-color="#8e8090"/></linearGradient></defs><path d="M15 8c-6 0-9 4-8 10 1 6 7 8 12 7l25 27c3 4 10 3 13-1 4-5 2-9-3-11L29 15C28 10 23 6 17 7Z" fill="url(#boneFill)" stroke="#e7d8ca" stroke-width="1.5"/><path d="M21 19l29 27" stroke="#fff4e5" stroke-width="3" opacity=".63" stroke-linecap="round"/><path d="M16 8c5 2 8 7 7 12" stroke="#938391" stroke-width="1.6" opacity=".65"/></svg></span>
+      <span class="spread-site-copy"><strong>Bones</strong><small>DISTANT • STAGE IV</small></span><span class="site-status" aria-hidden="true"></span>
+    </button>
+  </div>
+  <p class="spread-map-status" id="spreadMapStatus" aria-live="polite">The cancer is still inside the kidney.</p>
+  <p class="spread-map-note">Small tumors mark possible spread. They do not mean every person has cancer in every highlighted place.</p>
+</div>
+<div class="spread-explanation panel" id="spreadExplanation" aria-live="polite"><div><span class="micro">ANATOMY &amp; SPREAD • STAGE I</span><h3 id="spreadExplanationTitle">The tumor has not spread</h3><p id="spreadExplanationText">Stage I means that the tumor is inside the kidney. The other body parts are shown so you can see where the kidney is located, not because cancer has reached them.</p></div><div class="spread-explanation-legend"><span><i class="legend-dot legend-neutral"></i> Anatomy shown for context</span><span><i class="legend-dot legend-active"></i> Example site affected</span></div></div>
+<div class="metrics"><div class="metric"><small>PRIMARY TUMOR</small><strong id="tumorMetric">≤ 7 cm</strong><p id="tumorSub">Diameter in stage I</p></div><div class="metric"><small>LOCATION / EXTENT</small><strong id="spreadMetric">In the kidney</strong><p id="spreadSub">No nearby or distant spread</p></div><div class="metric"><small>MODEL LEGEND</small><strong><span style="color:#e5919e">●</span> Kidney &nbsp; <span style="color:#ffcb80">●</span> Tumor</strong><p><span style="color:#8de5da">●</span> Examples of local and distant spread</p></div></div><div class="fineprint">This 3D model is here to help explain RCC. It is not a real medical scan. The small tumors, body parts, and tumor sizes are simplified examples, and the dotted lines show relationships rather than actual paths cancer takes. Not everybody with stage IV has cancer in the lungs, liver, or bones. Stage IV also does not always mean the original tumor is very big. Doctors decide what stage RCC is by looking at where the tumor has grown or spread, not just its size. <a href="https://www.cancer.org/cancer/types/kidney-cancer/detection-diagnosis-staging/staging.html" target="_blank" rel="noopener">Learn how staging works ↗</a></div></section>
+
 <section class="page" id="treat"><header class="sectionhead"><div><div class="kicker">03 &nbsp; / &nbsp; TREATMENT SCIENCE</div><h1>Types of <span style="color:var(--cyan)">treatments.</span></h1></div><p>The main types of treatments for RCC are immunotherapy, targeted therapy, and surgery. One patient might need a different treatment from another depending on the stage and size of the tumor. Doctors also consider the location of the tumor and the patient's overall health. <a href="https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq" target="_blank" rel="noopener">[1]</a></p></header>
 <div class="cards">
 <article class="panel treatment"><div class="ticon">✚</div><small>01 / LOCAL TREATMENT</small><h2>Surgery</h2><p>Surgery treats RCC by removing the tumor. Doctors may remove only part of the kidney instead of the whole kidney because they want to preserve as much healthy kidney tissue as possible. This is called a <b>partial nephrectomy</b>.</p><p>Sometimes doctors need to remove the entire kidney, which is called a <b>radical nephrectomy</b>. Surgery is often used for early-stage RCC because the cancer may still be contained inside the kidney. <a href="https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq" target="_blank" rel="noopener">[1]</a></p></article>
@@ -165,8 +634,8 @@
 <div class="panel widecard"><h3>Why keep researching treatments?</h3><p>It is important for scientists to keep researching new treatments even though they have immunotherapy, targeted therapy, and surgery because they could discover a treatment that has fewer side effects and kills the tumor faster. Discovering new RCC treatments could improve the lives of future patients by reducing the side effects of treatments.</p></div>
 <div class="citestrip"><strong>Research sources</strong><br>[1] <a href="https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq" target="_blank" rel="noopener">National Cancer Institute — Treatment</a> &nbsp; [2] <a href="https://www.cancer.org/cancer/types/kidney-cancer/treating/immunotherapy.html" target="_blank" rel="noopener">American Cancer Society — Immunotherapy</a> &nbsp; [3] <a href="https://www.cancer.org/cancer/types/kidney-cancer/treating/targeted-therapy.html" target="_blank" rel="noopener">American Cancer Society — Targeted Therapy</a></div>
 </section>
-<section class="page" id="lab"><header class="sectionhead"><div><div class="kicker">04 &nbsp; / &nbsp; STEM FAIR EXPERIMENT</div><h1>Can this website<br><span style="color:var(--cyan)">teach you something?</span></h1></div><p>Using a website is better than a textbook because my website will be interactive by having a 3D model of a kidney and showing where the tumor is located. I will also give a detailed description of what RCC is and the kinds of treatments there are.</p></header><div class="panel widecard" style="max-width:790px;margin:0 0 18px"><h3>How I will test my website</h3><p>I would test whether my website is successful by asking people questions before and after they have read my information. I will do a quiz and see how much the scores improve. I think people will score higher afterward because before they probably knew very little about this cancer, and afterward they would have become more educated and informed about what it is.</p><p style="margin-top:12px">If someone scores 2 out of 5 before visiting my website and 5 out of 5 afterward, it would suggest that the website has taught them about the cancer. By comparing the results from different visitors, I can see how effective my website is at educating people about RCC.</p></div><div class="panel quizpanel"><div id="quizHeader"><span class="micro">LEARNING LAB / BEFORE &amp; AFTER</span><h2 id="quizTitle">Step 1 — Before exploring</h2><p class="quizintro" id="quizInstructions">Take this 10-question quiz <b>before</b> exploring the stages and treatments. Questions 1 and 6 require written answers; the other eight are multiple-choice. You'll see your scores after the second quiz.</p></div>
-<div id="quizIdentity" class="identitybox"><div id="collectionWarning" class="save-message warn" hidden style="margin:0 0 17px">Private quiz collection is not connected yet. This is preview mode: scores can be viewed here, but responses are not saved for the project owner.</div>
+<section class="page" id="lab"><header class="sectionhead"><div><div class="kicker">04 &nbsp; / &nbsp; STEM FAIR EXPERIMENT</div><h1>Can this website<br><span style="color:var(--cyan)">teach you something?</span></h1></div><p>Using a website is better than a textbook because my website will be interactive by having a 3D model of a kidney and showing where the tumor is located. I will also give a detailed description of what RCC is and the kinds of treatments there are.</p></header><div class="panel widecard" style="max-width:790px;margin:0 0 18px"><h3>How I will test my website</h3><p>I would test whether my website is successful by asking people questions before and after they have read my information. I will do a quiz and see how much the scores improve. I think people will score higher afterward because before they probably knew very little about this cancer, and afterward they would have become more educated and informed about what it is.</p><p style="margin-top:12px">If someone scores 4 out of 10 before visiting my website and 10 out of 10 afterward, it would suggest that the website has taught them about the cancer. By comparing the results from different visitors, I can see how effective my website is at educating people about RCC.</p></div><div class="panel quizpanel"><div id="quizHeader"><span class="micro">LEARNING LAB / BEFORE &amp; AFTER</span><h2 id="quizTitle">Step 1 — Before exploring</h2><p class="quizintro" id="quizInstructions">For this experiment, take the BEFORE quiz <b>before reading any of the educational tabs</b>. Questions 1 and 6 require written answers; the other eight are multiple-choice. You'll see your scores after the second quiz.</p></div>
+<div class="quiz-meter" aria-live="polite"><div><span class="meter-cap">YOUR KNOWLEDGE CHECK</span><span id="quizMeterLabel">0 / 10 answered</span></div><div class="quiz-meter-track"><div id="quizMeterFill" class="quiz-meter-fill"></div></div></div><div id="quizIdentity" class="identitybox"><div id="collectionWarning" class="save-message warn" hidden style="margin:0 0 17px">Private quiz collection is not connected yet. This is preview mode: scores can be viewed here, but responses are not saved for the project owner.</div>
   <div class="identitytop"><div class="identitymark">ID</div><div><strong>About you</strong><p>Your name and grade help me compare quiz results for my STEM Fair project.</p></div></div>
   <div class="identitygrid"><div><label class="fieldlabel" for="participantName">Name *</label><input id="participantName" type="text" maxlength="70" required autocomplete="given-name" placeholder="First name (or first name + initial)"></div>
   <div><label class="fieldlabel" for="participantGrade">Grade *</label><select id="participantGrade" required><option value="">Choose class</option><option value="6A">6A</option><option value="6B">6B</option><option value="7A">7A</option><option value="7B">7B</option><option value="8A">8A</option><option value="8B">8B</option></select></div></div>
@@ -176,29 +645,90 @@
 <div id="questions"></div><button class="primary" id="quizSubmit" type="button">Submit before quiz</button><div class="quizscore" id="quizScore" aria-live="polite"></div><div id="submitStatus" class="save-message" style="display:none" role="status" aria-live="polite"></div></div>
 <p class="fineprint" style="max-width:790px">After the second quiz, you will see <b>your own before and after scores</b> and the change. Results are sent privately to the project owner's protected submission dashboard once collection is configured. No visitor leaderboard or public submission list is available. Scores from repeating the same questions provide evidence of learning, but not proof the website alone caused the change.</p></section>
 <footer class="footer"><div>© RENAL / RCC ATLAS &nbsp;•&nbsp; 8TH GRADE STEM FAIR<br>Educational project. Not medical advice or a diagnostic tool.</div><div>PRIMARY SOURCES &nbsp; <a href="https://www.cancer.gov/types/kidney/patient/kidney-treatment-pdq" target="_blank" rel="noopener">National Cancer Institute ↗</a> &nbsp; <a href="https://www.cancer.org/cancer/types/kidney-cancer/detection-diagnosis-staging/staging.html" target="_blank" rel="noopener">American Cancer Society: Staging ↗</a> &nbsp; <a href="https://www.cancer.org/cancer/types/kidney-cancer/treating.html" target="_blank" rel="noopener">Treatments ↗</a></div></footer></main></div>
+
+<!-- Completion celebration: only revealed after both the before and after quizzes. -->
+<div id="finishOverlay" class="finish-overlay" role="dialog" aria-modal="true" aria-labelledby="finishTitle" aria-describedby="finishThanks" hidden>
+ <div id="finishConfetti" class="finish-confetti" aria-hidden="true"></div>
+ <section class="finish-card">
+  <div class="finish-sheen" aria-hidden="true"></div>
+  <button id="finishClose" class="finish-close" type="button" aria-label="Close celebration and view your scores">&times;</button>
+  <div class="finish-emblem" aria-hidden="true">
+   <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="43" fill="#1c594f" stroke="#98ffe7" stroke-width="2"/>
+    <circle cx="50" cy="50" r="32" stroke="#93ffe8" stroke-opacity=".22"/>
+    <path class="finish-check" d="M29 51L43 64L72 35" stroke="#d6fff5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+   </svg>
+  </div>
+  <div class="finish-badge"><span class="finish-dot" aria-hidden="true"></span> <span>BOTH QUIZZES COMPLETED</span> <strong>02 / 02</strong></div>
+  <p class="finish-eyebrow">RENAL / KNOWLEDGE LAB</p>
+  <h2 id="finishTitle" class="finish-title"><span class="finish-big">CONGRATS!</span><span class="finish-mid">YOU'RE OFFICIALLY</span><em class="finish-final">FINISHED.</em></h2>
+  <p id="finishThanks" class="finish-thanks">Thank you for your time.</p>
+  <p class="finish-subtitle">Your participation helps me see how much people can learn about kidney cancer from this website. I really appreciate your help!</p>
+  <div id="finishName" class="finish-name"></div>
+  <div class="finish-stats"><span><b>&#10003;</b> BEFORE QUIZ</span><span><b>&#10003;</b> AFTER QUIZ</span></div>
+  <button id="finishResults" class="finish-cta" type="button"><span>See my scores</span><span aria-hidden="true">&#8599;</span></button>
+  <p id="finishSaving" class="finish-saving" data-kind="pending" role="status" aria-live="polite">Saving your results privately…</p>
+ </section>
+</div>
 <script>
 'use strict';
 const $=id=>document.getElementById(id);
-const stageData={1:{roman:'I',status:'LOCALIZED / EARLY',desc:'The tumor is 7 cm or smaller and remains inside the kidney. It has not reached nearby lymph nodes or distant organs.',change:'A smaller tumor is contained entirely within the kidney.',impact:'Surgery can often remove the cancer while preserving healthy kidney tissue in suitable cases.',size:'≤ 7 cm',sizeSub:'The tumor is 7 cm or smaller',spread:'In the kidney',spreadSub:'No nearby or distant spread',tumor:.22},2:{roman:'II',status:'LARGER / STILL LOCALIZED',desc:'The tumor is larger than 7 cm, but it is still contained within the kidney. There is no spread to nearby lymph nodes or distant organs.',change:'The tumor becomes larger, but has not grown outside the kidney.',impact:'Surgery is still often a treatment option, depending on the exact tumor and patient.',size:'> 7 cm',sizeSub:'Still limited to the kidney',spread:'In the kidney',spreadSub:'No nearby or distant spread',tumor:.37},3:{roman:'III',status:'LOCALLY ADVANCED',desc:'Cancer has extended into certain nearby major veins or tissues, or it has spread to nearby lymph nodes. It has not spread to distant organs.',change:'The teal highlight illustrates possible local involvement. Not every stage III tumor behaves or looks the same.',impact:'Doctors assess local spread and may use surgery and other treatments. Size alone does not define stage III.',size:'Variable',sizeSub:'Stage III is not defined by size',spread:'Nearby structures',spreadSub:'Local veins, tissues, or lymph nodes',tumor:.44},4:{roman:'IV',status:'ADVANCED / EXTENSIVE',desc:'Cancer has extended beyond the tissue surrounding the kidney (Gerota’s fascia), or has spread to distant sites such as the lungs, bones, or liver.',change:'Teal markers represent possible distant metastases. Stage IV does not always mean the original kidney tumor is huge.',impact:'Systemic treatments such as immunotherapy and targeted therapy are often central to care.',size:'Variable',sizeSub:'Stage IV is not defined by size',spread:'May be distant',spreadSub:'Distant organs or extensive local spread',tumor:.48}};
-let stage=1,currentTumor=.22,rot=-.30,pitch=.07,zoom=1,auto=false,down=false,last=[0,0],lastFrame=0;
+const stageData={
+1:{
+ roman:'I',status:'SMALL TUMOR / STILL IN THE KIDNEY',
+ desc:'In stage I, the tumor is 7 cm or smaller. Cancer cells have formed a tumor inside the kidney, but the cancer has not spread to nearby lymph nodes or other organs.',
+ change:'The tumor is still inside the kidney. The cancer has not reached nearby lymph nodes or any distant organs.',
+ impact:'Doctors can often use surgery to remove the tumor. In some cases, they can keep part of the healthy kidney.',
+ size:'≤ 7 cm',sizeSub:'The tumor is 7 cm or smaller',
+ spread:'In the kidney',spreadSub:'It has not spread outside the kidney',tumor:.22
+},
+2:{
+ roman:'II',status:'LARGER TUMOR / STILL IN THE KIDNEY',
+ desc:'In stage II, the tumor has grown larger than 7 cm, but it is still inside the kidney. It has not spread to nearby lymph nodes or other parts of the body.',
+ change:'The cancer cells have kept multiplying and made the tumor bigger. Even though it is larger, it is still only in the kidney.',
+ impact:'Doctors may still be able to remove the tumor with surgery. The amount of kidney tissue they remove depends on the tumor and the patient.',
+ size:'> 7 cm',sizeSub:'The tumor is larger than 7 cm',
+ spread:'In the kidney',spreadSub:'It has not spread outside the kidney',tumor:.37
+},
+3:{
+ roman:'III',status:'CANCER HAS REACHED NEARBY AREAS',
+ desc:'In stage III, RCC has grown into certain nearby veins or tissues, or it has reached nearby lymph nodes. It has not spread to distant organs such as the lungs.',
+ change:'Cancer cells can start affecting parts of the body right next to the kidney. The highlighted areas show examples of where the cancer might grow or spread.',
+ impact:'Doctors look at exactly where the cancer has reached to decide whether surgery, other treatments, or both could help.',
+ size:'Variable',sizeSub:'Stage III is not decided by size alone',
+ spread:'Nearby areas',spreadSub:'Certain veins, tissues, or lymph nodes',tumor:.44
+},
+4:{
+ roman:'IV',status:'CANCER HAS SPREAD FARTHER',
+ desc:'In stage IV, RCC has grown beyond the tissue surrounding the kidney, or cancer cells have traveled to a distant part of the body, such as the lungs, bones, or liver. When cancer spreads to another part of the body, it is called metastasis.',
+ change:'Cancer cells can get into the bloodstream and travel to other organs. Once they reach an organ, they can multiply and form another tumor. The little tumors on the other organs show examples of where this could happen. Not every person will have cancer in all these places.',
+ impact:'Doctors often use immunotherapy and targeted therapy to fight RCC when it has spread to distant parts of the body.',
+ size:'Variable',sizeSub:'Stage IV is not decided by size alone',
+ spread:'Farther spread',spreadSub:'Distant organs or extensive local growth',tumor:.48
+}};
+let stage=1,currentTumor=.22,rot=-.30,pitch=.07,zoom=.60,auto=false,down=false,last=[0,0],lastFrame=0;
 const canvas=$('kidney'),ctx=canvas.getContext('2d');
 function setPage(id){document.querySelectorAll('.page').forEach(el=>el.classList.toggle('active',el.id===id));document.querySelectorAll('.navbtn').forEach(el=>{const active=el.dataset.page===id;el.classList.toggle('active',active);el.setAttribute('aria-current',active?'page':'false')});window.scrollTo({top:0,behavior:'smooth'});if(id==='explore')requestAnimationFrame(render)}document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page)));
-function setStage(n){stage=Math.max(1,Math.min(4,+n));const d=stageData[stage];$('stageSlider').value=stage;$('stageSlider').style.setProperty('--percent',((stage-1)/3)*100+'%');$('stageTitle').textContent='Stage '+d.roman;$('stageStatus').textContent=d.status;$('stageDesc').textContent=d.desc;$('stageChange').textContent=d.change;$('stageImpact').textContent=d.impact;$('chip').textContent='STAGE '+d.roman;$('viewStage').textContent='0'+stage+' / 04';$('rangeState').textContent='0'+stage+' — 04';$('tumorMetric').textContent=d.size;$('tumorSub').textContent=d.sizeSub;$('spreadMetric').textContent=d.spread;$('spreadSub').textContent=d.spreadSub;document.querySelectorAll('.tick').forEach(x=>x.classList.toggle('active',+x.dataset.stage===stage));
+function setStage(n){stage=Math.max(1,Math.min(4,+n));const d=stageData[stage];$('stageSlider').value=stage;$('stageSlider').style.setProperty('--percent',((stage-1)/3)*100+'%');$('stageTitle').textContent='Stage '+d.roman;$('stageStatus').textContent=d.status;$('stageDesc').textContent=d.desc;$('stageChange').textContent=d.change;$('stageImpact').textContent=d.impact;$('chip').textContent='STAGE '+d.roman;$('viewStage').textContent=d.roman+' / IV';$('rangeState').textContent=d.roman+' — IV';$('tumorMetric').textContent=d.size;$('tumorSub').textContent=d.sizeSub;$('spreadMetric').textContent=d.spread;$('spreadSub').textContent=d.spreadSub;document.querySelectorAll('.tick').forEach(x=>x.classList.toggle('active',+x.dataset.stage===stage));
  document.getElementById('spreadMap').dataset.stage=String(stage);
  const stageSummaries={
-  1:['No spread shown outside the kidney.','Tumor stays within the kidney','The adrenal gland sits above the kidney, while nearby blood vessels and lymph nodes are shown for orientation. In stage I, the tumor remains within the kidney.'],
-  2:['Larger tumor; still no spread.','A larger tumor is still localized','In stage II, the tumor is larger than 7 cm but remains inside the kidney. The surrounding structures and distant organs are shown for comparison, not because they are involved.'],
-  3:['Example: renal vein or nearby nodes.','Possible local spread','Stage III can involve a major vein, tissue near the kidney, or a nearby lymph node. The highlighted renal vein and nodes are separate examples; stage III does not always involve both.'],
-  4:['Possible distant sites highlighted.','Examples of distant metastasis','RCC may spread to the lungs, liver, or bones, among other sites. The highlighted organs show possibilities, not that all three become involved. Stage IV can also occur from extensive growth beyond Gerota’s fascia, without distant spread.']
+  1:['The cancer is still inside the kidney.','The tumor has not spread',
+     'Stage I means that the tumor is inside the kidney. The other body parts are shown so you can see where the kidney is located, not because cancer has reached them.'],
+  2:['The tumor is bigger, but it has not spread.','A larger tumor inside the kidney',
+     'In stage II, the cancer cells have made the tumor larger than 7 cm. However, the tumor is still inside the kidney, and it has not reached nearby lymph nodes or distant organs.'],
+  3:['Cancer may have reached nearby areas.','Possible spread near the kidney',
+     'Stage III means that RCC can grow into certain nearby veins or tissues, or reach nearby lymph nodes. The highlighted areas are examples. This does not mean that every person with stage III has cancer in all those places.'],
+  4:['Other body parts could be affected.','How RCC can spread through the body',
+     'Cancer cells can enter the bloodstream and travel to organs such as the lungs. When they form new tumors there, it is called metastasis. RCC can also spread to the liver or bones. These are possible locations, not places every person will have cancer. Stage IV can also happen when cancer grows far beyond the kidney without reaching a distant organ.']
  };
  const info=stageSummaries[stage];
  $('spreadMapStatus').textContent=info[0];$('spreadExplanationTitle').textContent=info[1];$('spreadExplanationText').textContent=info[2];
  document.querySelector('#spreadExplanation .micro').textContent='ANATOMY & SPREAD • STAGE '+['','I','II','III','IV'][stage]} 
 const organDetails={
- nodes:'Nearby lymph nodes are small parts of the immune system. Stage III can involve nearby lymph nodes even when the main tumor is not very large.',
- lungs:'The lungs are a common distant site for kidney cancer spread. Metastatic tumors in the lungs are still kidney cancer cells.',
- liver:'Kidney cancer can spread to the liver. This is one possible site of distant metastasis, not something that happens in every patient.',
- bones:'Kidney cancer can spread to bones. Bone involvement can affect their strength and sometimes cause pain.'
+ nodes:'Lymph nodes are small parts of the immune system. RCC can sometimes spread to nearby lymph nodes. When this happens without spread to distant organs, the cancer may be stage III.',
+ lungs:'Cancer cells can enter the bloodstream and travel to the lungs. Once they get there, they can form new tumors. This is called metastasis, and the new tumors are still RCC.',
+ liver:'The liver is another organ where RCC cells can sometimes travel and form a new tumor. This is one possible place for metastasis, but it does not happen to everybody.',
+ bones:'RCC cells can also spread to the bones. When a tumor grows there, it may weaken the bone or cause pain. It is another possible place where cancer can spread.'
 };
 document.querySelectorAll('.spread-site').forEach(btn=>btn.addEventListener('click',()=>{
  document.querySelectorAll('.spread-site').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));
@@ -254,6 +784,23 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
   ctx.lineTo(pts.at(-1).x,pts.at(-1).y);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.stroke();ctx.restore();
  }
  function moveShape(shape,ox,oy,oz,sx=1,sy=1,sz=1,mirror=false){return shape.map(([x,y,z])=>[ox+(mirror?-x:x)*sx,oy+y*sy,oz+z*sz])}
+ // Small cancer deposits, drawn as rounded, irregular growths with depth shading.
+ // These are illustrative examples of metastases, not diagnostic anatomy or a prediction.
+ function drawSmallTumor(point3D,radius=.065,muted=false){
+  const p=proj(point3D),r=Math.max(3.4,scale*zoom*radius*p.pers);
+  ctx.save();ctx.shadowColor=muted?'#d98a7655':'#ff927c8e';ctx.shadowBlur=Math.max(4,r*.85);
+  ctx.beginPath();
+  for(let j=0;j<=48;j++){
+   const a=j*Math.PI*2/48,rough=1+.11*Math.sin(5*a+.3)+.075*Math.sin(9*a+1.1);
+   const x=p.x+Math.cos(a)*r*rough,y=p.y+Math.sin(a)*r*rough*.87;
+   if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  const g=ctx.createRadialGradient(p.x-r*.33,p.y-r*.35,.5,p.x+r*.14,p.y+r*.17,r*1.18);
+  g.addColorStop(0,'#ffdac0');g.addColorStop(.33,'#e4938a');g.addColorStop(.70,'#ab475b');g.addColorStop(1,'#5e203e');
+  ctx.fillStyle=g;ctx.strokeStyle=muted?'#d2a9a0bb':'#ffcab4';ctx.lineWidth=Math.max(.85,r*.10);
+  ctx.fill();ctx.stroke();ctx.restore();
+ }
  function emphasizeBlob(coords){
   const pts=coords.map(proj), xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
   ctx.save();ctx.shadowColor='#7ce6db';ctx.shadowBlur=18;ctx.strokeStyle='#8de5da';ctx.lineWidth=2.3;
@@ -271,8 +818,10 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  localNodes.forEach((node,i)=>{const p=proj(node),rr=scale*.065*(i===0?1.2:1);
   ctx.save();ctx.beginPath();ctx.ellipse(p.x,p.y,rr,rr*.81,.5,0,Math.PI*2);
   const g=ctx.createRadialGradient(p.x-rr*.25,p.y-rr*.25,1,p.x,p.y,rr*1.1);
-  g.addColorStop(0,stage===3?'#bdfff0':'#aec8c4');g.addColorStop(1,stage===3?'#2e9b98':'#527b80');
-  ctx.fillStyle=g;ctx.strokeStyle=stage===3?'#a4fff2':'#c5d7d18a';ctx.lineWidth=stage===3?2:1;ctx.shadowBlur=stage===3?12:0;ctx.shadowColor='#69e3d3';ctx.fill();ctx.stroke();ctx.restore();
+  g.addColorStop(0,stage>=3?'#bdfff0':'#aec8c4');g.addColorStop(1,stage>=3?'#2e9b98':'#527b80');
+  ctx.fillStyle=g;ctx.strokeStyle=stage>=3?'#a4fff2':'#c5d7d18a';ctx.lineWidth=stage>=3?2:1;ctx.shadowBlur=stage>=3?12:0;ctx.shadowColor='#69e3d3';ctx.fill();ctx.stroke();ctx.restore();
+  // Small visible cancer deposits inside an example pair of affected lymph nodes.
+  if(stage>=3 && i<2)drawSmallTumor([node[0]+.012,node[1]+.012,node[2]+.05],.045);
  });
  // 3D body context: nearby and distant organs shown in the same rotating space and visually connected to the kidney.
  const wideFactor=anatomyWide?1:.86, sideX=anatomyWide?2.62:1.95, organZ=anatomyWide?-.10:-.06;
@@ -294,10 +843,21 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  drawProjectedBlob(rightLung,'#c18a91','#6e425f',.74,stage===4?'#8de5da':'#f3d8c870');
  drawProjectedBlob(liver,'#cc8a75','#6f3b4d',.78,stage===4?'#8de5da':'#f3d2bf70');
  drawProjectedBlob(bone,'#efe1cc','#93879b',.80,stage===4?'#8de5da':'#ece1d970');
- if(stage===4){emphasizeBlob(leftLung);emphasizeBlob(rightLung);emphasizeBlob(liver);emphasizeBlob(bone)}
+ if(stage===4){
+  emphasizeBlob(leftLung);emphasizeBlob(rightLung);emphasizeBlob(liver);emphasizeBlob(bone);
+  // A few small tumors are visibly embedded in the organ model, not floating on the page.
+  // Each site is an EXAMPLE. Stage IV does not mean all these organs are affected.
+  const f=wideFactor;
+  drawSmallTumor([sideX-.16*f,1.10,organZ+.13],.080);
+  drawSmallTumor([sideX+.02*f,1.32,organZ+.12],.054);
+  drawSmallTumor([sideX+.92*f+.12*f,1.03,organZ+.13],.070);
+  drawSmallTumor([sideX+.56*f-.20*f,-.02,organZ+.15],.093);
+  drawSmallTumor([sideX+.56*f+.18*f,.10,organZ+.15],.054);
+  drawSmallTumor([sideX+.58*f,-1.26,organZ+.17],.067);
+ }
  // Dense tessellated organ surface with warm, translucent-looking tissue shading.
  // Multi-scale deterministic mottling mimics fine renal capsule pigmentation.
- let tris=[];const U=110,V=76;
+ let tris=[];const U=82,V=56;
  function cross(a,b){return[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]]}
  function sub(a,b){return[a[0]-b[0],a[1]-b[1],a[2]-b[2]]}
  for(let j=0;j<V;j++)for(let i=0;i<U;i++){
@@ -391,8 +951,17 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  // Annotation for tumor with elegant leader and anchored label
  let ax=clamp(center.x+screenR*.65,0,w),ay=center.y-screenR*.45,ex=clamp(ax+27,40,anatomyWide?w-246:w-105),ey=clamp(ay-33,42,h-44);ctx.strokeStyle='#ffd4a999';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ex,ey);ctx.lineTo(ex+43,ey);ctx.stroke();ctx.fillStyle='#ffddb8';ctx.font='700 11px DM Sans, sans-serif';ctx.fillText('TUMOR',ex+2,ey-8);
 }
-function frame(t){let dt=Math.min(50,t-lastFrame||16);lastFrame=t;if(auto)rot+=dt*.00021;if(document.getElementById('explore').classList.contains('active'))render();requestAnimationFrame(frame)}requestAnimationFrame(frame);
-canvas.addEventListener('pointerdown',e=>{down=true;last=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!down)return;rot+=(e.clientX-last[0])*.008;pitch=clamp(pitch+(e.clientY-last[1])*.005,-.6,.6);last=[e.clientX,e.clientY]});canvas.addEventListener('pointerup',()=>down=false);canvas.addEventListener('pointercancel',()=>down=false);canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom-e.deltaY*.0007,.25,1.5)},{passive:false});$('rotBtn').addEventListener('click',()=>{auto=!auto;$('rotBtn').textContent=auto?'Ⅱ Pause':'⟳ Auto'});$('resetBtn').addEventListener('click',()=>{rot=-.28;pitch=.07;zoom=1;auto=false;$('rotBtn').textContent='⟳ Auto'});$('zoomIn').addEventListener('click',()=>zoom=clamp(zoom+.1,.25,1.5));$('zoomOut').addEventListener('click',()=>zoom=clamp(zoom-.1,.25,1.5));setStage(1);
+// Keep the detailed canvas interactive without redrawing 16,000+ triangles every browser frame.
+let lastPaint=0;
+function frame(t){
+ const dt=Math.min(50,t-lastFrame||16);lastFrame=t;
+ if(auto)rot+=dt*.00021;
+ if(document.getElementById('explore').classList.contains('active') && (t-lastPaint>50)){
+  lastPaint=t;render();
+ }
+ requestAnimationFrame(frame);
+}requestAnimationFrame(frame);
+canvas.addEventListener('pointerdown',e=>{down=true;last=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!down)return;rot+=(e.clientX-last[0])*.008;pitch=clamp(pitch+(e.clientY-last[1])*.005,-.6,.6);last=[e.clientX,e.clientY]});canvas.addEventListener('pointerup',()=>down=false);canvas.addEventListener('pointercancel',()=>down=false);canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom-e.deltaY*.0007,.25,1.5)},{passive:false});$('rotBtn').addEventListener('click',()=>{auto=!auto;$('rotBtn').textContent=auto?'Ⅱ Pause':'⟳ Auto'});$('resetBtn').addEventListener('click',()=>{rot=-.28;pitch=.07;zoom=.60;auto=false;$('rotBtn').textContent='⟳ Auto'});$('zoomIn').addEventListener('click',()=>zoom=clamp(zoom+.1,.25,1.5));$('zoomOut').addEventListener('click',()=>zoom=clamp(zoom-.1,.25,1.5));setStage(1);
 // Simple pre/post test: same questions and no feedback until after the post-test.
 // Your private Formspree endpoint goes here. You must create this in your own account.
 // IMPORTANT: A public GitHub Pages page cannot safely store a private API key or private results.
@@ -505,19 +1074,19 @@ function submissionData(){
 async function savePrivateQuiz(){
  if(saving||saved)return;
  if(!collectionConfigured()){
-  showMessage('Your scores are visible above, but the owner has not connected private result collection yet. No data was sent.','warn');
+  showMessage('Your scores are visible above, but the owner has not connected private result collection yet. No data was sent.','warn');setFinishSaving('Quiz complete. Private submission is not connected yet.','warning');
   quizButton.textContent='Start a new quiz';return;
  }
- saving=true;quizButton.disabled=true;showMessage('Submitting your results privately…');
+ saving=true;quizButton.disabled=true;showMessage('Submitting your results privately…');setFinishSaving('Saving your results privately…','pending');
  try{
   const response=await fetch(PRIVATE_RESULTS_ENDPOINT,{
    method:'POST',mode:'cors',headers:{'Accept':'application/json','Content-Type':'application/json'},body:JSON.stringify(submissionData())
   });
   if(!response.ok)throw new Error('Submission was not accepted ('+response.status+').');
-  saved=true;showMessage('Your quiz was submitted successfully. Only the project owner can access saved responses in the private results dashboard. Your own scores are above.','success');
+  saved=true;showMessage('Your quiz was submitted successfully. Only the project owner can access saved responses in the private results dashboard. Your own scores are above.','success');setFinishSaving('Your results were saved privately. ✓','success');
   quizButton.textContent='Start a new quiz';
  }catch(e){
-  showMessage('Your scores are shown above, but we could not send this result privately. Please check your connection and press “Retry submission.” No success has been recorded.','warn');
+  showMessage('Your scores are shown above, but we could not send this result privately. Please check your connection and press “Retry submission.” No success has been recorded.','warn');setFinishSaving('Your quiz is complete, but saving failed. See your scores to retry.','warning');
   quizButton.textContent='Retry submission';
  }finally{saving=false;quizButton.disabled=false}
 }
@@ -552,9 +1121,98 @@ quizButton.addEventListener('click',()=>{
   afterAnswers=qs.map((_,i)=>answers[i]);post=scoreChoices(afterAnswers);phase=3;
   $('questions').innerHTML='';$('quizTitle').textContent='Your personal results';
   $('quizInstructions').textContent='Only you can see this score summary on the website. The project owner receives the submitted quiz answers privately.';
-  renderPersonalResults();quizButton.textContent='Start a new quiz';savePrivateQuiz();
+  renderPersonalResults();quizButton.textContent='Start a new quiz';showFinishCelebration();savePrivateQuiz();
  }
 });
 drawQuiz();
 if(!collectionConfigured())document.getElementById('collectionWarning').hidden=false;
+
+// Show this once the second quiz is completed; do not reveal other participants' results.
+const finishOverlay=document.getElementById('finishOverlay');
+const finishResults=document.getElementById('finishResults');
+const finishClose=document.getElementById('finishClose');
+const finishSaving=document.getElementById('finishSaving');
+let finishPreviousFocus=null;
+function setFinishSaving(text,kind='pending'){
+ finishSaving.textContent=text;
+ finishSaving.dataset.kind=kind;
+}
+function launchFinishConfetti(){
+ const layer=document.getElementById('finishConfetti');
+ layer.replaceChildren();
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const distance=Math.min(window.innerWidth,window.innerHeight);
+ const hues=[165,184,259,281,24,344,48];
+ for(let i=0;i<80;i++){
+  const s=document.createElement('span');s.className='finish-piece';
+  const angle=(Math.PI*2)*(i/80)+Math.sin(i*7.3)*.12;
+  const radius=distance*(.39+(i%7)*.045);
+  const drift=(i%5-2)*14;
+  s.style.setProperty('--fx',Math.round(Math.cos(angle)*radius+drift)+'px');
+  s.style.setProperty('--fy',Math.round(Math.sin(angle)*radius+radius*.20)+'px');
+  s.style.setProperty('--fr',((i%2?1:-1)*(290+i%5*75))+'deg');
+  s.style.setProperty('--hue',String(hues[i%hues.length]));
+  s.style.setProperty('--sz',(4+(i*3)%7)+'px');
+  s.style.setProperty('--delay',((i%9)*.033)+'s');
+  s.style.setProperty('--dur',(1.7+(i%6)*.17)+'s');
+  layer.appendChild(s);
+ }
+}
+function showFinishCelebration(){
+ if(phase!==3)return;
+ finishPreviousFocus=document.activeElement;
+ document.getElementById('finishName').textContent='You did it'+(respondent.name?', '+respondent.name:'')+'!';
+ setFinishSaving('Saving your results privately…');
+ finishOverlay.hidden=false;
+ document.body.classList.add('finish-lock');
+ launchFinishConfetti();
+ finishResults.focus({preventScroll:true});
+}
+function dismissFinishCelebration(){
+ if(finishOverlay.hidden)return;
+ finishOverlay.hidden=true;
+ document.body.classList.remove('finish-lock');
+ const results=document.getElementById('quizScore');
+ results.setAttribute('tabindex','-1');
+ results.focus({preventScroll:true});
+ results.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+}
+finishResults.addEventListener('click',dismissFinishCelebration);
+finishClose.addEventListener('click',dismissFinishCelebration);
+finishOverlay.addEventListener('keydown',e=>{
+ if(e.key==='Escape'){e.preventDefault();dismissFinishCelebration();return;}
+ if(e.key!=='Tab')return;
+ const first=finishClose,last=finishResults;
+ if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+ else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+});
+
+// Visual-only enhancements. Preserve the original quiz, form submission, and 3D data logic.
+document.querySelectorAll('[data-goto]').forEach(button=>{
+ button.addEventListener('click',()=>setPage(button.dataset.goto));
+});
+const progressRail=document.getElementById('readProgress');
+function updateReadProgress(){
+ const doc=document.documentElement;
+ const remaining=Math.max(0,doc.scrollHeight-doc.clientHeight);
+ progressRail.style.width=(remaining?Math.min(100,window.scrollY/remaining*100):0)+'%';
+}
+window.addEventListener('scroll',updateReadProgress,{passive:true});
+window.addEventListener('resize',updateReadProgress,{passive:true});
+updateReadProgress();
+const meterLabel=document.getElementById('quizMeterLabel');
+const meterFill=document.getElementById('quizMeterFill');
+function refreshQuizMeter(){
+ const count=Object.keys(answers).filter(key=>answers[key]!==undefined&&answers[key]!==null&&String(answers[key]).trim()!=='').length;
+ const finished=phase===3;
+ meterLabel.textContent=finished?'10 / 10 answered':count+' / '+totalQuestions+' answered';
+ meterFill.style.width=(finished?100:Math.min(100,100*count/totalQuestions))+'%';
+}
+const questionArea=document.getElementById('questions');
+questionArea.addEventListener('click',()=>requestAnimationFrame(refreshQuizMeter));
+questionArea.addEventListener('input',()=>requestAnimationFrame(refreshQuizMeter));
+const questionObserver=new MutationObserver(()=>requestAnimationFrame(refreshQuizMeter));
+questionObserver.observe(questionArea,{childList:true,subtree:false});
+document.getElementById('quizSubmit').addEventListener('click',()=>requestAnimationFrame(refreshQuizMeter));
+refreshQuizMeter();
 </script></body></html>
