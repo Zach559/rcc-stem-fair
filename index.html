@@ -763,7 +763,7 @@ function transform(p){let[x,y,z]=p,a=Math.cos(rot),b=Math.sin(rot),c=Math.cos(pi
 function shadeColor(r,g,b,lit){return `rgb(${clamp(Math.round(r*lit),0,255)},${clamp(Math.round(g*lit),0,255)},${clamp(Math.round(b*lit),0,255)})`}
 function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)return;const dpr=Math.min(window.devicePixelRatio||1,2);if(canvas.width!==Math.floor(w*dpr)||canvas.height!==Math.floor(h*dpr)){canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr)}ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);ctx.lineJoin='round';
  const anatomyWide=w>600;
- const scale=Math.min(w/(anatomyWide?4.65:3.5),h/(anatomyWide?3.95:4.45))*zoom,cx=w*(anatomyWide?.38:.51),cy=h*(anatomyWide?.53:.50);
+ const scale=Math.min(w/(anatomyWide?4.65:4.45),h/(anatomyWide?3.95:4.45))*zoom,cx=w*(anatomyWide?.38:.46),cy=h*(anatomyWide?.53:.50);
  const proj=p=>{let t=transform(p),pers=3.8/(3.8-t[2]*.20);return {x:cx+t[0]*scale*pers,y:cy-t[1]*scale*pers,z:t[2],pers}};
  // Large subtle depth halo and grounding
  const halo=ctx.createRadialGradient(cx,cy,10,cx,cy,Math.max(w,h)*.39);halo.addColorStop(0,'#87d2d20c');halo.addColorStop(1,'#87d2d200');ctx.fillStyle=halo;ctx.fillRect(0,0,w,h);
@@ -783,24 +783,150 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
   for(let i=1;i<pts.length-1;i++){const mx=(pts[i].x+pts[i+1].x)/2,my=(pts[i].y+pts[i+1].y)/2;ctx.quadraticCurveTo(pts[i].x,pts[i].y,mx,my)}
   ctx.lineTo(pts.at(-1).x,pts.at(-1).y);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.stroke();ctx.restore();
  }
- function moveShape(shape,ox,oy,oz,sx=1,sy=1,sz=1,mirror=false){return shape.map(([x,y,z])=>[ox+(mirror?-x:x)*sx,oy+y*sy,oz+z*sz])}
- // Small cancer deposits, drawn as rounded, irregular growths with depth shading.
- // These are illustrative examples of metastases, not diagnostic anatomy or a prediction.
- function drawSmallTumor(point3D,radius=.065,muted=false){
-  const p=proj(point3D),r=Math.max(3.4,scale*zoom*radius*p.pers);
-  ctx.save();ctx.shadowColor=muted?'#d98a7655':'#ff927c8e';ctx.shadowBlur=Math.max(4,r*.85);
-  ctx.beginPath();
-  for(let j=0;j<=48;j++){
-   const a=j*Math.PI*2/48,rough=1+.11*Math.sin(5*a+.3)+.075*Math.sin(9*a+1.1);
-   const x=p.x+Math.cos(a)*r*rough,y=p.y+Math.sin(a)*r*rough*.87;
-   if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-  }
-  ctx.closePath();
-  const g=ctx.createRadialGradient(p.x-r*.33,p.y-r*.35,.5,p.x+r*.14,p.y+r*.17,r*1.18);
-  g.addColorStop(0,'#ffdac0');g.addColorStop(.33,'#e4938a');g.addColorStop(.70,'#ab475b');g.addColorStop(1,'#5e203e');
-  ctx.fillStyle=g;ctx.strokeStyle=muted?'#d2a9a0bb':'#ffcab4';ctx.lineWidth=Math.max(.85,r*.10);
-  ctx.fill();ctx.stroke();ctx.restore();
+ function drawProjectedPath(coords,fill1,fill2,stroke='#f4ddd080',alpha=1){
+  const pts=coords.map(proj);if(pts.length<3)return;
+  ctx.save();ctx.globalAlpha=alpha;ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);
+  for(let i=1;i<pts.length;i++)ctx.lineTo(pts[i].x,pts[i].y);ctx.closePath();
+  const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+  const grad=ctx.createLinearGradient(Math.min(...xs),Math.min(...ys),Math.max(...xs),Math.max(...ys));
+  grad.addColorStop(0,fill1);grad.addColorStop(1,fill2);ctx.fillStyle=grad;ctx.strokeStyle=stroke;ctx.lineWidth=1.5;ctx.fill();ctx.stroke();ctx.restore();
  }
+ function moveShape(shape,ox,oy,oz,sx=1,sy=1,sz=1,mirror=false){return shape.map(([x,y,z])=>[ox+(mirror?-x:x)*sx,oy+y*sy,oz+z*sz])}
+ // Real shaded organ surfaces, using the same dense triangulation and mottling approach as the kidney.
+ // Each shape gets actual curved depth rather than a flat gradient fill.
+ function smoothedContour(shape,steps=5){
+  const out=[],N=shape.length;
+  for(let i=0;i<N;i++){
+   const p0=shape[(i+N-1)%N],p1=shape[i],p2=shape[(i+1)%N],p3=shape[(i+2)%N];
+   for(let k=0;k<steps;k++){
+    const t=k/steps,t2=t*t,t3=t2*t;
+    out.push([0,1,2].map(j=>.5*((2*p1[j])+(-p0[j]+p2[j])*t+
+     (2*p0[j]-5*p1[j]+4*p2[j]-p3[j])*t2+
+     (-p0[j]+3*p1[j]-3*p2[j]+p3[j])*t3)));
+   }
+  }
+  return out;
+ }
+ function organOutline(points){
+  const q=points.map(proj);
+  ctx.beginPath();ctx.moveTo(q[0].x,q[0].y);
+  for(let i=1;i<q.length;i++)ctx.lineTo(q[i].x,q[i].y);
+  ctx.closePath();
+ }
+ function drawDetailedOrgan(points,kind,alpha=.97){
+  const configs={
+   lung:{base:[202,117,132],depth:.25,speckles:165,vein:'#f0afac30',rim:'#eeb5b3a0'},
+   liver:{base:[173,91,91],depth:.27,speckles:175,vein:'#f7b1a12b',rim:'#e7a69da3'},
+   bone:{base:[222,197,169],depth:.17,speckles:125,vein:'#f4e1d96e',rim:'#e8dfd2bd'},
+   adrenal:{base:[182,147,103],depth:.13,speckles:55,vein:'#f4d9b13c',rim:'#e8d9bd93'}
+  };
+  const cfg=configs[kind],outline=smoothedContour(points,5);
+  const average=points.reduce((a,p)=>[a[0]+p[0],a[1]+p[1],a[2]+p[2]],[0,0,0]).map(n=>n/points.length);
+  const [mx,my,mz]=average;
+  const sx=Math.max(...points.map(p=>Math.abs(p[0]-mx)))||1,sy=Math.max(...points.map(p=>Math.abs(p[1]-my)))||1;
+  const n=Math.min(64,outline.length),rings=9;
+  const border=Array.from({length:n},(_,i)=>outline[Math.floor(i*outline.length/n)]);
+  function surface(i,r){
+   const b=border[i%n];let x=mx+(b[0]-mx)*r,y=my+(b[1]-my)*r;
+   const grain=.004*Math.sin((i*1.37)+(r*31))+.003*Math.cos(i*2.53+r*42);
+   const z=mz+(b[2]-mz)*r+cfg.depth*(1-r*r)*(.9+.1*Math.cos(i*.31))+grain;
+   return [x,y,z];
+  }
+  // The back shadow follows the same contours, implying real three-dimensional thickness.
+  ctx.save();ctx.globalAlpha=alpha;
+  const rear=border.map(v=>[v[0]-.015,v[1]-.018,v[2]-cfg.depth*.46]);
+  organOutline(rear);ctx.shadowColor='#050b17d0';ctx.shadowBlur=14;
+  ctx.fillStyle=shadeColor(...cfg.base,.42);ctx.fill();ctx.shadowBlur=0;
+  // Smooth tissue light underneath the tessellation prevents artificial, blocky facets.
+  const frontBorder=border.map(p=>[p[0],p[1],p[2]+.009]);
+  const litPt=proj([mx-sx*.34,my+sy*.42,mz+cfg.depth*.8]);
+  const darkPt=proj([mx+sx*.22,my-sy*.25,mz+cfg.depth*.34]);
+  organOutline(frontBorder);
+  const tissueLight=ctx.createRadialGradient(litPt.x,litPt.y,scale*.045,darkPt.x,darkPt.y,scale*Math.max(sx,sy)*1.48);
+  tissueLight.addColorStop(0,shadeColor(...cfg.base,1.06));
+  tissueLight.addColorStop(.46,shadeColor(...cfg.base,.81));
+  tissueLight.addColorStop(1,shadeColor(...cfg.base,.39));
+  ctx.fillStyle=tissueLight;ctx.fill();
+  const tris=[];
+  for(let ring=0;ring<rings;ring++)for(let i=0;i<n;i++){
+   const r0=ring/rings,r1=(ring+1)/rings;
+   let a=surface(i,r0),b=surface((i+1)%n,r0),c=surface(i,r1),d=surface((i+1)%n,r1);
+   for(const tri of [[a,c,d],[a,d,b]]){
+    const r=(r0+r1)/2,angle=2*Math.PI*i/n;
+    const theta=(i+.5)/n;
+    const diffuse=(.67+.26*Math.cos(angle-1.05)*r+.26*Math.sin(angle+1.0)*r);
+    const light=diffuse+.19*(1-r*r)-.16*Math.pow(r,4);
+    const xmid=(tri[0][0]+tri[1][0]+tri[2][0])/3,ymid=(tri[0][1]+tri[1][1]+tri[2][1])/3;
+    const mottle=.025*Math.sin(xmid*17+ymid*8.1)*Math.cos(xmid*7.7-ymid*15)
+     +.020*Math.sin(xmid*29+ymid*21)+.011*Math.cos(xmid*52-ymid*22);
+    const streak=kind==='lung'?.012*Math.sin(xmid*36+ymid*13):kind==='liver'?.016*Math.sin(xmid*12+ymid*17):.020*Math.cos(xmid*10-ymid*27);
+    const lit=clamp(light+mottle+streak,.42,1.11);
+    const a2=tri.map(proj),dep=(a2[0].z+a2[1].z+a2[2].z)/3;
+    tris.push({pts:a2,dep,fill:shadeColor(...cfg.base,lit)});
+   }
+  }
+  tris.sort((a,b)=>a.dep-b.dep);
+  ctx.save();ctx.globalAlpha=alpha*.53;
+  for(const t of tris){
+   ctx.fillStyle=t.fill;ctx.strokeStyle=t.fill;ctx.lineWidth=.55;
+   ctx.beginPath();ctx.moveTo(t.pts[0].x,t.pts[0].y);
+   ctx.lineTo(t.pts[1].x,t.pts[1].y);ctx.lineTo(t.pts[2].x,t.pts[2].y);
+   ctx.closePath();ctx.fill();ctx.stroke();
+  }
+  ctx.restore();
+  // Fine tissue grain is clipped to the organ. Every dot is under the surface boundary.
+  const front=frontBorder;
+  organOutline(front);ctx.clip();
+  for(let k=0;k<cfg.speckles;k++){
+   const angle=k*2.3999632,rr=Math.sqrt((k+.3)/cfg.speckles)*.96;
+   const idx=((Math.round(angle/(Math.PI*2)*n)%n)+n)%n;
+   const b=border[idx],jitter=Math.sin(k*47.17)*.01;
+   const p=proj([mx+(b[0]-mx)*(rr+jitter),my+(b[1]-my)*(rr+jitter),mz+cfg.depth*(1-rr*rr)]);
+   const sr=Math.max(.26,scale*(kind==='lung'?.0041:kind==='liver'?.0032:.0047));
+   ctx.fillStyle=k%3===0?'#fff3d81b':kind==='bone'?'#795f7922':'#53283e25';
+   ctx.beginPath();ctx.ellipse(p.x,p.y,sr*(.7+.4*Math.sin(k)**2),sr*.6,angle,0,2*Math.PI);ctx.fill();
+  }
+  // Thin subsurface fibers. Streaks follow the shape, not a repeated grid texture.
+  for(let i=0;i<(kind==='bone'?22:16);i++){
+   const angle=(i*2.3999632),radius=.25+.60*((i*13%17)/17),idx=((i*17)%n);
+   const bp=border[idx],p=proj([mx+(bp[0]-mx)*radius,my+(bp[1]-my)*radius,mz+cfg.depth*(1-radius*radius)]);
+   const len=scale*(kind==='bone'?.08:.045)*(0.7+.4*Math.sin(i*2.1)**2);
+   ctx.strokeStyle=cfg.vein;ctx.lineWidth=Math.max(.45,scale*.004);
+   ctx.beginPath();ctx.moveTo(p.x-len*.4,p.y-len*.2);ctx.quadraticCurveTo(p.x,p.y-len*.4,p.x+len*.5,p.y+len*.2);ctx.stroke();
+  }
+  ctx.restore();
+  ctx.save();organOutline(front);ctx.strokeStyle=cfg.rim;ctx.lineWidth=1.15;ctx.stroke();ctx.restore();
+  return {outline:front,center:average,kind};
+ }
+ function drawTissueLesions(organ,locations){
+  if(stage!==4)return;
+  // Clip every metastasis to its organ. A dark infiltrative rim blends into the tissue;
+  // there is no cream-colored mound, cast shadow, or glowing floating dot.
+  ctx.save();organOutline(organ.outline);ctx.clip();
+  locations.forEach(([loc,rad],index)=>{
+   const p=proj(loc),r=Math.max(3.8,scale*rad*p.pers);
+   const halo=ctx.createRadialGradient(p.x,p.y,r*.38,p.x,p.y,r*1.48);
+   halo.addColorStop(0,'#52223c73');halo.addColorStop(.66,'#63283d56');halo.addColorStop(1,'#592b3e00');
+   ctx.fillStyle=halo;ctx.beginPath();ctx.ellipse(p.x,p.y,r*1.53,r*1.25,-.22,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();for(let j=0;j<=72;j++){
+    const a=j*Math.PI*2/72;
+    const uneven=1+.045*Math.sin(5*a+index)+.062*Math.sin(9*a+.8)+.023*Math.cos(17*a+index);
+    const x=p.x+Math.cos(a)*r*uneven,y=p.y+Math.sin(a)*r*uneven*.88;
+    if(j===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+   }ctx.closePath();
+   const fill=ctx.createRadialGradient(p.x-r*.16,p.y-r*.19,r*.12,p.x+r*.08,p.y+r*.03,r*1.03);
+   fill.addColorStop(0,'#a85e64');fill.addColorStop(.38,'#873c50');fill.addColorStop(.79,'#60263e');fill.addColorStop(1,'#3d2035');
+   ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle='#c27c8080';ctx.lineWidth=Math.max(.55,r*.08);ctx.stroke();
+   // Subtle heterogeneous center, not frosting/ice cream coloring.
+   for(let k=0;k<14;k++){
+    const angle=k*2.39996,rr=.20+.60*(k/14);const x=p.x+rr*Math.cos(angle)*r,y=p.y+rr*Math.sin(angle)*r*.85;
+    ctx.fillStyle=k%3===0?'#c4847855':'#47203766';
+    ctx.beginPath();ctx.ellipse(x,y,Math.max(.5,r*.07),Math.max(.4,r*.05),angle,0,2*Math.PI);ctx.fill();
+   }
+  });
+  ctx.restore();
+ }
+
  function emphasizeBlob(coords){
   const pts=coords.map(proj), xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
   ctx.save();ctx.shadowColor='#7ce6db';ctx.shadowBlur=18;ctx.strokeStyle='#8de5da';ctx.lineWidth=2.3;
@@ -812,48 +938,83 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  }
  // Small adrenal gland above the kidney for nearby orientation.
  const adrenal=[[.03,1.53,.03],[.22,1.73,.12],[.51,1.67,.10],[.74,1.51,.12],[.43,1.40,.11],[.17,1.47,.10]];
- drawProjectedBlob(adrenal,'#c6b280','#796d6a',.83);
+ drawDetailedOrgan(adrenal,'adrenal',.87);
  // Nodes illustrated as neighboring anatomical landmarks; stage III shows a possible pattern.
  const localNodes=[[-1.38,.58,.40],[-1.58,.11,.40],[-1.30,-.52,.38]];
  localNodes.forEach((node,i)=>{const p=proj(node),rr=scale*.065*(i===0?1.2:1);
   ctx.save();ctx.beginPath();ctx.ellipse(p.x,p.y,rr,rr*.81,.5,0,Math.PI*2);
   const g=ctx.createRadialGradient(p.x-rr*.25,p.y-rr*.25,1,p.x,p.y,rr*1.1);
-  g.addColorStop(0,stage>=3?'#bdfff0':'#aec8c4');g.addColorStop(1,stage>=3?'#2e9b98':'#527b80');
+  g.addColorStop(0,stage>=3?'#a67a85':'#aec8c4');g.addColorStop(1,stage>=3?'#52656c':'#527b80');
   ctx.fillStyle=g;ctx.strokeStyle=stage>=3?'#a4fff2':'#c5d7d18a';ctx.lineWidth=stage>=3?2:1;ctx.shadowBlur=stage>=3?12:0;ctx.shadowColor='#69e3d3';ctx.fill();ctx.stroke();ctx.restore();
-  // Small visible cancer deposits inside an example pair of affected lymph nodes.
-  if(stage>=3 && i<2)drawSmallTumor([node[0]+.012,node[1]+.012,node[2]+.05],.045);
+  // A subtle dark focus INSIDE the node, not a pink raised bead on top.
+  if(stage>=3 && i<2){
+   ctx.save();ctx.beginPath();ctx.ellipse(p.x,p.y,rr*.94,rr*.77,.5,0,2*Math.PI);ctx.clip();
+   const sub=ctx.createRadialGradient(p.x,p.y,rr*.08,p.x,p.y,rr*.58);
+   sub.addColorStop(0,'#843e54');sub.addColorStop(.55,'#713f50cc');sub.addColorStop(1,'#386a6880');
+   ctx.fillStyle=sub;ctx.beginPath();ctx.ellipse(p.x+.8,p.y+.4,rr*.58,rr*.50,.25,0,2*Math.PI);ctx.fill();ctx.restore();
+  }
  });
  // 3D body context: nearby and distant organs shown in the same rotating space and visually connected to the kidney.
  const wideFactor=anatomyWide?1:.86, sideX=anatomyWide?2.62:1.95, organZ=anatomyWide?-.10:-.06;
- const leftLung=moveShape([[-.25,.55,.02],[-.50,.22,.05],[-.44,-.18,.04],[-.20,-.60,.01],[.08,-.68,-.01],[.20,-.28,-.03],[.12,.20,-.04]],sideX,1.18,organZ,.96*wideFactor,1.0*wideFactor,.92*wideFactor);
- const rightLung=moveShape([[-.25,.55,.02],[-.50,.22,.05],[-.44,-.18,.04],[-.20,-.60,.01],[.08,-.68,-.01],[.20,-.28,-.03],[.12,.20,-.04]],sideX+.92*wideFactor,1.18,organZ,.96*wideFactor,1.0*wideFactor,.92*wideFactor,true);
- const liver=moveShape([[-.84,.15,.02],[-.34,.42,.06],[.38,.34,.03],[.88,.10,0],[.55,-.34,.01],[.08,-.56,.03],[-.54,-.44,.04],[-.90,-.10,.05]],sideX+.56*wideFactor,.08,organZ+.01,1.0*wideFactor,1.02*wideFactor,.95*wideFactor);
- const bone=moveShape([[-.18,.78,.03],[-.40,.67,.03],[-.46,.48,.02],[-.30,.30,.01],[-.10,.18,.00],[-.08,-.56,-.01],[-.22,-1.02,.01],[-.10,-1.18,.02],[.10,-1.18,.01],[.22,-1.02,.00],[.08,-.56,-.01],[.10,.18,0],[.30,.30,.02],[.46,.48,.03],[.40,.67,.02],[.18,.78,.02]],sideX+.58*wideFactor,-1.12,organZ+.08,.93*wideFactor,.80*wideFactor,.92*wideFactor);
+ // More anatomical silhouettes instead of generic blobs.
+ const leftLung=moveShape([[-.02,.90,.01],[-.28,.76,.03],[-.48,.52,.05],[-.60,.18,.05],[-.58,-.18,.04],[-.43,-.55,.02],[-.18,-.88,.00],[.02,-.92,-.01],[.12,-.64,-.02],[.14,-.32,-.03],[.04,-.08,-.05],[.16,.18,-.04],[.08,.54,-.02]],sideX,1.18,organZ,.92*wideFactor,1.03*wideFactor,.95*wideFactor);
+ const rightLung=moveShape([[-.02,.95,.01],[-.30,.80,.03],[-.53,.55,.05],[-.63,.18,.05],[-.58,-.24,.04],[-.40,-.62,.02],[-.12,-.92,.00],[.16,-.95,-.01],[.28,-.66,-.02],[.28,-.22,-.03],[.20,.18,-.04],[.10,.60,-.02]],sideX+.98*wideFactor,1.18,organZ,.96*wideFactor,1.07*wideFactor,.95*wideFactor,true);
+ const liver=moveShape([[-1.12,.00,.05],[-1.09,.34,.06],[-.86,.56,.07],[-.47,.64,.07],[-.02,.59,.05],[.39,.47,.04],[.73,.29,.03],[.97,.12,.02],[.99,-.06,.02],[.82,-.24,.03],[.53,-.31,.04],[.23,-.33,.04],[.03,-.49,.05],[-.34,-.58,.06],[-.74,-.48,.06],[-1.05,-.25,.05]],sideX+.56*wideFactor,.05,organZ+.02,1.02*wideFactor,1.00*wideFactor,.94*wideFactor);
+ const bone=moveShape([[0,.98,.02],[-.18,.92,.02],[-.34,.78,.02],[-.43,.60,.02],[-.40,.42,.01],[-.28,.22,.00],[-.12,.02,-.01],[-.10,-.56,-.01],[-.22,-.96,.00],[-.29,-1.13,.01],[-.29,-1.28,.01],[-.18,-1.39,.02],[-.04,-1.40,.02],[.02,-1.31,.02],[.08,-1.40,.02],[.23,-1.39,.02],[.33,-1.28,.01],[.29,-1.11,.01],[.21,-.96,.00],[.10,-.56,-.01],[.12,.02,0],[.28,.22,.01],[.40,.42,.02],[.43,.60,.02],[.34,.78,.02],[.18,.92,.02]],sideX+.58*wideFactor,-1.10,organZ+.08,.94*wideFactor,.82*wideFactor,.92*wideFactor);
+ // Organ-specific feature lines for a more realistic look.
+ const leftFissure=moveShape([[-.30,.24,.05],[-.12,.04,.03],[.02,-.12,.00],[.10,-.28,-.02]],sideX,1.18,organZ,.92*wideFactor,1.03*wideFactor,.95*wideFactor);
+ const rightFissureTop=moveShape([[-.18,.28,.04],[.02,.28,.02],[.18,.20,.00]],sideX+.98*wideFactor,1.18,organZ,.96*wideFactor,1.07*wideFactor,.95*wideFactor,true);
+ const rightFissureDiag=moveShape([[-.34,.18,.04],[-.12,-.02,.02],[.08,-.24,-.01],[.20,-.44,-.02]],sideX+.98*wideFactor,1.18,organZ,.96*wideFactor,1.07*wideFactor,.95*wideFactor,true);
+ const tracheaShape=moveShape([[-.06,.40,.02],[.06,.40,.02],[.06,-.20,.02],[-.06,-.20,.02]],sideX+.48*wideFactor,1.74,organZ,.55*wideFactor,.90*wideFactor,.60*wideFactor);
+ const liverRidge=moveShape([[-.80,.06,.06],[-.42,.18,.05],[.00,.16,.04],[.32,.06,.03],[.56,-.06,.02]],sideX+.56*wideFactor,.05,organZ+.02,1.02*wideFactor,1.00*wideFactor,.94*wideFactor);
+ const boneShaft=moveShape([[0,.76,.02],[0,.18,.01],[0,-.38,.00],[0,-.92,.00]],sideX+.58*wideFactor,-1.10,organZ+.08,.94*wideFactor,.82*wideFactor,.92*wideFactor);
+ const boneHead=moveShape([[-.10,.78,.03],[0,.92,.03],[.10,.78,.03]],sideX+.58*wideFactor,-1.10,organZ+.08,.94*wideFactor,.82*wideFactor,.92*wideFactor);
  // faint body-context connectors shown at every stage so viewers can orient the kidney.
- const kidneyLink=[.08,.06,.16], lungLink=[sideX+.35*wideFactor,1.04,organZ], liverLink=[sideX+.50*wideFactor,.00,organZ+.03], boneLink=[sideX+.56*wideFactor,-.66,organZ+.08];
+ const kidneyLink=[.08,.06,.16], lungLink=[sideX+.45*wideFactor,1.04,organZ], liverLink=[sideX+.52*wideFactor,.00,organZ+.03], boneLink=[sideX+.58*wideFactor,-.64,organZ+.08];
  drawProjectedStroke([kidneyLink,[1.05,.62,.13],[1.78,.98,.03],lungLink],stage===4?'#87e7dcaa':'#4d6c7f55',stage===4?2.2:1.2,stage===4?1:.85,[5,6]);
  drawProjectedStroke([kidneyLink,[1.10,.04,.12],[1.82,.06,.04],liverLink],stage===4?'#87e7dcaa':'#4d6c7f55',stage===4?2.2:1.2,stage===4?1:.85,[5,6]);
  drawProjectedStroke([kidneyLink,[1.00,-.25,.12],[1.70,-.58,.07],boneLink],stage===4?'#87e7dcaa':'#4d6c7f55',stage===4?2.2:1.2,stage===4?1:.85,[5,6]);
- // Trachea/spine line helps the other organs read as body parts rather than floating icons.
- drawProjectedStroke([[sideX+.46*wideFactor,1.86,organZ],[sideX+.46*wideFactor,1.46,organZ],[sideX+.46*wideFactor,1.08,organZ]],'#7e99aa80',2.2,.8,[]);
- drawProjectedStroke([[sideX+.72*wideFactor,1.45,organZ],[sideX+.78*wideFactor,.86,organZ+.02],[sideX+.82*wideFactor,.30,organZ+.04],[sideX+.84*wideFactor,-.35,organZ+.07],[sideX+.78*wideFactor,-1.02,organZ+.09]],'#6c809080',3.0,.75,[]);
- // Draw organ models with stage-aware highlighting.
- const organStrokeMuted='#ddc8c555';
- drawProjectedBlob(leftLung,'#c18a91','#6e425f',.74,stage===4?'#8de5da':'#f3d8c870');
- drawProjectedBlob(rightLung,'#c18a91','#6e425f',.74,stage===4?'#8de5da':'#f3d8c870');
- drawProjectedBlob(liver,'#cc8a75','#6f3b4d',.78,stage===4?'#8de5da':'#f3d2bf70');
- drawProjectedBlob(bone,'#efe1cc','#93879b',.80,stage===4?'#8de5da':'#ece1d970');
+ // Trachea and spinal-axis guide so the surrounding anatomy reads more clearly.
+ drawProjectedPath(tracheaShape,'#d7d1c4','#9ea0aa','#ede4d380',.84);
+ drawProjectedStroke([[sideX+.70*wideFactor,1.48,organZ],[sideX+.77*wideFactor,.88,organZ+.02],[sideX+.82*wideFactor,.30,organZ+.04],[sideX+.84*wideFactor,-.35,organZ+.07],[sideX+.78*wideFactor,-1.02,organZ+.09]],'#6c809080',3.0,.75,[]);
+ // Curved, tissue-textured 3D anatomy: the same triangulation/material technique as the kidney.
+ // The organ-specific detail lines follow the curved surface and remain inside it.
+ const lungLeft=drawDetailedOrgan(leftLung,'lung');
+ const lungRight=drawDetailedOrgan(rightLung,'lung');
+ const liverSurface=drawDetailedOrgan(liver,'liver');
+ const boneSurface=drawDetailedOrgan(bone,'bone');
+ // Bronchial branches, lobar fissures and vascular details distinguish real lung anatomy.
+ drawProjectedStroke(leftFissure,'#783c5769',Math.max(.65,scale*.009),.78,[]);
+ drawProjectedStroke(rightFissureTop,'#783c5769',Math.max(.65,scale*.009),.78,[]);
+ drawProjectedStroke(rightFissureDiag,'#783c5769',Math.max(.65,scale*.009),.78,[]);
+ drawProjectedStroke([[sideX+.45*wideFactor,1.30,organZ+.25],[sideX+.30*wideFactor,1.14,organZ+.26],[sideX+.17*wideFactor,1.02,organZ+.22]],'#e4c2c470',Math.max(.75,scale*.009),.8,[]);
+ drawProjectedStroke([[sideX+.53*wideFactor,1.30,organZ+.24],[sideX+.70*wideFactor,1.14,organZ+.23],[sideX+.84*wideFactor,1.02,organZ+.21]],'#dfb0ad75',Math.max(.75,scale*.009),.8,[]);
+ drawProjectedStroke([[sideX+.31*wideFactor,1.14,organZ+.26],[sideX+.16*wideFactor,.96,organZ+.25],[sideX+.05*wideFactor,.78,organZ+.18]],'#e7bbbf5d',Math.max(.5,scale*.007),.72,[]);
+ drawProjectedStroke([[sideX+.30*wideFactor,1.14,organZ+.26],[sideX+.21*wideFactor,1.38,organZ+.18],[sideX+.13*wideFactor,1.55,organZ+.13]],'#e7bbbf4f',Math.max(.5,scale*.007),.60,[]);
+ drawProjectedStroke([[sideX+.70*wideFactor,1.14,organZ+.23],[sideX+.89*wideFactor,.89,organZ+.22],[sideX+.97*wideFactor,.75,organZ+.14]],'#e7bbbf5d',Math.max(.5,scale*.007),.70,[]);
+ drawProjectedStroke([[sideX+.70*wideFactor,1.14,organZ+.23],[sideX+.85*wideFactor,1.39,organZ+.17],[sideX+.92*wideFactor,1.56,organZ+.12]],'#e7bbbf4f',Math.max(.5,scale*.007),.60,[]);
+ // Liver capsule ridge and subdued veins.
+ drawProjectedStroke(liverRidge,'#e8acaa86',Math.max(.65,scale*.012),.72,[]);
+ drawProjectedStroke([[sideX+.46*wideFactor,.31,organZ+.2],[sideX+.33*wideFactor,.13,organZ+.27],[sideX+.24*wideFactor,-.10,organZ+.26]],'#8a455561',Math.max(.6,scale*.008),.7,[]);
+ drawProjectedStroke([[sideX+.44*wideFactor,.31,organZ+.2],[sideX+.69*wideFactor,.14,organZ+.25],[sideX+.83*wideFactor,.02,organZ+.19]],'#8a455561',Math.max(.6,scale*.008),.7,[]);
+ // Bone cortex and medullary direction; muted ivory bands like bone tissue.
+ drawProjectedStroke(boneShaft,'#fff0df9b',Math.max(.65,scale*.015),.72,[]);
+ drawProjectedStroke(boneHead,'#e8d2c0b0',Math.max(.65,scale*.010),.62,[]);
+ // Metastatic foci are drawn as dark patches IN the textured tissue, clipped to the organ.
+ const f=wideFactor;
+ drawTissueLesions(lungLeft,[
+  [[sideX-.18*f,1.18,organZ+.26],.122],[[sideX+.01*f,.96,organZ+.26],.083]]);
+ drawTissueLesions(lungRight,[
+  [[sideX+.92*f+.07*f,1.11,organZ+.27],.114]]);
+ drawTissueLesions(liverSurface,[
+  [[sideX+.56*f-.25*f,.02,organZ+.30],.134],[[sideX+.56*f+.21*f,.12,organZ+.29],.085]]);
+ drawTissueLesions(boneSurface,[
+  [[sideX+.58*f,-1.15,organZ+.21],.092]]);
+ // Subtle teal outline at stage IV indicates possible sites of metastasis without obscuring tissue.
  if(stage===4){
-  emphasizeBlob(leftLung);emphasizeBlob(rightLung);emphasizeBlob(liver);emphasizeBlob(bone);
-  // A few small tumors are visibly embedded in the organ model, not floating on the page.
-  // Each site is an EXAMPLE. Stage IV does not mean all these organs are affected.
-  const f=wideFactor;
-  drawSmallTumor([sideX-.16*f,1.10,organZ+.13],.080);
-  drawSmallTumor([sideX+.02*f,1.32,organZ+.12],.054);
-  drawSmallTumor([sideX+.92*f+.12*f,1.03,organZ+.13],.070);
-  drawSmallTumor([sideX+.56*f-.20*f,-.02,organZ+.15],.093);
-  drawSmallTumor([sideX+.56*f+.18*f,.10,organZ+.15],.054);
-  drawSmallTumor([sideX+.58*f,-1.26,organZ+.17],.067);
+  [lungLeft,lungRight,liverSurface,boneSurface].forEach(o=>{
+   ctx.save();organOutline(o.outline);ctx.strokeStyle='#7de3d878';ctx.lineWidth=1.2;ctx.stroke();ctx.restore();
+  });
  }
  // Dense tessellated organ surface with warm, translucent-looking tissue shading.
  // Multi-scale deterministic mottling mimics fine renal capsule pigmentation.
@@ -894,11 +1055,11 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  // Tumor: more realistic exophytic renal mass with heterogeneous enhancement and necrotic center.
  const target=stageData[stage].tumor;currentTumor+=(target-currentTumor)*.095;
  const rad=currentTumor,anchor=point(.99,1.10);
- const core=[anchor[0]+rad*.07,anchor[1]+rad*.22,anchor[2]+rad*.31];
- const center=proj(core),screenR=rad*scale*1.28;
+ const core=[anchor[0]-rad*.12,anchor[1]+rad*.08,anchor[2]+rad*.08];
+ const center=proj(core),screenR=rad*scale*1.17;
  const outline=(inflate=1)=>{ctx.beginPath();for(let i=0;i<=180;i++){
    let a=i/180*Math.PI*2;
-   let lobes=1+.082*Math.sin(3*a+.8)+.055*Math.sin(6*a+1.6)+.031*Math.sin(11*a+.9)+.016*Math.cos(19*a+stage*.3);
+   let lobes=1+.055*Math.sin(3*a+.8)+.042*Math.sin(6*a+1.6)+.027*Math.sin(11*a+.9)+.012*Math.cos(19*a+stage*.3);
    let exophytic=.94+.18*Math.max(0,Math.cos(a-.35));
    let rough=inflate*lobes*exophytic;
    let x=center.x+Math.cos(a)*screenR*rough;
@@ -908,23 +1069,23 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  // Contact shadow suggests the tumor is emerging from the renal cortex.
  ctx.save();
  const bed=ctx.createRadialGradient(center.x-screenR*.16,center.y+screenR*.20,screenR*.10,center.x-screenR*.10,center.y+screenR*.24,screenR*1.05);
- bed.addColorStop(0,'#2b0c1995');bed.addColorStop(.45,'#4f173220');bed.addColorStop(1,'#4f173200');
+ bed.addColorStop(0,'#29111b8e');bed.addColorStop(.45,'#4f173216');bed.addColorStop(1,'#4f173200');
  ctx.fillStyle=bed;ctx.beginPath();ctx.ellipse(center.x-screenR*.10,center.y+screenR*.18,screenR*.95,screenR*.56,-.08,0,Math.PI*2);ctx.fill();
  ctx.restore();
- ctx.save();ctx.shadowColor='#2a0918b8';ctx.shadowBlur=22;ctx.shadowOffsetX=5;ctx.shadowOffsetY=9;
+ ctx.save();ctx.shadowColor='#200f2080';ctx.shadowBlur=9;ctx.shadowOffsetX=1;ctx.shadowOffsetY=2;
  const rim=ctx.createRadialGradient(center.x-screenR*.30,center.y-screenR*.35,screenR*.06,center.x+screenR*.14,center.y+screenR*.16,screenR*1.18);
- rim.addColorStop(0,'#f1c0a7');rim.addColorStop(.18,'#d69386');rim.addColorStop(.43,'#b05c67');rim.addColorStop(.70,'#7a3247');rim.addColorStop(1,'#4a192f');
+ rim.addColorStop(0,'#be8079');rim.addColorStop(.18,'#ab6267');rim.addColorStop(.43,'#914052');rim.addColorStop(.70,'#682b42');rim.addColorStop(1,'#3d2133');
  outline();ctx.fillStyle=rim;ctx.fill();ctx.shadowBlur=0;ctx.shadowOffsetX=0;ctx.shadowOffsetY=0;
  ctx.clip();
  // Heterogeneous internal architecture with pale necrosis and darker hemorrhagic foci.
  const necrosis=ctx.createRadialGradient(center.x-screenR*.10,center.y-screenR*.07,screenR*.02,center.x,center.y,screenR*.55);
- necrosis.addColorStop(0,'#f7d9b4cc');necrosis.addColorStop(.28,'#e8bb92a8');necrosis.addColorStop(.55,'#b96d6940');necrosis.addColorStop(1,'#00000000');
+ necrosis.addColorStop(0,'#b3917b8f');necrosis.addColorStop(.28,'#9c6c658b');necrosis.addColorStop(.55,'#823d5139');necrosis.addColorStop(1,'#00000000');
  ctx.fillStyle=necrosis;ctx.beginPath();ctx.ellipse(center.x-screenR*.06,center.y-screenR*.02,screenR*.40,screenR*.29,-.34,0,Math.PI*2);ctx.fill();
  for(let k=0;k<240;k++){
    let angle=k*2.39996323,rr=Math.sqrt((k+.4)/240)*screenR*.96;
    let x=center.x+Math.cos(angle)*rr,y=center.y+Math.sin(angle)*rr*(.86+.03*Math.cos(angle*2));
    let radius=screenR*(.012+.030*(.5+.5*Math.sin(k*4.91)));
-   const fill=(k%7===0)?'#f1bea744':(k%5===0)?'#5a18373a':(k%3===0)?'#d4847d26':'#f0b5a118';
+   const fill=(k%7===0)?'#c9988545':(k%5===0)?'#48192e4a':(k%3===0)?'#a16c7429':'#c4907d18';
    ctx.fillStyle=fill;ctx.beginPath();ctx.ellipse(x,y,radius,radius*(.65+.25*Math.sin(k*.31)**2),angle,0,Math.PI*2);ctx.fill();
  }
  // Serpiginous intratumoral vessels.
@@ -932,13 +1093,13 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
    let angle=k*2.215,rr=screenR*(.18+.035*(k%6));let x=center.x+Math.cos(angle)*rr,y=center.y+Math.sin(angle)*rr*.88;
    ctx.beginPath();ctx.moveTo(x,y);
    ctx.bezierCurveTo(x+screenR*.12*Math.cos(angle+.7),y+screenR*.10*Math.sin(angle+.8),x+screenR*.28*Math.cos(angle-.4),y+screenR*.18*Math.sin(angle-.45),center.x+screenR*.78*Math.cos(angle+.05),center.y+screenR*.60*Math.sin(angle+.06));
-   ctx.strokeStyle=k%4===0?'#f0a4a38b':'#61203d8c';ctx.lineWidth=Math.max(.7,screenR*.010);ctx.stroke();
+   ctx.strokeStyle=k%4===0?'#ad747b87':'#54233d8c';ctx.lineWidth=Math.max(.7,screenR*.010);ctx.stroke();
  }
  // Specular capsular sheen.
  const gloss=ctx.createLinearGradient(center.x-screenR*.7,center.y-screenR*.8,center.x+screenR*.4,center.y+screenR*.4);
  gloss.addColorStop(0,'#ffffff22');gloss.addColorStop(.25,'#ffffff12');gloss.addColorStop(.55,'#ffffff00');
  ctx.fillStyle=gloss;ctx.beginPath();ctx.ellipse(center.x-screenR*.12,center.y-screenR*.25,screenR*.52,screenR*.22,-.48,0,Math.PI*2);ctx.fill();
- ctx.restore();ctx.save();outline();ctx.strokeStyle='#f0b5ab88';ctx.lineWidth=1.25;ctx.stroke();ctx.restore();
+ ctx.restore();ctx.save();outline();ctx.strokeStyle='#a4606f80';ctx.lineWidth=1.0;ctx.stroke();ctx.restore();
  // Stage III vessel invasion: illustrated teal focus around vessel and connected with kidney
  if(stage>=3){const a=proj([-.93,.12,.23]),b=proj([-1.37,.24,.34]);ctx.strokeStyle='#8de5da';ctx.lineWidth=6*zoom;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.quadraticCurveTo((a.x+b.x)/2,b.y-12,b.x,b.y);ctx.stroke();ctx.shadowColor='#8de5da';ctx.shadowBlur=15;ctx.fillStyle='#a2fff1';ctx.beginPath();ctx.arc(b.x,b.y,5.5*zoom,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0}
  // Keep the kidney visually dominant so viewers know where it is located among the surrounding body parts.
@@ -951,13 +1112,18 @@ function render(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w||!h)ret
  // Annotation for tumor with elegant leader and anchored label
  let ax=clamp(center.x+screenR*.65,0,w),ay=center.y-screenR*.45,ex=clamp(ax+27,40,anatomyWide?w-246:w-105),ey=clamp(ay-33,42,h-44);ctx.strokeStyle='#ffd4a999';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(ex,ey);ctx.lineTo(ex+43,ey);ctx.stroke();ctx.fillStyle='#ffddb8';ctx.font='700 11px DM Sans, sans-serif';ctx.fillText('TUMOR',ex+2,ey-8);
 }
-// Keep the detailed canvas interactive without redrawing 16,000+ triangles every browser frame.
-let lastPaint=0;
+// Redraw on model movement, a stage transition, or a size change; rest otherwise.
+// Textured organs are detailed, so avoid needless continuous CPU work when the model is still.
+let lastPaint=0,drawState={rot:NaN,pitch:NaN,zoom:NaN,stage:0,w:0,h:0};
 function frame(t){
  const dt=Math.min(50,t-lastFrame||16);lastFrame=t;
  if(auto)rot+=dt*.00021;
- if(document.getElementById('explore').classList.contains('active') && (t-lastPaint>50)){
-  lastPaint=t;render();
+ const w=canvas.clientWidth,h=canvas.clientHeight;
+ const dirty=auto||down||Math.abs(rot-drawState.rot)>.0002||Math.abs(pitch-drawState.pitch)>.0002||
+  Math.abs(zoom-drawState.zoom)>.0001||stage!==drawState.stage||w!==drawState.w||h!==drawState.h||
+  Math.abs(currentTumor-stageData[stage].tumor)>.004;
+ if(document.getElementById('explore').classList.contains('active') && dirty && t-lastPaint>50){
+  lastPaint=t;render();drawState={rot,pitch,zoom,stage,w,h};
  }
  requestAnimationFrame(frame);
 }requestAnimationFrame(frame);
